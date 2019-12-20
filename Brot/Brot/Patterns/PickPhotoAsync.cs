@@ -5,6 +5,7 @@ using Plugin.Permissions.Abstractions;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
@@ -36,7 +37,18 @@ namespace Brot.Patterns
             {
                 return;
             }
-            name = _mediaFile.Path.Split('/').LastOrDefault();
+            FileInfo fi = new FileInfo(_mediaFile.Path);
+            //name = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Singleton.Instance.User.username);
+            name = Singleton.Instance.User.username;
+            name = name.Replace(" ", "");
+            name += DateTime.Now;
+            name += fi.Extension;
+            name = name.Replace('\n', '_');
+            name = name.Replace('\r', '_');
+            String pa = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            pa += "\\" + name;
+            fi.CopyTo(pa);
+
             var resp = await App.Current.MainPage.DisplayAlert("Confirmacion", "Desea utilizar esta imagen", "Aceptar", "Cancelar");
             if (resp)
             {
