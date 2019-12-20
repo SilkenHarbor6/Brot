@@ -185,7 +185,9 @@ namespace Brot.ViewModels
             Response resp = await RestClient.Post<publicacionesModel>("publicaciones", niu);
             if (!resp.IsSuccess)
             {
+                IsRefreshing = true;
                 await App.Current.MainPage.DisplayAlert("Error", resp.Message, "Aceptar");
+                return;
             }
             if (niu.img == null)
             {

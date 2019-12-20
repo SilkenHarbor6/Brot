@@ -60,7 +60,7 @@ namespace BrotAPI_Final.Controllers.API
                             id_user = b.users.id_user,
                             isVendor = b.users.isVendor,
                             nombre = b.users.nombre,
-                            pass = b.users.pass,
+                            pass = "pass",
                             puntaje = b.users.puntaje,
                             username = b.users.username,
                             img = b.users.img,
@@ -132,7 +132,7 @@ namespace BrotAPI_Final.Controllers.API
                             id_user = b.users.id_user,
                             isVendor = b.users.isVendor,
                             nombre = b.users.nombre,
-                            pass = b.users.pass,
+                            pass = "pass",
                             puntaje = b.users.puntaje,
                             username = b.users.username,
                             img = b.users.img,
@@ -222,7 +222,7 @@ namespace BrotAPI_Final.Controllers.API
                                id_user = b.users.id_user,
                                isVendor = b.users.isVendor,
                                nombre = b.users.nombre,
-                               pass = b.users.pass,
+                               pass = "pass",
                                puntaje = b.users.puntaje,
                                username = b.users.username,
                                img = b.users.img,
@@ -276,7 +276,7 @@ namespace BrotAPI_Final.Controllers.API
                                            id_user = c.users.id_user,
                                            isVendor = c.users.isVendor,
                                            nombre = c.users.nombre,
-                                           pass = c.users.pass,
+                                           pass = "pass",
                                            puntaje = c.users.puntaje,
                                            username = c.users.username,
                                            puesto_name = c.users.puesto_name,
@@ -400,6 +400,11 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"La publicación no puede estar sin datos");
             }
+            //Publicacion sin imagen o texto
+            if (item.img == null  && string.IsNullOrEmpty(item.descripcion))
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"La publicación no puede estar sin datos");
+            }
             //valido si existe el user que publicó
             if (item.id_user == 0)
             {
@@ -416,7 +421,7 @@ namespace BrotAPI_Final.Controllers.API
             //Intenta el post
             if (r.Post(item))
             {
-                return Request.CreateResponse(HttpStatusCode.Created, "publicación guardado correctamente");
+                return Request.CreateResponse(HttpStatusCode.Created, item);
             }
 
 

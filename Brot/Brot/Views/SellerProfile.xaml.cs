@@ -21,5 +21,10 @@
             InitializeComponent();
             BindingContext = this.ViewModel = new SellerProfileViewModel(usuarioPerfil);
         }
+
+        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            ((ListView)sender).SelectedItem = null;
+        }
     }
 }

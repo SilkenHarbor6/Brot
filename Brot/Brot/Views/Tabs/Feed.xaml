@@ -19,15 +19,16 @@
         <StackLayout 
             >
             <ListView VerticalOptions="FillAndExpand"
-                    CachingStrategy="RecycleElement"
-                    HasUnevenRows="True"
-                    ItemsSource="{Binding lPosts}"
-                    SeparatorVisibility="None"
-                    SelectedItem="{Binding selectedItemLista,Mode=TwoWay}"
-                    IsPullToRefreshEnabled="True"
-                    Header="{Binding }"
-                    IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
-                    RefreshCommand="{Binding RefreshCommand}">
+                      CachingStrategy="RecycleElement"
+                      HasUnevenRows="True"
+                      ItemsSource="{Binding lPosts}"
+                      SeparatorVisibility="None"
+                      SelectedItem="{Binding selectedItemLista,Mode=TwoWay}"
+                      IsPullToRefreshEnabled="True"
+                      Header="{Binding }"
+                      IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                      ItemSelected="ListView_ItemSelected"
+                      RefreshCommand="{Binding RefreshCommand}">
                 <ListView.HeaderTemplate>
                     <DataTemplate>
                         <ContentView >

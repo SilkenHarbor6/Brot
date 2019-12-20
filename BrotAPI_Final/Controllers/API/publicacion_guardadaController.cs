@@ -66,7 +66,7 @@ namespace BrotAPI_Final.Controllers.API
                                     id_user = p.users.id_user,
                                     isVendor = p.users.isVendor,
                                     nombre = p.users.nombre,
-                                    pass = p.users.pass,
+                                    pass = "pass",
                                     puntaje = p.users.puntaje,
                                     username = p.users.username,
                                     img = p.users.img,

@@ -34,12 +34,12 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No existe dicha publicación");
             }
-            
+
             using (var db = new SomeeDBBrotEntities())
             {
                 var usuarios = db.like_post
                     .Include(p => p.users)
-                    .Where(p => p.id_post == idPost  && p.users.isDeleted==false)
+                    .Where(p => p.id_post == idPost && p.users.isDeleted == false)
                     .ToList();
 
                 var usuariosLike = new DLL.ResponseModels.ResponseLikes()
@@ -54,7 +54,7 @@ namespace BrotAPI_Final.Controllers.API
                                id_user = b.users.id_user,
                                isVendor = b.users.isVendor,
                                nombre = b.users.nombre,
-                               pass = b.users.pass,
+                               pass = "pass",
                                puntaje = b.users.puntaje,
                                username = b.users.username,
                                img = b.users.img,
@@ -84,20 +84,23 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [Route("api/like_post/borrar")]
+        [HttpPost]
         public HttpResponseMessage Delete(like_post item)
         {
 
             try
             {
-                var ID_likeDado = db.like_post.SingleOrDefault(l => l.id_post == item.id_post && l.id_user == item.id_user).id;
+                var likes = db.like_post.Where(l => l.id_post == item.id_post && l.id_user == item.id_user).ToArray();
 
-                if (r.Delete(ID_likeDado))
+                foreach (var like in likes)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, $"like_post fue eliminado correctamente");
+                    r.Delete(like.id);
                 }
+                return Request.CreateResponse(HttpStatusCode.OK, $"like_post fue eliminado correctamente");
             }
             catch (Exception) { }
-            
+
             return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No eliminado, like_post");
 
         }
@@ -133,7 +136,7 @@ namespace BrotAPI_Final.Controllers.API
                     return Request.CreateResponse(HttpStatusCode.OK, "Ya existe dicho like");
                 }
             }
-            catch (Exception e)  { Debug.Print(e.Message); }
+            catch (Exception e) { Debug.Print(e.Message); }
 
             return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No es posible guardar los datos del like_post");
         }

@@ -59,7 +59,7 @@ namespace Brot.Patterns
                 var content = new MultipartFormDataContent();
                 content.Add(new StreamContent(_mediaFile.GetStream()), "\"file\"", $"\"{_mediaFile.Path}\"");
                 var httpClient = new HttpClient();
-                var uploadServiceBaseAddress = "https://brotimages.azurewebsites.net/Uploads/";
+                var uploadServiceBaseAddress = "http://brotimageapi.azurewebsites.net/api/Upload";  //API/CONTROLLER
                 var httpResponseMessage = await httpClient.PostAsync(uploadServiceBaseAddress, content);
                 Debug.Print(await httpResponseMessage.Content.ReadAsStringAsync());
                 //await DisplayAlert("Exito", await httpResponseMessage.Content.ReadAsStringAsync(), "Aceptar");

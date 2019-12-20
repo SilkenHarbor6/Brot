@@ -24,6 +24,7 @@
                   IsPullToRefreshEnabled="True"
                   ItemsSource="{Binding UserProfile.publicacionesUser}"
                   RefreshCommand="{Binding RefreshCommand}"
+                  ItemSelected="ListView_ItemSelected"
                   IsRefreshing="{Binding IsRefreshing,Mode=OneWay}"
                   SelectedItem="{Binding publicacionesThis}"
                   >

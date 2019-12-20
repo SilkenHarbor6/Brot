@@ -31,7 +31,7 @@
             await Navigation.PushAsync(new SellerProfile(new SellerProfileViewModel(selected.userData)));
 
             //Se quita la seleccion del item
-            this.BrotTenList.SelectedItem = null;
+            ((ListView)sender).SelectedItem = null;
         }
     }
 }

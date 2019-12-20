@@ -17,7 +17,7 @@
 
             <maps:Map VerticalOptions="FillAndExpand"
                       HorizontalOptions="Fill"
-                      MapType="Hybrid"
+                      MapType="Street"
                       Visual="Material"
                       IsShowingUser="False"
                       x:Name="Mapa">

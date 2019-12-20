@@ -2,14 +2,14 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-  <key>NSCameraUsageDescription</key>
-  <string>Esta aplicacion necesita acceso a la camara para tomar fotos</string>
-  <key>NSPhotoLibraryUsageDescription</key>
-  <string>Esta aplicacion necesita acceso a las fotos</string>
-  <key>NSMicrophoneUsageDescription</key>
-  <string>Esta aplicacion necesita acceso al microfono</string>
-  <key>NSPhotoLibraryAddUsageDescription</key>
-  <string>Esta aplicacion necesita acceso a la galeria de fotos</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Esta aplicacion necesita acceso a la camara para tomar fotos</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Esta aplicacion necesita acceso a las fotos</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Esta aplicacion necesita acceso al microfono</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Esta aplicacion necesita acceso a la galeria de fotos</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
@@ -63,6 +63,13 @@
 				<true/>
 			</dict>
 			<key>brotproject.somee.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>brotimageapi.azurewebsites.net</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>

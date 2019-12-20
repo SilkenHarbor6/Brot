@@ -8,7 +8,7 @@ namespace DLL
 {
     public static class constantes
     {
-        public static string urlImages { get { return "https://brotimages.azurewebsites.net/Uploads/"; } } //Cambiar tambien el el metodo de subir immagenes
+        public static string urlImages { get { return "http://brotimageapi.azurewebsites.net/Uploads/"; } } //Cambiar tambien el el metodo de subir immagenes
         public static string likeImage { get { return "Love128.png"; } }
         public static string ProfileImageError { get { return "user_placeholder.png"; } }
         public static string dislikeImage { get { return "Love128Blank.png"; } }
