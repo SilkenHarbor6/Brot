@@ -30,4 +30,8 @@
   </ItemGroup>
 
 
+  <ItemGroup>
+    <Compile Remove="Models\BaseModels\AsyncCommand.cs" />
+    <Compile Remove="Views\LikesPeoplePage.cs" />
+  </ItemGroup>
 </Project>

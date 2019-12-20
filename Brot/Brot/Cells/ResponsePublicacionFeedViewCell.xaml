@@ -84,7 +84,11 @@
 
             <Label Text="{Binding cantLikes, StringFormat='{0} Brots'}"
                                             VerticalOptions="Center"
-                                            TextColor="Black"/>
+                                            TextColor="Black">
+                <Label.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding BtnLikesPeopleCommand}"/>
+                </Label.GestureRecognizers>
+            </Label>
             <!--<ImageButton Source="comment.png"
                                                     HeightRequest="30"
                                                     WidthRequest="30"

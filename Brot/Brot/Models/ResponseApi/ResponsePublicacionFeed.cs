@@ -5,8 +5,11 @@
     using Models;
     using Newtonsoft.Json;
     using System;
-    using System.Collections.Generic;
     using Services;
+    using System.Diagnostics;
+    using Xamarin.Forms;
+    using System.Threading.Tasks;
+
     public class ResponsePublicacionFeed : ObservableObject
     {
 
@@ -24,42 +27,44 @@
             get => _isliked;
             set => SetProperty(ref _isliked, value);
         }
-        public Nullable<bool> IsSavedPost { get; set; }
+        public Nullable<bool> IsSavedPost
+        {
+            get => _issaved;
+            set => SetProperty(ref _issaved, value);
+        }
 
 
-        [JsonIgnore]
-        private Xamarin.Forms.Command _BtnLikedClicked;
-        [JsonIgnore]
-        private Xamarin.Forms.Command _BtnProfileNameClicked;
-        [JsonIgnore]
+        private Command _BtnLikedClicked;
+        private Command _BtnProfileNameClicked;
+        private Command _BtnLikesPeopleCommand;
         private bool? _isliked;
-        [JsonIgnore]
+        private bool? _issaved;
         private int _cantLikes;
 
-        [JsonIgnore]
-        public Xamarin.Forms.Command BtnLikedClicked
+
+        public Command BtnLikedClicked => _BtnLikedClicked ??= new Command(async () => await BtnLikedMethod());
+        public Command BtnProfileNameClicked => _BtnProfileNameClicked ??= new Command(async () => await BtnProfileMethod());
+        public Command BtnLikesPeopleCommand => _BtnLikesPeopleCommand ??= new Command(async() => await LikesPeopleMethod()); 
+
+        private async Task LikesPeopleMethod()
         {
-            get => _BtnLikedClicked ??= new Xamarin.Forms.Command(BtnLikedMethod);
-        }
-        [JsonIgnore]
-        public Xamarin.Forms.Command BtnProfileNameClicked
-        {
-            get => _BtnProfileNameClicked ??= new Xamarin.Forms.Command(BtnProfileMethod);
+            await App.Current.MainPage.Navigation.PushAsync(new Views.LikesPeoplePage(publicacion.id_post, ViewModels.likeType.publicacion));
         }
 
-        private void BtnProfileMethod(object obj)
+        private async Task BtnProfileMethod()
         {
-            App.Current.MainPage.Navigation.PushAsync(new Views.SellerProfile(this.UsuarioCreator));
+            await App.Current.MainPage.Navigation.PushAsync(new Views.SellerProfile(this.UsuarioCreator));
         }
 
-        private async void BtnLikedMethod(object obj)
+        private async Task BtnLikedMethod()
         {
             var likeObject = new like_postModel()
             {
                 id_post = publicacion.id_post,
                 id_user = Singleton.Instance.User.id_user
             };
-
+            Stopwatch reloj = new Stopwatch();
+            reloj.Start();
             if ((bool)IsLiked)
             {
                 //Se quita el like
@@ -74,6 +79,8 @@
                 cantLikes++;
                 await RestClient.Post<like_postModel>("like_post", likeObject);
             }
+            reloj.Stop();
+            Console.WriteLine(reloj.Elapsed.TotalSeconds);
         }
 
     }
