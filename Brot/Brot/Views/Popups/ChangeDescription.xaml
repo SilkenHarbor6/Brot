@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Popups:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                  xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+                  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                  mc:Ignorable="d"
+                  x:Class="Brot.Views.Popups.ChangeDescription"
+             
+                  Title="Change Description"
+                  xmlns:Popups="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+                  xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls">
+
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="End"
+                     HorizontalOptions="FillAndExpand">
+            <Frame BackgroundColor="#ff5001"
+                   HasShadow="True">
+                <StackLayout Orientation="Vertical"
+                             Padding="10">
+                    <Rounded:RoundedBorderEntry BorderColor="White"
+                                                TextColor="White"
+                                                BorderThickness="2"
+                                                CornerRadius="10"
+                                                FontSize="Small"
+                                                HorizontalOptions="FillAndExpand"
+                                                Text="{Binding CurrentUser.descripcion}"
+                                                Placeholder="Type your name"
+                                                PlaceholderColor="#f5f5f5"/>
+
+                    <StackLayout Orientation="Horizontal"
+                                 Margin="0, 5, 0, 0">
+                        <Button Text="Cancel"
+                                TextColor="White"
+                                BorderColor="White"
+                                BackgroundColor="Transparent"
+                                BorderWidth="1"
+                                CornerRadius="5"
+                                HorizontalOptions="FillAndExpand"
+                                Padding="40, 10"
+                                Command="{Binding CancelCommand}"/>
+
+                        <Button Text="Update"
+                                TextColor="#ff5001"
+                                BackgroundColor="White"
+                                CornerRadius="5"
+                                HorizontalOptions="FillAndExpand"
+                                Padding="40, 10"/>
+                    </StackLayout>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </ContentPage.Content>
+</Popups:PopupPage>

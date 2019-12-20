@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Brot.Views.SellerProfile"
+             
+             Title="{Binding UserProfile.UserProfile.username, StringFormat='@{0}'}"
+             NavigationPage.HasNavigationBar="True"
+             xmlns:Rounded="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:patterns="clr-namespace:Brot.Patterns"
+             xmlns:Circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:Celdas="clr-namespace:Brot.Cells"
+             >
+    <ContentPage.Content>
+
+
+
+        <ListView HasUnevenRows="True"
+                  VerticalOptions="Fill"
+                  HorizontalOptions="Fill"
+                  Header="{Binding }"
+                  IsPullToRefreshEnabled="True"
+                  ItemsSource="{Binding UserProfile.publicacionesUser}"
+                  RefreshCommand="{Binding RefreshCommand}"
+                  IsRefreshing="{Binding IsRefreshing,Mode=OneWay}"
+                  SelectedItem="{Binding publicacionesThis}"
+                  >
+
+            <ListView.HeaderTemplate>
+                <DataTemplate>
+                    <ContentView>
+                        <StackLayout>
+                            <StackLayout BackgroundColor="Transparent" Orientation="Horizontal" Padding="12">
+                                <Circle:CircleImage Source="{Binding UserProfile.UserProfile.img}"
+                                                    Aspect="AspectFit"
+                                                    HorizontalOptions="Center">
+                                    <Circle:CircleImage.HeightRequest>
+                                        <OnPlatform x:TypeArguments="x:Double">
+                                            <On Platform="Android, iOS">150</On>
+                                        </OnPlatform>
+                                    </Circle:CircleImage.HeightRequest>
+                                    <Circle:CircleImage.WidthRequest>
+                                        <OnPlatform x:TypeArguments="x:Double">
+                                            <On Platform="Android, iOS">150</On>
+                                        </OnPlatform>
+                                    </Circle:CircleImage.WidthRequest>
+                                </Circle:CircleImage>
+
+                                <Frame BackgroundColor="#f0f4ff"
+                                        Margin="10"
+                                        CornerRadius="15"
+                                        HorizontalOptions="FillAndExpand">
+                                    <StackLayout>
+                                        <Label Text="{Binding UserProfile.UserProfile.puesto_name}"
+                                    FontSize="Medium"
+                                    TextColor="Black"/>
+                                        <Label Text="{Binding UserProfile.UserProfile.descripcion}"
+                                    />
+                                    </StackLayout>
+                                </Frame>
+
+                            </StackLayout>
+
+
+                            <Frame BackgroundColor="#f0f4ff"
+                                        CornerRadius="15"
+                                        TranslationY="-10"
+                                    Margin="12"
+                                    >
+                                <Label Text="Publicaciones"
+                                    FontSize="Medium"
+                                    TextColor="Black"/>
+                            </Frame>
+                        </StackLayout>
+                    </ContentView>
+                </DataTemplate>
+            </ListView.HeaderTemplate>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Celdas:ResponsePublicacionFeedViewCell/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+
+
+        </ListView>
+
+
+    </ContentPage.Content>
+</ContentPage>

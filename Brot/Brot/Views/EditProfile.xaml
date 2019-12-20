@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Brot.Views.EditProfile"
+             
+             Title="@Username"
+             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="save.png"/>
+    </ContentPage.ToolbarItems>
+    
+    <ContentPage.Content>
+        <ScrollView Padding="20">
+            <StackLayout Orientation="Vertical"
+                         VerticalOptions="Start">
+                <Image Source="DefaultUser.png"
+                       VerticalOptions="Center"
+                       HorizontalOptions="Center"
+                       HeightRequest="100"
+                       Margin="25"/>
+                <ImageButton Source="image.png"
+                             HeightRequest="40"
+                             BackgroundColor="Transparent"
+                             HorizontalOptions="Center"
+                             VerticalOptions="Center"/>
+
+                <Rounded:RoundedBorderEntry Margin="10"
+                                            FontSize="Small"
+                                            BorderColor="#ff5001"
+                                            BorderThickness="2"
+                                            CornerRadius="10"
+                                            Placeholder="User Name"
+                                            PlaceholderColor="#E8720C"
+                                            TextColor="#ff5001"/>
+
+                <Rounded:RoundedBorderEntry Margin="10"
+                                            BorderColor="#ff5001"
+                                            FontSize="Small"
+                                            BorderThickness="2"
+                                            CornerRadius="10"
+                                            Placeholder="User Lastname"
+                                            PlaceholderColor="#E8720C"
+                                            TextColor="#ff5001"/>
+
+                <Rounded:RoundedBorderEntry Margin="10"
+                                            BorderColor="#ff5001"
+                                            BorderThickness="2"
+                                            CornerRadius="10"
+                                            FontSize="Small"
+                                            Placeholder="Description"
+                                            PlaceholderColor="#E8720C"
+                                            TextColor="#ff5001"/>
+
+                <Button Text="Save Changes"
+                        BorderColor="#ff5001"
+                        BorderWidth="1"
+                        Margin="15"
+                        BackgroundColor="Transparent"
+                        CornerRadius="5"
+                        FontSize="Small"
+                        TextColor="#ff5001"
+                        HorizontalOptions="Center"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

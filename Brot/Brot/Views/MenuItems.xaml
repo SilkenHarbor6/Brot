@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Brot.Views.MenuItems"
+             
+             Title="Master">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout BackgroundColor="White"
+                         Orientation="Vertical"
+                         VerticalOptions="FillAndExpand">
+                <ContentView BackgroundColor="#f1f1f1"
+                             HorizontalOptions="FillAndExpand"
+                             Padding="15">
+                    <StackLayout VerticalOptions="CenterAndExpand" 
+                                 HorizontalOptions="CenterAndExpand"
+                                 Padding="14, 16">
+                        
+                        <Image Source="DefaultUser.png" 
+                               Margin="15"
+                               HeightRequest="80"/>
+
+                        <Label Text="{Binding CurrentUser.username, StringFormat='@{0}'}"
+                               TextColor="#ff5001"
+                               FontSize="Medium"
+                               HorizontalOptions="CenterAndExpand"/>
+                    </StackLayout>
+                </ContentView>
+
+                <StackLayout Orientation="Vertical"
+                             Margin="10">
+                    <Label Text="Name"
+                           TextColor="#ff5001"
+                           FontSize="Medium"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding CurrentUser.nombre}"
+                               TextColor="#000"
+                               FontSize="Small"
+                               HorizontalOptions="StartAndExpand"
+                               VerticalOptions="Center"/>
+
+                        <ImageButton Source="Edit.ico"
+                                     HeightRequest="20"
+                                     WidthRequest="20"
+                                     BackgroundColor="Transparent"
+                                     HorizontalOptions="End"
+                                     Command="{Binding ChangeNameCommand}"/>
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical"
+                             Margin="10">
+                    <Label Text="Lastname"
+                           TextColor="#ff5001"
+                           FontSize="Medium"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding CurrentUser.apellido}"
+                               TextColor="#000"
+                               FontSize="Small"
+                               HorizontalOptions="StartAndExpand"
+                               VerticalOptions="Center"/>
+
+                        <ImageButton Source="Edit.ico"
+                                     HeightRequest="20"
+                                     WidthRequest="20"
+                                     BackgroundColor="Transparent"
+                                     HorizontalOptions="End"
+                                     Command="{Binding ChangeLastnameCommand}"/>
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout Orientation="Vertical"
+                             Margin="10">
+                    <Label Text="Description"
+                           TextColor="#ff5001"
+                           FontSize="Medium"
+                           FontAttributes="Bold"
+                           VerticalOptions="Center"/>
+
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding CurrentUser.descripcion}"
+                               TextColor="#000"
+                               FontSize="Small"
+                               HorizontalOptions="StartAndExpand"
+                               VerticalOptions="Center"/>
+
+                        <ImageButton Source="Edit.ico"
+                                     HeightRequest="20"
+                                     WidthRequest="20"
+                                     BackgroundColor="Transparent"
+                                     HorizontalOptions="End"
+                                     Command="{Binding ChangeDescriptionCommand}"/>
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout VerticalOptions="EndAndExpand">
+                    <Button Text="Sign out"
+                            TextColor="#000"
+                            BackgroundColor="Transparent"
+                            Padding="10, 20"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="CenterAndExpand"
+                            Command="{Binding SignoutCommand}"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

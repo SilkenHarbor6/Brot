@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="83bd7c43d2824004b6a2743d685fc6ff" Name="Diagram1" ZoomLevel="89">
+        <EntityTypeShape EntityType="BorrarDB_BrotModel.comentarios" Width="1.5" PointX="5.25" PointY="15.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDB_BrotModel.interaccion_post" Width="1.5" PointX="8.25" PointY="16" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDB_BrotModel.like_comentario" Width="1.5" PointX="7.5" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDB_BrotModel.like_post" Width="1.5" PointX="5.25" PointY="20.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDB_BrotModel.publicacion_guardada" Width="1.5" PointX="5.25" PointY="12.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDB_BrotModel.publicaciones" Width="1.5" PointX="3" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDB_BrotModel.seguidores" Width="1.5" PointX="3" PointY="25.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDB_BrotModel.users" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDB_BrotModel.visita_busqueda" Width="1.5" PointX="3" PointY="28.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDB_BrotModel.visita_pefil_post" Width="1.5" PointX="8.25" PointY="20" IsExpanded="true" />
+        <AssociationConnector Association="BorrarDB_BrotModel.fk_comentarios_post" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDB_BrotModel.FK_comentarios_users" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDB_BrotModel.fk_like_comentario" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDB_BrotModel.FK_interaccion_post_publicaciones" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDB_BrotModel.FK_interaccion_post_users" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDB_BrotModel.FK_interaccion_post_users1" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDB_BrotModel.fk_like_comentario_users" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDB_BrotModel.FK_like_post" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDB_BrotModel.FK_Like_user" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDB_BrotModel.FK_publicacion_guardada_publicaciones" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDB_BrotModel.FK_publicacion_guardada_users" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDB_BrotModel.FK_post_user_creator" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDB_BrotModel.FK_visita_pefil_post_publicaciones" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDB_BrotModel.fk_seguidores_user" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDB_BrotModel.FK_seguidores_users" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDB_BrotModel.FK_visita_busqueda_users" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDB_BrotModel.FK_visita_busqueda_users1" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDB_BrotModel.FK_visita_pefil_post_users" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

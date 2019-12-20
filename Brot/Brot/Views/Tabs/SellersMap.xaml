@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Brot.Views.Tabs.SellersMap"
+             Title="Find a Brot"
+             IconImageSource="PinBlack250.png"
+             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+             xmlns:beha="clr-namespace:Prism.Behaviors"
+             >
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical"
+                     VerticalOptions="FillAndExpand"
+                     BackgroundColor="#ffffff">
+
+            <maps:Map VerticalOptions="FillAndExpand"
+                      HorizontalOptions="Fill"
+                      MapType="Hybrid"
+                      Visual="Material"
+                      IsShowingUser="False"
+                      x:Name="Mapa">
+            </maps:Map>
+            
+            <!--<StackLayout VerticalOptions="FillAndExpand">
+                <Maps:Map VerticalOptions="FillAndExpand"
+                          x:Name="MyMap">
+                    <Maps:Map.Behaviors>    
+                        <MapBinding:BindingPinsBehavior Value="{Binding Pins}"/>
+                        <beha:EventToCommandBehavior EventName="PinClicked" 
+                                      Command="{Binding pinClicked}"
+                                      />
+                        --><!--<MapBinding:MapClickedToCommandBehavior Command="{Binding MapClicked}"/>--><!--
+                    </Maps:Map.Behaviors>
+                </Maps:Map>
+            </StackLayout>-->
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

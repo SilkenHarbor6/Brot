@@ -1,0 +1,66 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Brot.Views.Tabs.Profile"
+             
+             Icon="DefaultUser.png"
+             Title="Profile">
+    <ContentPage.Content>
+        <StackLayout Orientation="Vertical"
+                     Padding="20">
+            <StackLayout Orientation="Horizontal">
+
+                <Image Source="DefaultUser.png"
+                       VerticalOptions="StartAndExpand"
+                       HorizontalOptions="Center"
+                       HeightRequest="80"
+                       Margin="20"/>
+
+                <StackLayout Orientation="Vertical"
+                             Padding="5"
+                             HorizontalOptions="FillAndExpand">
+                    <Label Text="{Binding CurrentUser.username, StringFormat='@{0}'}"
+                           FontSize="Medium"
+                           FontAttributes="Bold"
+                           TextColor="#031540"/>
+                    <Label Text="{Binding CurrentUser.nombre}"
+                           FontSize="Small"
+                           TextColor="Black"/>
+                    <Label Text="{Binding CurrentUser.apellido}"
+                           FontSize="Small"
+                           TextColor="Black"/>
+                    <Label Text="Description"
+                           FontSize="Medium"
+                           FontAttributes="Bold"
+                           TextColor="#031540"/>
+                    <Label Text="{Binding CurrentUser.descripcion}"
+                           FontSize="Small"
+                           TextColor="Black"/>
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal">
+                <Button Text="Edit Profile"
+                        TextColor="#031540"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="FillAndExpand"
+                        Command="{Binding EditProfileCommand}"
+                        />
+                <Button Text="Sign Out"
+                        TextColor="#031540"
+                        BackgroundColor="Transparent"
+                        HorizontalOptions="FillAndExpand"
+                        Command="{Binding SignOutCommand}"
+                        
+                        />
+            </StackLayout>
+
+            <ScrollView VerticalOptions="FillAndExpand">
+                
+            </ScrollView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,15 @@
+﻿ #region Gets
+
+        #endregion
+
+        #region Posts
+
+        #endregion
+
+        #region Put
+
+        #endregion
+
+        #region Delete
+
+        #endregion
