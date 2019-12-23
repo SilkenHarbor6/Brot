@@ -116,15 +116,14 @@
             user.email = Email;
             user.pass = Password;
             user.isActive = true;
-            var resp = await RestClient.Post<userModel>(constantes.userst, user);
+            var resp = await RestClient.Post4Reg<userModel>(constantes.userst, user);
             if (!resp.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("No se ha podido registrar el usuario", resp.Message, "Aceptar");
                 return;
             }
-            userModel u = resp.Result as userModel;
-            Singleton.Instance.User = u;
-            GoToMainPage();
+            await Application.Current.MainPage.DisplayAlert("Exito", "El usuario ha sido registrado", "Aceptar");
+            await Application.Current.MainPage.Navigation.PopAsync();
         }
         #endregion
     }

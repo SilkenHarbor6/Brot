@@ -89,7 +89,6 @@ namespace Brot.Services
                             IsSuccess = false
                         };
                     }
-
                     return new Response()
                     {
                         IsSuccess = true,
@@ -154,6 +153,46 @@ namespace Brot.Services
                 }
             }
             return false;
+        }
+        public static async Task<Response> Post4Reg<T>(string controller, T item)
+        {
+            if (isConnectedToInterned())
+            {
+                try
+                {
+                    var json = JsonConvert.SerializeObject(item);
+                    var content = new StringContent(json, Encoding.UTF8, "application/json");
+                    HttpResponseMessage response = await cliente.PostAsync($"{url}{controller}", content);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return new Response()
+                        {
+                            Message = JsonConvert.DeserializeObject<Response>(await response.Content.ReadAsStringAsync()).Message,
+                            IsSuccess = false
+                        };
+                    }
+                    return new Response()
+                    {
+                        IsSuccess = true,
+                        Result = await response.Content.ReadAsStringAsync()
+                    };
+                }
+                catch (Exception ex)
+                {
+                    return new Response()
+                    {
+                        IsSuccess = false,
+                        Message = "Error Ex " + ex.Message
+                    };
+                }
+            }
+            return new Response()
+            {
+                IsSuccess = false,
+                Message = "No es posible conectarse a internet"
+            };
+
         }
     }
 }
