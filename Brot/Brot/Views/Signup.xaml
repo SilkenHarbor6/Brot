@@ -3,11 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:bc="clr-namespace:Brot.ViewModels"
              mc:Ignorable="d"
              x:Class="Brot.Views.Signup"
-             
              Title="Sign Up"
              xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls">
+    <ContentPage.BindingContext>
+        <bc:SignupViewModel/>
+    </ContentPage.BindingContext>
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Orientation="Vertical"
@@ -25,7 +28,9 @@
                                                 CornerRadius="10"
                                                 Placeholder="Type your name"
                                                 PlaceholderColor="Gray"
-                                                TextColor="#000"/>
+                                                TextColor="#000"
+                                                Text="{Binding Nombre}"
+                                                />
 
                     <Rounded:RoundedBorderEntry Margin="10"
                                                 BorderColor="#031540"
@@ -33,7 +38,9 @@
                                                 CornerRadius="10"
                                                 Placeholder="Type your lastname"
                                                 PlaceholderColor="Gray"
-                                                TextColor="#000"/>
+                                                TextColor="#000"
+                                                Text="{Binding Apellido}"
+                                                />
 
                     <Rounded:RoundedBorderEntry Margin="10"
                                                 BorderColor="#031540"
@@ -41,7 +48,9 @@
                                                 CornerRadius="10"
                                                 Placeholder="Type your username"
                                                 PlaceholderColor="Gray"
-                                                TextColor="#000"/>
+                                                TextColor="#000"
+                                                Text="{Binding Username}"
+                                                />
 
                     <Rounded:RoundedBorderEntry Margin="10"
                                                 Keyboard="Email"
@@ -50,7 +59,9 @@
                                                 CornerRadius="10"
                                                 Placeholder="Type your E-mail"
                                                 PlaceholderColor="Gray"
-                                                TextColor="#000"/>
+                                                TextColor="#000"
+                                                Text="{Binding Email}"
+                                                />
 
                     <Rounded:RoundedBorderEntry Margin="10"
                                                 BorderColor="#031540"
@@ -59,8 +70,10 @@
                                                 Placeholder="Type your password"
                                                 PlaceholderColor="Gray"
                                                 IsPassword="True"
-                                                TextColor="#000"/>
-
+                                                TextColor="#000"
+                                                Text="{Binding Password}"
+                                                />
+                    <!--
                     <Rounded:RoundedBorderEntry Margin="10"
                                                 BorderColor="#031540"
                                                 BorderThickness="2"
@@ -68,8 +81,9 @@
                                                 Placeholder="Repeat your password"
                                                 PlaceholderColor="Gray"
                                                 IsPassword="True"
-                                                TextColor="#000"/>
-
+                                                TextColor="#000"
+                                                />
+                    -->
                     <StackLayout Margin="10">
                         <Button Text="Register"
                                 TextColor="#031540"
@@ -79,7 +93,7 @@
                                 CornerRadius="3"
                                 FontSize="Small"
                                 HorizontalOptions="Fill"
-                                Command="{Binding GoToMainCommand}"/>
+                                Command="{Binding RegisterCommand}"/>
 
                         <Button Text="Login"
                                 TextColor="#fff"

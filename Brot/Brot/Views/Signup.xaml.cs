@@ -11,8 +11,6 @@
         public Signup()
         {
             InitializeComponent();
-
-            BindingContext = new SignupViewModel();
         }
     }
 }
