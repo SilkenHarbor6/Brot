@@ -70,7 +70,7 @@
             }
             set
             {
-                SetProperty(ref password, value);
+                SetProperty(ref password, value);Singleton.passw = value;
             }
         }
         #endregion
@@ -104,6 +104,7 @@
         }
         public async void Register()
         {
+            IsRefreshing = true;
             if (string.IsNullOrWhiteSpace(Nombre) || string.IsNullOrWhiteSpace(Apellido) || string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Los campos no pueden quedar vacios", "Aceptar");
@@ -124,6 +125,8 @@
             }
             await Application.Current.MainPage.DisplayAlert("Exito", "El usuario ha sido registrado", "Aceptar");
             await Application.Current.MainPage.Navigation.PopAsync();
+            IsRefreshing = false;
+            
         }
         #endregion
     }

@@ -7,6 +7,7 @@
              x:Class="Brot.Views.Signup"
              Title="Sign Up"
              xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
+             xmlns:tigger="clr-namespace:Brot.Tigger"
              >
     
     <ContentPage.Content>
@@ -18,7 +19,10 @@
                        HorizontalOptions="Center"
                        Text="Start Using Brot"
                        TextColor="#031540"/>
-
+                <Label FontSize="15" 
+                       HorizontalOptions="Center"
+                       Text="¡Recuerda tus credenciales!"
+                       TextColor="#031540"/>
                 <StackLayout Margin="0, 20">
                     <Rounded:RoundedBorderEntry Margin="10"
                                                 BorderColor="#031540"
@@ -29,7 +33,6 @@
                                                 TextColor="#000"
                                                 Text="{Binding Nombre}"
                                                 />
-
                     <Rounded:RoundedBorderEntry Margin="10"
                                                 BorderColor="#031540"
                                                 BorderThickness="2"
@@ -39,7 +42,6 @@
                                                 TextColor="#000"
                                                 Text="{Binding Apellido}"
                                                 />
-
                     <Rounded:RoundedBorderEntry Margin="10"
                                                 BorderColor="#031540"
                                                 BorderThickness="2"
@@ -49,7 +51,6 @@
                                                 TextColor="#000"
                                                 Text="{Binding Username}"
                                                 />
-
                     <Rounded:RoundedBorderEntry Margin="10"
                                                 Keyboard="Email"
                                                 BorderColor="#031540"
@@ -60,7 +61,6 @@
                                                 TextColor="#000"
                                                 Text="{Binding Email}"
                                                 />
-
                     <Rounded:RoundedBorderEntry Margin="10"
                                                 BorderColor="#031540"
                                                 BorderThickness="2"
@@ -71,7 +71,6 @@
                                                 TextColor="#000"
                                                 Text="{Binding Password}"
                                                 />
-                    <!--
                     <Rounded:RoundedBorderEntry Margin="10"
                                                 BorderColor="#031540"
                                                 BorderThickness="2"
@@ -80,9 +79,18 @@
                                                 PlaceholderColor="Gray"
                                                 IsPassword="True"
                                                 TextColor="#000"
-                                                />
-                    -->
+                                                >
+                        <Rounded:RoundedBorderEntry.Triggers>
+                            <EventTrigger Event="TextChanged">
+                                <tigger:PasswordTrigger/>
+                            </EventTrigger>
+                        </Rounded:RoundedBorderEntry.Triggers>
+                    </Rounded:RoundedBorderEntry>
+                    
                     <StackLayout Margin="10">
+                        <ActivityIndicator IsRunning="{Binding isRefreshing}"
+                                           IsVisible="{Binding isRefreshing}"
+                                           />
                         <Button Text="Register"
                                 TextColor="#031540"
                                 BackgroundColor="Transparent"
@@ -90,13 +98,15 @@
                                 BorderWidth="1"
                                 CornerRadius="3"
                                 FontSize="Small"
+                                IsEnabled="{Binding IsNotBusy}"
                                 HorizontalOptions="Fill"
                                 Command="{Binding RegisterCommand}"/>
 
-                        <Button Text="Login"
+                        <Button Text="Go Back"
                                 TextColor="#fff"
                                 VerticalOptions="Center"
                                 BackgroundColor="#031540"
+                                IsEnabled="{Binding IsNotBusy}"
                                 Command="{Binding LoginCommand}"/>
                     </StackLayout>
                 </StackLayout>

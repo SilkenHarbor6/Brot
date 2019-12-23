@@ -21,6 +21,7 @@ namespace Brot.Patterns
         #endregion
 
         #region MyRegion
+        public static string passw;
         public static bool fromProfile;
         public static Singleton Instance
         {

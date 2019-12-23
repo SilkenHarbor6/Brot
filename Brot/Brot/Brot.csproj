@@ -38,4 +38,7 @@
     <Compile Remove="Models\BaseModels\AsyncCommand.cs" />
     <Compile Remove="Views\LikesPeoplePage.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Trigger\" />
+  </ItemGroup>
 </Project>
