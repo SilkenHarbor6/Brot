@@ -16,6 +16,9 @@ namespace Brot.Patterns
     public class PickPhotoAsync
     {
         private MediaFile _mediaFile;
+        String pa;
+        private ImageSource img;
+        FileStream fs;
         public static String name;
         public static ImageSource path;
         public async void ChangePicture()
@@ -29,7 +32,7 @@ namespace Brot.Patterns
             }
             if (!CrossMedia.Current.IsPickPhotoSupported)
             {
-                await App.Current.MainPage.DisplayAlert("Error", "No es posible elegir una foto", "Aceptar");
+                await Application.Current.MainPage.DisplayAlert("Error", "No es posible elegir una foto", "Aceptar");
                 return;
             }
             _mediaFile = await CrossMedia.Current.PickPhotoAsync();
@@ -40,16 +43,21 @@ namespace Brot.Patterns
             FileInfo fi = new FileInfo(_mediaFile.Path);
             //name = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Singleton.Instance.User.username);
             name = Singleton.Instance.User.username;
-            name = name.Replace(" ", "");
             name += DateTime.Now;
-            name += fi.Extension;
+            name = name.Replace(".", "");
+            name = name.Replace(" ", "");
             name = name.Replace('\n', '_');
             name = name.Replace('\r', '_');
-            String pa = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            pa += "\\" + name;
-            fi.CopyTo(pa);
-
-            var resp = await App.Current.MainPage.DisplayAlert("Confirmacion", "Desea utilizar esta imagen", "Aceptar", "Cancelar");
+            name = name.Replace(":", "");
+            name = name.Replace("_", "");
+            name = name.Replace("/", "");
+            name += fi.Extension;
+            pa = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            pa += "/" + name;
+            File.Copy(_mediaFile.Path, pa);
+            fs = new FileStream(pa, FileMode.Open,FileAccess.Read);
+            //_mediaFile = new MediaFile(pa, new Func<Stream>());
+            var resp = await Application.Current.MainPage.DisplayAlert("Confirmacion", "Desea utilizar esta imagen", "Aceptar", "Cancelar");
             if (resp)
             {
                 if (Singleton.fromProfile)
@@ -69,7 +77,7 @@ namespace Brot.Patterns
             try
             {
                 var content = new MultipartFormDataContent();
-                content.Add(new StreamContent(_mediaFile.GetStream()), "\"file\"", $"\"{_mediaFile.Path}\"");
+                content.Add(new StreamContent(fs), "\"file\"", $"\"{pa}\"");
                 var httpClient = new HttpClient();
                 var uploadServiceBaseAddress = "http://brotimageapi.azurewebsites.net/api/Upload";  //API/CONTROLLER
                 var httpResponseMessage = await httpClient.PostAsync(uploadServiceBaseAddress, content);
