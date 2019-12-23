@@ -5,16 +5,11 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Brot.Cells.ResponsePublicacionFeedViewCell"
-       
              xmlns:Rounded="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              xmlns:patterns="clr-namespace:Brot.Patterns"
-       
        Padding="0" Margin="0, 0, 0, 15"
-       BorderColor="Black"
-       
-       
-       >
+       BorderColor="Black">
     <StackLayout>
         <StackLayout Orientation="Vertical"
                                              Padding="15">
@@ -63,22 +58,23 @@
         </StackLayout>
 
 
-        <Image Source="{Binding publicacion.img}"
+        <ffimage:CachedImage Source="{Binding publicacion.img}"
                                         HorizontalOptions="Fill"
                                         HeightRequest="250"
+                                        LoadingPlaceholder="loading.png"
                                         IsVisible="{Binding publicacion.isImg}"
                                         Aspect="AspectFill"/>
 
         <StackLayout Orientation="Horizontal"
-                                                 HorizontalOptions="Fill"
-                                                 Padding="5">
-
-
+                     HorizontalOptions="Fill"
+                     Spacing="12"
+                     Margin="10,0,10,5"
+                     Padding="5">
             <ImageButton Source="{Binding IsLiked,Converter={StaticResource BoolToStringConverter}}"
                          BackgroundColor="Transparent"
-                         Command="{Binding BtnLikedClicked}"
-                                                    />
-
+                         HeightRequest="32"
+                         WidthRequest="32"
+                         Command="{Binding BtnLikedClicked}"/>
             <Label Text="{Binding cantLikes, StringFormat='{0} Brots'}"
                                             VerticalOptions="Center"
                                             TextColor="Black">

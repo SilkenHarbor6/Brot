@@ -33,10 +33,7 @@
                 <ListView.HeaderTemplate>
                     <DataTemplate>
                         <ContentView>
-
                             <cells:ResponsePublicacionFeedViewCell BindingContext="{Binding Post.publicacion}"/>
-
-                            
                         </ContentView>
                     </DataTemplate>
                 </ListView.HeaderTemplate>
@@ -45,6 +42,12 @@
                         <cells:ComentariosViewCell/>
                     </DataTemplate>
                 </ListView.ItemTemplate>
+                <ListView.Footer>
+                    <StackLayout IsVisible="{Binding FooterVisible, Mode=TwoWay}">
+                        <Image Source="no_comments"  HeightRequest="60" WidthRequest="60"/>
+                        <Label Text="No comments yet" FontSize="Medium" TextColor="Black" HorizontalOptions="Center"/>
+                    </StackLayout>
+                </ListView.Footer>
             </ListView>
             <StackLayout VerticalOptions="EndAndExpand" Padding="5,0,5,5">
                 <StackLayout Orientation="Horizontal">

@@ -10,11 +10,13 @@
                   RefreshCommand="{Binding RefreshCommand}"
                   ItemSelected="ListView_ItemSelected"
                   HasUnevenRows="True"
-                  >
+                  Margin="0, 15, 0, 0"> 
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <celdas:UserCell_Grid/>
+                        <Frame Padding="0" >
+                            <celdas:UserCell_Grid/>
+                        </Frame>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

@@ -7,8 +7,6 @@
           x:Class="Brot.Cells.ComentariosViewCell"
           xmlns:Circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin">
 
-
-
     <ViewCell.View>
         <Grid Padding="5">
             <Grid.ColumnDefinitions>
@@ -21,11 +19,6 @@
                                 Grid.Column="0"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Start">
-                <Circle:CircleImage.HeightRequest>
-                    <OnPlatform x:TypeArguments="x:Double">
-                        <On Platform="Android, iOS">40</On>
-                    </OnPlatform>
-                </Circle:CircleImage.HeightRequest>
 
                 <Circle:CircleImage.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding usuario.BtnProfileNameClicked}"/>
@@ -50,10 +43,10 @@
 
                     <ImageButton Source="{Binding isLiked,Converter={StaticResource BoolToStringConverter}}"
 	                             BackgroundColor="Transparent"
+                                 HeightRequest="32"
+                                 WidthRequest="32"
                                  Command="{Binding BtnLikedClicked}"
                                  />
-
-
 
                     <Label Text="{Binding CantLikes,StringFormat='{0} # Brots', Mode=TwoWay}"
 	                       VerticalOptions="Center"

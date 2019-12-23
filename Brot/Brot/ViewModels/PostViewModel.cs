@@ -55,6 +55,20 @@ namespace Brot.ViewModels
             }
         }
 
+        private bool _footerVisible;
+        public bool FooterVisible
+        {
+            get { return _footerVisible; }
+            set
+            {
+                if (_footerVisible != value)
+                {
+                    _footerVisible = value;
+                    OnPropertyChanged("FooterVisible");
+                }
+            }
+        }
+
         public PostViewModel(ResponsePublicacionFeed postFeed)
         {
             isActivityActive = true;
@@ -94,6 +108,7 @@ namespace Brot.ViewModels
                     Post = publicacionData;
                     if (Post.comentarios.Count > 0)
                     {
+                        FooterVisible = false;
                         //Siempre validar cuando instanciamos un Observable Collection porque por default es null
                         //ObservableCollection<ResponseComentarios>(null)    DA ERROR!!
                         for (int i = 0; i < Post.comentarios.Count; i++)
@@ -111,8 +126,11 @@ namespace Brot.ViewModels
                         }
                         ComentariosData = new ObservableCollection<ResponseComentarios>(Post.comentarios);
                     }
+                    else
+                    {
+                        FooterVisible = true;
+                    }
                 }
-
             }
             catch (Exception e)
             {

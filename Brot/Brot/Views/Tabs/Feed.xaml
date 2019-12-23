@@ -5,12 +5,9 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Brot.Views.Tabs.Feed"
-             
-             
              xmlns:celdas="clr-namespace:Brot.Cells"
              Title="Feed"
              IconImageSource="BrotWhite.png"
-             BackgroundImageSource="BrotSplash.png"
              >
     <ContentPage.Content>
         

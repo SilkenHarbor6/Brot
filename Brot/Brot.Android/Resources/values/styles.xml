@@ -7,7 +7,7 @@
   <style name="MainTheme.Base" parent="Theme.AppCompat.Light.DarkActionBar">
 
     <!--Splash-->
-    <item name="android:windowBackground">@drawable/BrotSplash</item>
+    <!--<item name="android:windowBackground">@drawable/BrotSplash</item>-->
     
     <!--If you are using revision 22.1 please use just windowNoTitle. Without android:-->
     <item name="windowNoTitle">true</item>

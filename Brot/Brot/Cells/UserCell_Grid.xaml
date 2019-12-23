@@ -5,43 +5,30 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:Circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              mc:Ignorable="d"
-             x:Class="Brot.Cells.UserCell_Grid"
-      >
+             Padding="10"
+             x:Class="Brot.Cells.UserCell_Grid">
     <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*"/>
         <ColumnDefinition Width="4*"/>
     </Grid.ColumnDefinitions>
     <Grid.RowDefinitions>
-        <RowDefinition Height="120"/>
+        <RowDefinition Height="80"/>
     </Grid.RowDefinitions>
 
     <Circle:CircleImage Source="{Binding img}"
                         Aspect="AspectFit"
                         Grid.Column="0"
                         HorizontalOptions="Center">
-        <Circle:CircleImage.HeightRequest>
-            <OnPlatform x:TypeArguments="x:Double">
-                <On Platform="Android, iOS">60</On>
-            </OnPlatform>
-        </Circle:CircleImage.HeightRequest>
     </Circle:CircleImage>
-
-    <Frame BackgroundColor="#f0f4ff"
+    <StackLayout       
            Grid.Column="1" 
-           HorizontalOptions="Fill"
-           Margin="4"
-           CornerRadius="15"
-           BorderColor="Black"
-            >
-        <StackLayout Spacing="-10">
-            <Label Text="{Binding username}"
+           Padding="5,0,3,0"
+           HorizontalOptions="Fill">
+        <Label Text="{Binding puesto_name}"
                     TextColor="Black"
                     FontSize="Medium"/>
-            <Label Text="{Binding puesto_name}"/>
-            <Label Text="{Binding descripcion}"
-                   LineBreakMode="NoWrap"
-                   />
-        </StackLayout>
-    </Frame>
-
-    </Grid>
+        <Label Text="{Binding descripcion}"
+                   LineBreakMode="TailTruncation"
+                   MaxLines="3"/>
+    </StackLayout>
+</Grid>

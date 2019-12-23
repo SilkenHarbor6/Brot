@@ -31,6 +31,12 @@ namespace Brot.ViewModels
             get { return this._Usuario; }
             set => SetProperty(ref _Usuario, value);
         }
+        private bool _isMyProfile;
+        public bool isMyProfile
+        {
+            get => _isMyProfile;
+            set => SetProperty(ref _isMyProfile, value);
+        }
 
         private Xamarin.Forms.Command _RefreshCommand;
         public Xamarin.Forms.Command RefreshCommand
@@ -41,6 +47,7 @@ namespace Brot.ViewModels
 
         public SellerProfileViewModel(Brot.Models.userModel usuarioModel)
         {
+            isMyProfile = usuarioModel.id_user == Singleton.Instance.User.id_user;
             UserProfile = new ResponseUserProfile()
             {
                 UserProfile = usuarioModel
