@@ -13,8 +13,7 @@
              xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              xmlns:Circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
              xmlns:Celdas="clr-namespace:Brot.Cells"
-             xmlns:Converts ="clr-namespace:Brot.Converters"
-             >
+             xmlns:Converts ="clr-namespace:Brot.Converters">
 
     <ContentPage.Resources>
         <ResourceDictionary>
@@ -38,94 +37,86 @@
                 <DataTemplate>
                     <ContentView>
                         <StackLayout>
-                            <StackLayout BackgroundColor="Transparent" Orientation="Horizontal" Padding="8" Spacing="-6">
+                            <StackLayout BackgroundColor="Transparent" Padding="8" Spacing="-6">
                                 <ffimage:CachedImage Source="{Binding UserProfile.UserProfile.img}"
-                                                     HeightRequest="50"
-                                                     WidthRequest="120"
+                                                     Margin="0,15,0,0"
+                                                     HeightRequest="100"
+                                                     WidthRequest="100"
                                                      Aspect="AspectFit">
-                                    
                                     <ffimage:CachedImage.Transformations>
                                         <fftransformations:RoundedTransformation Radius="500"/>
                                     </ffimage:CachedImage.Transformations>
                                 </ffimage:CachedImage>
-                                <Frame BackgroundColor="#f0f4ff"
-                                        Margin="10"
-                                        CornerRadius="15"
-                                        HorizontalOptions="FillAndExpand">
-                                    <StackLayout>
-                                        <Label Text="{Binding UserProfile.UserProfile.puesto_name}"
+                                <StackLayout Margin="10,20,10,0">
+                                    <Label Text="{Binding UserProfile.UserProfile.puesto_name}"
                                                 FontSize="Medium"
-                                                TextColor="Black"/>
-                                        <Label Text="{Binding UserProfile.UserProfile.descripcion}"
+                                                TextColor="Black"
+                                                HorizontalOptions="Center"/>
+                                    <Label Text="{Binding UserProfile.UserProfile.descripcion}"
                                                LineBreakMode="TailTruncation"
                                                MaxLines="3"
-                                               />
-                                        <Button Text="{Binding UserProfile.isFollowed, Converter={StaticResource BoolToStringSeguidores}}"
+                                               HorizontalOptions="Center"/>
+                                    <Button Text="{Binding UserProfile.isFollowed, Converter={StaticResource BoolToStringSeguidores}}"
                                                 TextColor="White"
                                                 CornerRadius="15"
+                                                Margin="40,10,40,10"
                                                 Command="{Binding UserProfile.BtnFollowUserCommand}"
                                                 >
-                                            <Button.Triggers>
-                                                <!--Cuando sigue al usario-->
-                                                <DataTrigger TargetType="Button" 
+                                        <Button.Triggers>
+                                            <!--Cuando sigue al usario-->
+                                            <DataTrigger TargetType="Button" 
                                                              Binding="{Binding UserProfile.isFollowed}"
                                                              Value="True">
-                                                    <Setter Property="BackgroundColor" Value="Green"/>
-                                                </DataTrigger>
+                                                <Setter Property="BackgroundColor" Value="Green"/>
+                                            </DataTrigger>
 
-                                                <!--Cuando NO SIGUE al usario-->
-                                                <DataTrigger TargetType="Button" 
+                                            <!--Cuando NO SIGUE al usario-->
+                                            <DataTrigger TargetType="Button" 
                                                              Binding="{Binding UserProfile.isFollowed}"
                                                              Value="False">
-                                                    <Setter Property="BackgroundColor" Value="{StaticResource MainDarkColor}"/>
-                                                </DataTrigger>
+                                                <Setter Property="BackgroundColor" Value="{StaticResource MainDarkColor}"/>
+                                            </DataTrigger>
 
-                                                <DataTrigger TargetType="Button"
+                                            <DataTrigger TargetType="Button"
                                                      Binding="{Binding isMyProfile}"
                                                      Value="True">
-                                                    <Setter Property="HeightRequest" Value="0"/>
-                                                    <Setter Property="IsEnabled" Value="False"/>
-                                                </DataTrigger>
-                                            </Button.Triggers>
-                                        </Button>
-                                        <StackLayout Orientation="Horizontal" Spacing="20">
-                                            <StackLayout Orientation="Horizontal">
-                                                <Label Text="{Binding UserProfile.cantSeguidores,StringFormat='{0}'}" FontAttributes="Bold" TextColor="Black" FontSize="16">
-                                                    <Label.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidoresCommand}"/>
-                                                    </Label.GestureRecognizers>
-                                                </Label>
-                                                <Label Text="Seguidores" FontSize="16">
-                                                    <Label.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidoresCommand}"/>
-                                                    </Label.GestureRecognizers>
-                                                </Label>
-                                            </StackLayout>
-                                            <StackLayout Orientation="Horizontal">
-                                                <Label Text="{Binding UserProfile.cantSeguidos,StringFormat='{0}'}" FontAttributes="Bold" TextColor="Black" FontSize="16">
-                                                    <Label.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidosCommand}"/>
-                                                    </Label.GestureRecognizers>
-                                                </Label>
-                                                <Label Text="Seguidos" FontSize="16">
-                                                    <Label.GestureRecognizers>
-                                                        <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidosCommand}"/>
-                                                    </Label.GestureRecognizers>
-                                                </Label>
-                                            </StackLayout>
+                                                <Setter Property="HeightRequest" Value="0"/>
+                                                <Setter Property="IsEnabled" Value="False"/>
+                                            </DataTrigger>
+                                        </Button.Triggers>
+                                    </Button>
+                                    <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center">
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding UserProfile.cantSeguidores,StringFormat='{0}'}" FontAttributes="Bold" TextColor="Black" FontSize="16">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidoresCommand}"/>
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                            <Label Text="Seguidores" FontSize="16">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidoresCommand}"/>
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Label Text="{Binding UserProfile.cantSeguidos,StringFormat='{0}'}" FontAttributes="Bold" TextColor="Black" FontSize="16">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidosCommand}"/>
+                                                </Label.GestureRecognizers>
+                                            </Label>
+                                            <Label Text="Seguidos" FontSize="16">
+                                                <Label.GestureRecognizers>
+                                                    <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidosCommand}"/>
+                                                </Label.GestureRecognizers>
+                                            </Label>
                                         </StackLayout>
                                     </StackLayout>
-                                </Frame>
-
+                                </StackLayout>
                             </StackLayout>
 
-                            
-
                             <Frame BackgroundColor="#f0f4ff"
-                                        CornerRadius="15"
-                                        TranslationY="-10"
-                                    Margin="12"
-                                    >
+                                   BorderColor="Black"
+                                   Margin="0,0,0,5">
                                 <Label Text="Publicaciones"
                                     FontSize="Medium"
                                     TextColor="Black"/>
@@ -142,10 +133,6 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-
-
         </ListView>
-
-
     </ContentPage.Content>
 </ContentPage>
