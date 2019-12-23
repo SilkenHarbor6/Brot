@@ -63,7 +63,7 @@
                                                 FontFamily="HirukoBlackAlternate.ttf"
                                                 Text="{Binding texto}"
                                                 />
-                                        <ImageButton Source="picture32x32.png"
+                                        <ImageButton Source="image.png"
                                                      HeightRequest="32" 
                                                      WidthRequest="32" 
                                                      BackgroundColor="Transparent" 
