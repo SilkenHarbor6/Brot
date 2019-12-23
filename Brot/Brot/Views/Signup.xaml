@@ -3,14 +3,12 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:bc="clr-namespace:Brot.ViewModels"
              mc:Ignorable="d"
              x:Class="Brot.Views.Signup"
              Title="Sign Up"
-             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls">
-    <ContentPage.BindingContext>
-        <bc:SignupViewModel/>
-    </ContentPage.BindingContext>
+             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
+             >
+    
     <ContentPage.Content>
         <ScrollView>
             <StackLayout Orientation="Vertical"

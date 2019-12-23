@@ -56,7 +56,6 @@ namespace Brot.Patterns
             pa += "/" + name;
             File.Copy(_mediaFile.Path, pa);
             fs = new FileStream(pa, FileMode.Open,FileAccess.Read);
-            //_mediaFile = new MediaFile(pa, new Func<Stream>());
             var resp = await Application.Current.MainPage.DisplayAlert("Confirmacion", "Desea utilizar esta imagen", "Aceptar", "Cancelar");
             if (resp)
             {
