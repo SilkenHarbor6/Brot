@@ -74,7 +74,6 @@ namespace Brot.ViewModels
                     profiledata.UserProfile.img = DLL.constantes.ProfileImageError;
                 }
                 UserProfile = profiledata;
-                UserProfile.UserProfile.img = DLL.constantes.urlImages + profiledata.UserProfile.img;
                 for (int i = 0; i < UserProfile.publicacionesUser.Count; i++)
                 {
                     ///No verifico si la imagen es null, porque ya lo hice en alguna page anterior

@@ -8,7 +8,9 @@ namespace Brot.ViewModels
     public enum likeType
     {
         comentarios,
-        publicacion
+        publicacion,
+        seguidos,
+        seguidores
     }
 
 
@@ -28,8 +30,29 @@ namespace Brot.ViewModels
 
         public LikesPeoplePageViewModel(int id, ViewModels.likeType tipolike)
         {
+            switch (tipolike)
+            {
+                case likeType.comentarios:
+                    Title = "Likes";
+                    break;
+                case likeType.publicacion:
+                    Title = "Likes";
+                    break;
+                case likeType.seguidos:
+                    Title = "Seguidos";
+                    break;
+                case likeType.seguidores:
+                    Title = "Seguidores";
+                    break;
+                default:
+                    Title = "";
+                    break;
+            }
             this.id = id;
             this.tipolike = tipolike;
+            System.Threading.Tasks.Task.Run(
+                async () => await RefreshMethodAsync()
+                ).ConfigureAwait(false);
         }
 
         private ICommand _RefreshCommand;
@@ -52,14 +75,30 @@ namespace Brot.ViewModels
                     case likeType.publicacion:
                         likesRoot = await Services.RestAPI.GetLikesbyIDPost(id);
                         break;
+                    case likeType.seguidos:
+                        likesRoot = new Models.ResponseApi.ResponseLikes();
+                        likesRoot.usuarios = await Services.RestAPI.getSeguidos(id);
+                        break;
+                    case likeType.seguidores:
+                        likesRoot = new Models.ResponseApi.ResponseLikes();
+                        likesRoot.usuarios = await Services.RestAPI.getSeguidores(id);
+                        break;
                 }
 
-                if (likesRoot!=null)
+                if (likesRoot != null)
                 {
                     USUARIOS = new ObservableCollection<Models.userModel>();
-                    foreach (var user in likesRoot.usuarios)
+                    for (int i = 0; i < likesRoot.usuarios.Count; i++)
                     {
-                        USUARIOS.Add(user);
+                        if (likesRoot.usuarios[i].img == null)
+                        {
+                            likesRoot.usuarios[i].img = DLL.constantes.ProfileImageError;
+                        }
+                        else
+                        {
+                            likesRoot.usuarios[i].img = DLL.constantes.urlImages + likesRoot.usuarios[i].img;
+                        }
+                        USUARIOS.Add(likesRoot.usuarios[i]);
                     }
                 }
 
@@ -68,7 +107,7 @@ namespace Brot.ViewModels
             {
                 Debug.Print(ex.Message);
             }
-            
+
 
             IsRefreshing = false;
         }

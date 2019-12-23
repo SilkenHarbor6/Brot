@@ -5,63 +5,27 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
              x:Class="Brot.Views.Tabs.BrotTen"
-             
-             xmlns:Circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+             xmlns:Celdas="clr-namespace:Brot.Cells"
              Title="Brot Ten"
              IconImageSource="BrotTen.png">
     <ContentPage.Content>
-        <StackLayout>
-
-            <ListView VerticalOptions="FillAndExpand"
-                      HasUnevenRows="True"
-                      ItemsSource="{Binding lBrotTen}"
-                      SeparatorColor="#031540"
-                      SeparatorVisibility="Default"
-                      x:Name="BrotTenList"
-                      IsPullToRefreshEnabled="True"
-                      ItemSelected="FeedListView_ItemSelected"
-                      IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
-                      RefreshCommand="{Binding RefreshCommand}">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="4*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Circle:CircleImage Source="{Binding userData.img}"
-                                                   Aspect="AspectFit"
-                                Grid.Column="0"
-                                HorizontalOptions="Center">
-                                    <Circle:CircleImage.HeightRequest>
-                                        <OnPlatform x:TypeArguments="x:Double">
-                                            <On Platform="Android, iOS">60</On>
-                                        </OnPlatform>
-                                    </Circle:CircleImage.HeightRequest>
-                                </Circle:CircleImage>
-
-                                <StackLayout Grid.Column="1">
-                                    <Frame BackgroundColor="#f0f4ff"
-                       Margin="10"
-                       CornerRadius="15">
-                                        <StackLayout>
-                                            <Label Text="{Binding userData.username}"
-                                                   TextColor="Black"
-                               FontSize="Medium"/>
-                                            <Label Text="{Binding comentario.contenido}"/>
-                                            <Label Text="{Binding userData.puesto_name}"/>
-                                            <Label Text="{Binding userData.descripcion}"/>
-                                        </StackLayout>
-                                    </Frame>
-                                </StackLayout>
-                            </Grid>
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
-        </StackLayout>
+        <ListView VerticalOptions="FillAndExpand"
+                    HasUnevenRows="True"
+                    ItemsSource="{Binding lBrotTen}"
+                    SeparatorColor="#031540"
+                    SeparatorVisibility="Default"
+                    x:Name="BrotTenList"
+                    IsPullToRefreshEnabled="True"
+                    ItemSelected="FeedListView_ItemSelected"
+                    IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                    RefreshCommand="{Binding RefreshCommand}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Celdas:UserCell_Grid BindingContext="{Binding userData}"/>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </ContentPage.Content>
 </ContentPage>

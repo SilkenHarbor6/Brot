@@ -36,7 +36,7 @@
 
 
                     <Rounded:CircleImage.GestureRecognizers>
-                        <TapGestureRecognizer Command="{Binding BtnProfileNameClicked}"/>
+                        <TapGestureRecognizer Command="{Binding UsuarioCreator.BtnProfileNameClicked}"/>
                     </Rounded:CircleImage.GestureRecognizers>
                     
                 </Rounded:CircleImage>
@@ -46,13 +46,12 @@
                                                    TextColor="#252d3a"
                                                    FontSize="Medium">
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding BtnProfileNameClicked}"/>
+                            <TapGestureRecognizer Command="{Binding UsuarioCreator.BtnProfileNameClicked}"/>
                         </Label.GestureRecognizers>
                     </Label>
 
                     <Label Text="{Binding publicacion.fecha_creacion}"
                                                    TextColor="#acb0bb"
-                                                       VerticalOptions="Start"
                                                    FontSize="Micro"/>
                 </StackLayout>
             </StackLayout>
@@ -63,14 +62,12 @@
                                             FontAttributes="Bold"/>
         </StackLayout>
 
-        <StackLayout Orientation="Vertical">
 
-            <Image Source="{Binding publicacion.img}"
-                                           HorizontalOptions="Fill"
-                                           HeightRequest="250"
-                                           IsVisible="{Binding publicacion.isImg}"
-                                           Aspect="AspectFill"/>
-        </StackLayout>
+        <Image Source="{Binding publicacion.img}"
+                                        HorizontalOptions="Fill"
+                                        HeightRequest="250"
+                                        IsVisible="{Binding publicacion.isImg}"
+                                        Aspect="AspectFill"/>
 
         <StackLayout Orientation="Horizontal"
                                                  HorizontalOptions="Fill"

@@ -1,11 +1,11 @@
 ﻿
 
-namespace Brot.Patterns
+namespace Brot.Converters
 {
     using System;
     using System.Globalization;
     using Xamarin.Forms;
-    public class BoolToHeightConverter : IValueConverter
+    public class BoolToStringConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {

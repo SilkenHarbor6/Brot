@@ -3,16 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:patterns="clr-namespace:Brot.Patterns"
+             xmlns:Converters="clr-namespace:Brot.Converters"
              mc:Ignorable="d"
              x:Class="Brot.App">
     <Application.Resources>
 
         <Color x:Key="NaranjaBrot">#ff5001</Color>
-        <patterns:BoolToStringConverter x:Key="BoolToStringConverter"/>
+        <Converters:BoolToStringConverter x:Key="BoolToStringConverter"/>
         <Color x:Key="MainDarkColor">#031540</Color>
-        <x:String x:Key="URLImage">http://images.somee.com/uploads/</x:String>
-        <x:Double x:Key="LikeSize">40</x:Double>
         <ResourceDictionary>
             <Color x:Key="MainAppCOLOR">#FFFFFF</Color>
             <Color x:Key="buttonLoginRegisterText">#000000</Color>

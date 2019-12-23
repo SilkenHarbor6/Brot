@@ -27,18 +27,28 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public HttpResponseMessage Delete(int id)
+        [Route("api/seguidores/borrar")]
+        [HttpPost]
+        public HttpResponseMessage Delete(seguidores item)
         {
-            var item = r.GetById(id);
-            if (item == null)
+
+            try
             {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe tal seguidor, id: {id}");
+                using (var db = new Models.SomeeDBBrotEntities())
+                {
+
+                    var Seguidors = db.seguidores.Where(l => l.seguidor_id == item.seguidor_id && l.id_seguido == item.id_seguido).ToArray();
+
+                    for (int i = 0; i < Seguidors.Length; i++)
+                    {
+                        r.Delete(Seguidors[i].id_seguidores);
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, $"Has dejado de seguir al usuario");
+                }
             }
-            if (r.Delete(id))
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, $"seguidor {id} fue eliminado correctamente");
-            }
-            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No eliminado, seguidor {id}");
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
+
+            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No es posible dejar de seguir al usuario en estos momentos");
         }
 
 
@@ -80,7 +90,7 @@ namespace BrotAPI_Final.Controllers.API
                 }
                 else
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, "ya sigues a este usuario");
+                    return Request.CreateResponse(HttpStatusCode.OK, "Ya sigues a este usuario, actualiza la página en la que te encuentras");
                 }
 
             }

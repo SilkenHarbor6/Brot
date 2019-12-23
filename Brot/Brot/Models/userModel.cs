@@ -1,6 +1,9 @@
 ﻿namespace Brot.Models
 {
+    using Newtonsoft.Json;
     using System;
+    using Xamarin.Forms;
+
     public class userModel
     {
 
@@ -21,6 +24,15 @@
         public string num_telefono { get; set; }
         public string img { get; set; }
         public Nullable<bool> isDeleted { get; set; }
+
+        [JsonIgnore]
+        private Command _BtnProfileNameClicked;
+        [JsonIgnore]
+        public Command BtnProfileNameClicked => _BtnProfileNameClicked ??= new Command(async () => await BtnProfileMethod());
+        private async System.Threading.Tasks.Task BtnProfileMethod()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new Views.SellerProfile(this));
+        }
 
     }
 }

@@ -2,11 +2,9 @@
 {
     using Brot.ViewModels;
     using Models;
-    using Newtonsoft.Json;
 
     public class ResponseComentarios : ObservableObject
     {
-        
         public comentariosModel comentario { get; set; }
         public userModel usuario { get; set; }
         public int CantLikes
@@ -22,30 +20,16 @@
 
 
 
-        [JsonIgnore]
         private int _cantLikes;
-        [JsonIgnore]
         private bool _isliked;
-        [JsonIgnore]
+
+
+        #region LikeButtom Clicked
+
         private Xamarin.Forms.Command _BtnLikedClicked;
-        [JsonIgnore]
-        private Xamarin.Forms.Command _BtnProfileNameClicked;
-
-
-        [JsonIgnore]
         public Xamarin.Forms.Command BtnLikedClicked
         {
             get => _BtnLikedClicked ??= new Xamarin.Forms.Command(BtnLikedMethod);
-        }
-        [JsonIgnore]
-        public Xamarin.Forms.Command BtnProfileNameClicked
-        {
-            get => _BtnProfileNameClicked ??= new Xamarin.Forms.Command(BtnProfileMethod);
-        }
-
-        private void BtnProfileMethod(object obj)
-        {
-            App.Current.MainPage.Navigation.PushAsync(new Views.SellerProfile(this.usuario));
         }
         private async void BtnLikedMethod(object obj)
         {
@@ -65,9 +49,24 @@
             {
                 //Se crea el Like
                 isLiked = !isLiked;
-                CantLikes++;
+                CantLikes++; 
                 await Brot.Services.RestClient.Post<like_comentarioModel>("like_comentario", likeObject);
             }
         }
+        #endregion
+
+        #region See People who liked this!
+        private Xamarin.Forms.Command _BtnLikesPeopleCommand;
+        public Xamarin.Forms.Command BtnLikesPeopleCommand => _BtnLikesPeopleCommand ??= new Xamarin.Forms.Command(async () => await LikesPeopleMethod());
+        private async System.Threading.Tasks.Task LikesPeopleMethod()
+        {
+            if (CantLikes>0)
+            {
+                await App.Current.MainPage.Navigation.PushAsync(new Views.LikesPeoplePage(comentario.id_comentario, ViewModels.likeType.comentarios));
+            }
+        }
+
+        #endregion
+
     }
 }

@@ -1,54 +1,20 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:Rounded="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
-
-             x:Class="Brot.Views.LikesPeoplePage">
+             xmlns:celdas="clr-namespace:Brot.Cells"
+             x:Class="Brot.Views.LikesPeoplePage"
+             Title="{Binding Title}">
     <ContentPage.Content>
         <ListView IsPullToRefreshEnabled="True"
                   ItemsSource="{Binding USUARIOS}"
-                  IsRefreshing="{Binding IsRefreshing}"
+                  IsRefreshing="{Binding IsRefreshing,Mode=OneWay}"
                   RefreshCommand="{Binding RefreshCommand}"
-                  RowHeight="70"
+                  ItemSelected="ListView_ItemSelected"
+                  HasUnevenRows="True"
                   >
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Grid VerticalOptions="Center"
-                              HorizontalOptions="Fill">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="100"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
-
-                            <Rounded:CircleImage Source="{Binding img}"
-                                                 Grid.Column="0"
-                                                         Aspect="AspectFit">
-                                <Rounded:CircleImage.WidthRequest>
-                                    <OnPlatform x:TypeArguments="x:Double">
-                                        <On Platform="Android, iOS">60</On>
-                                    </OnPlatform>
-                                </Rounded:CircleImage.WidthRequest>
-
-                                <Rounded:CircleImage.HeightRequest>
-                                    <OnPlatform x:TypeArguments="x:Double">
-                                        <On Platform="Android, iOS">60</On>
-                                    </OnPlatform>
-                                </Rounded:CircleImage.HeightRequest>
-
-
-                                <Rounded:CircleImage.GestureRecognizers>
-                                    <TapGestureRecognizer Command="{Binding BtnProfileNameClicked}"/>
-                                </Rounded:CircleImage.GestureRecognizers>
-                    
-                            </Rounded:CircleImage>
-
-                            <StackLayout Grid.Column="1"
-                                         HorizontalOptions="Fill"
-                                         >
-                                <Label Text="{Binding username}"/>
-
-                            </StackLayout>
-                        </Grid>
+                        <celdas:UserCell_Grid/>
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

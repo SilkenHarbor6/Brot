@@ -34,28 +34,27 @@
         }
 
 
-        private Command _BtnLikedClicked;
-        private Command _BtnProfileNameClicked;
-        private Command _BtnLikesPeopleCommand;
         private bool? _isliked;
         private bool? _issaved;
         private int _cantLikes;
 
 
+
+
+        #region Save Post
+        private Command _btnSavePost;
+        public Command BtnSavePostCommand => _btnSavePost ??= new Command(async () => await BtnSavePostMethod());
+        private async Task BtnSavePostMethod()
+        {
+            //Modified API! only Saved once! Do it as Likes Method
+           
+        }
+
+        #endregion
+
+        #region Like Buttom Clicked
+        private Command _BtnLikedClicked;
         public Command BtnLikedClicked => _BtnLikedClicked ??= new Command(async () => await BtnLikedMethod());
-        public Command BtnProfileNameClicked => _BtnProfileNameClicked ??= new Command(async () => await BtnProfileMethod());
-        public Command BtnLikesPeopleCommand => _BtnLikesPeopleCommand ??= new Command(async() => await LikesPeopleMethod()); 
-
-        private async Task LikesPeopleMethod()
-        {
-            await App.Current.MainPage.Navigation.PushAsync(new Views.LikesPeoplePage(publicacion.id_post, ViewModels.likeType.publicacion));
-        }
-
-        private async Task BtnProfileMethod()
-        {
-            await App.Current.MainPage.Navigation.PushAsync(new Views.SellerProfile(this.UsuarioCreator));
-        }
-
         private async Task BtnLikedMethod()
         {
             var likeObject = new like_postModel()
@@ -63,8 +62,7 @@
                 id_post = publicacion.id_post,
                 id_user = Singleton.Instance.User.id_user
             };
-            Stopwatch reloj = new Stopwatch();
-            reloj.Start();
+            
             if ((bool)IsLiked)
             {
                 //Se quita el like
@@ -79,9 +77,25 @@
                 cantLikes++;
                 await RestClient.Post<like_postModel>("like_post", likeObject);
             }
-            reloj.Stop();
-            Console.WriteLine(reloj.Elapsed.TotalSeconds);
         }
+
+        #endregion
+
+        #region People who liked this!
+        private Command _BtnLikesPeopleCommand;
+        public Command BtnLikesPeopleCommand => _BtnLikesPeopleCommand ??= new Command(async () => await LikesPeopleMethod());
+        private async Task LikesPeopleMethod()
+        {
+            if (cantLikes>0)
+            {
+                await App.Current.MainPage.Navigation.PushAsync(new Views.LikesPeoplePage(publicacion.id_post, ViewModels.likeType.publicacion));
+            }
+        }
+
+        #endregion
+
+
+
 
     }
 }

@@ -12,5 +12,18 @@ namespace Brot.Views
             InitializeComponent();
             BindingContext = new ViewModels.LikesPeoplePageViewModel(id, tipolike);
         }
+
+        private async  void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var UserSelected = e.SelectedItem as Models.userModel;
+
+            if (UserSelected == null)
+                return;
+
+            await Navigation.PushAsync(new SellerProfile(new ViewModels.SellerProfileViewModel(UserSelected)));
+
+            //Se quita la seleccion del item
+            ((ListView)sender).SelectedItem = null;
+        }
     }
 }

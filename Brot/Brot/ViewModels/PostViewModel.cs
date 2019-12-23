@@ -132,7 +132,7 @@ namespace Brot.ViewModels
                 id_user = Singleton.Instance.User.id_user,
                 id_post = Post.publicacion.publicacion.id_post
             };
-            var result = await RestAPI.Post<comentariosModel>(coment, TableName.comentariost);
+            var result = await RestAPI.Post<comentariosModel>(coment, DLL.constantes.comentariost);
             if (result)
             {
                 CargarDatos();

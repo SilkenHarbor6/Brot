@@ -11,6 +11,7 @@ namespace Brot.Services
     using Models.ResponseApi;
     using System.Net.Http;
     using Xamarin.Essentials;
+    using DLL;
     public static class RestAPI
     {
         //private static string urlBase = "http://192.168.22.127:61092/api/";
@@ -41,7 +42,7 @@ namespace Brot.Services
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string urlComplete = $"{urlBase}{TableName.comentariost}/{idComentario}";
+                    string urlComplete = $"{urlBase}{constantes.comentariost}/{idComentario}";
                     var response = await client.GetAsync(urlComplete);
                     if (response.IsSuccessStatusCode)
                     {
@@ -59,7 +60,7 @@ namespace Brot.Services
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string urlComplete = $"{urlBase}{TableName.like_comentariot}/{id}";
+                    string urlComplete = $"{urlBase}{constantes.like_comentariot}/{id}";
                     var response = await client.GetAsync(urlComplete);
                     if (response.IsSuccessStatusCode)
                     {
@@ -80,7 +81,7 @@ namespace Brot.Services
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string urlComplete = $"{urlBase}{TableName.like_postt}/{id}";
+                    string urlComplete = $"{urlBase}{constantes.like_postt}/{id}";
                     var response = await client.GetAsync(urlComplete);
                     if (response.IsSuccessStatusCode)
                     {
@@ -101,7 +102,7 @@ namespace Brot.Services
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string urlComplete = $"{urlBase}{TableName.publicacion_guardadat}/{idUser}";
+                    string urlComplete = $"{urlBase}{constantes.publicacion_guardadat}/{idUser}";
                     var response = await client.GetAsync(urlComplete);
                     if (response.IsSuccessStatusCode)
                     {
@@ -129,7 +130,7 @@ namespace Brot.Services
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    var response = await client.GetAsync($"{urlBase}{TableName.publicacionest}/all/{idUser}");
+                    var response = await client.GetAsync($"{urlBase}{constantes.publicacionest}/all/{idUser}");
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
@@ -148,7 +149,7 @@ namespace Brot.Services
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string urlComplete = $"{urlBase}{TableName.publicacionest}/feed/{idUser}";
+                    string urlComplete = $"{urlBase}{constantes.publicacionest}/feed/{idUser}";
                     var response = await client.GetAsync(urlComplete);
                     if (response.IsSuccessStatusCode)
                     {
@@ -168,7 +169,7 @@ namespace Brot.Services
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string urlComplete = $"{urlBase}{TableName.publicacionest}/{idPost}/user/{idUser}";
+                    string urlComplete = $"{urlBase}{constantes.publicacionest}/{idPost}/user/{idUser}";
                     var response = await client.GetAsync(urlComplete);
                     if (response.IsSuccessStatusCode)
                     {
@@ -200,7 +201,7 @@ namespace Brot.Services
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string urlComplete = $"{urlBase}{TableName.userst}/UsernameDisponible /{ username}";
+                    string urlComplete = $"{urlBase}{constantes.userst}/UsernameDisponible /{ username}";
                     var response = await client.GetAsync(urlComplete);
                     return response.IsSuccessStatusCode;
                 }
@@ -215,9 +216,9 @@ namespace Brot.Services
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string urlComplete = $"{urlBase}{TableName.userst}/login";
+                    string urlComplete = $"{urlBase}{constantes.userst}/login";
                     string json = Newtonsoft.Json.JsonConvert.SerializeObject(new userModel() { username = userOrEmail, pass = pass });
-                    var content = new StringContent(json, Encoding.UTF8, TableName.appJSonString);
+                    var content = new StringContent(json, Encoding.UTF8, constantes.appJSonString);
                     var response = await client.PostAsync(urlComplete, content);
                     if (response.IsSuccessStatusCode)
                     {
@@ -236,7 +237,7 @@ namespace Brot.Services
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string urlComplete = $"{urlBase}{TableName.userst}/brotten";
+                    string urlComplete = $"{urlBase}{constantes.userst}/brotten";
                     var response = await client.GetAsync(urlComplete);
                     if (response.IsSuccessStatusCode)
                     {
@@ -257,7 +258,7 @@ namespace Brot.Services
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string urlComplete = $"{urlBase}{TableName.userst}/{idUserProfile}/profile/{idVisitante}";
+                    string urlComplete = $"{urlBase}{constantes.userst}/{idUserProfile}/profile/{idVisitante}";
                     var response = await client.GetAsync(urlComplete);
                     if (response.IsSuccessStatusCode)
                     {
@@ -277,7 +278,7 @@ namespace Brot.Services
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string urlComplete = $"{urlBase}{TableName.userst}/{idUser}/profile";
+                    string urlComplete = $"{urlBase}{constantes.userst}/{idUser}/profile";
                     var response = await client.GetAsync(urlComplete);
                     if (response.IsSuccessStatusCode)
                     {
@@ -296,7 +297,7 @@ namespace Brot.Services
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string urlComplete = $"{urlBase}{TableName.userst}/vendors";
+                    string urlComplete = $"{urlBase}{constantes.userst}/vendors";
                     var response = await client.GetAsync(urlComplete);
                     if (response.IsSuccessStatusCode)
                     {
@@ -315,7 +316,7 @@ namespace Brot.Services
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string urlComplete = $"{urlBase}{TableName.userst}/{idUser}/seguidores";
+                    string urlComplete = $"{urlBase}{constantes.userst}/{idUser}/seguidores";
                     var response = await client.GetAsync(urlComplete);
                     if (response.IsSuccessStatusCode)
                     {
@@ -336,7 +337,7 @@ namespace Brot.Services
             {
                 using (HttpClient client = new HttpClient())
                 {
-                    string urlComplete = $"{urlBase}{TableName.userst}/{idUser}/seguidos";
+                    string urlComplete = $"{urlBase}{constantes.userst}/{idUser}/seguidos";
                     var response = await client.GetAsync(urlComplete);
                     if (response.IsSuccessStatusCode)
                     {
