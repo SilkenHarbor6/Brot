@@ -4,420 +4,471 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BorrarDBBrotModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2012" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="BorrarDBBrotModelStoreContainer">
-    <EntitySet Name="comentarios" EntityType="BorrarDBBrotModel.Store.comentarios" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="interaccion_post" EntityType="BorrarDBBrotModel.Store.interaccion_post" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="like_comentario" EntityType="BorrarDBBrotModel.Store.like_comentario" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="like_post" EntityType="BorrarDBBrotModel.Store.like_post" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="publicacion_guardada" EntityType="BorrarDBBrotModel.Store.publicacion_guardada" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="publicaciones" EntityType="BorrarDBBrotModel.Store.publicaciones" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="seguidores" EntityType="BorrarDBBrotModel.Store.seguidores" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="users" EntityType="BorrarDBBrotModel.Store.users" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="visita_busqueda" EntityType="BorrarDBBrotModel.Store.visita_busqueda" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="visita_pefil_post" EntityType="BorrarDBBrotModel.Store.visita_pefil_post" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="fk_comentarios_post" Association="BorrarDBBrotModel.Store.fk_comentarios_post">
-      <End Role="publicaciones" EntitySet="publicaciones" />
-      <End Role="comentarios" EntitySet="comentarios" />
-    </AssociationSet>
-    <AssociationSet Name="FK_comentarios_users" Association="BorrarDBBrotModel.Store.FK_comentarios_users">
-      <End Role="users" EntitySet="users" />
-      <End Role="comentarios" EntitySet="comentarios" />
-    </AssociationSet>
-    <AssociationSet Name="fk_like_comentario" Association="BorrarDBBrotModel.Store.fk_like_comentario">
-      <End Role="comentarios" EntitySet="comentarios" />
-      <End Role="like_comentario" EntitySet="like_comentario" />
-    </AssociationSet>
-    <AssociationSet Name="FK_interaccion_post_publicaciones" Association="BorrarDBBrotModel.Store.FK_interaccion_post_publicaciones">
-      <End Role="publicaciones" EntitySet="publicaciones" />
-      <End Role="interaccion_post" EntitySet="interaccion_post" />
-    </AssociationSet>
-    <AssociationSet Name="FK_interaccion_post_users" Association="BorrarDBBrotModel.Store.FK_interaccion_post_users">
-      <End Role="users" EntitySet="users" />
-      <End Role="interaccion_post" EntitySet="interaccion_post" />
-    </AssociationSet>
-    <AssociationSet Name="FK_interaccion_post_users1" Association="BorrarDBBrotModel.Store.FK_interaccion_post_users1">
-      <End Role="users" EntitySet="users" />
-      <End Role="interaccion_post" EntitySet="interaccion_post" />
-    </AssociationSet>
-    <AssociationSet Name="fk_like_comentario_users" Association="BorrarDBBrotModel.Store.fk_like_comentario_users">
-      <End Role="users" EntitySet="users" />
-      <End Role="like_comentario" EntitySet="like_comentario" />
-    </AssociationSet>
-    <AssociationSet Name="FK_like_post" Association="BorrarDBBrotModel.Store.FK_like_post">
-      <End Role="publicaciones" EntitySet="publicaciones" />
-      <End Role="like_post" EntitySet="like_post" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Like_user" Association="BorrarDBBrotModel.Store.FK_Like_user">
-      <End Role="users" EntitySet="users" />
-      <End Role="like_post" EntitySet="like_post" />
-    </AssociationSet>
-    <AssociationSet Name="FK_publicacion_guardada_publicaciones" Association="BorrarDBBrotModel.Store.FK_publicacion_guardada_publicaciones">
-      <End Role="publicaciones" EntitySet="publicaciones" />
-      <End Role="publicacion_guardada" EntitySet="publicacion_guardada" />
-    </AssociationSet>
-    <AssociationSet Name="FK_publicacion_guardada_users" Association="BorrarDBBrotModel.Store.FK_publicacion_guardada_users">
-      <End Role="users" EntitySet="users" />
-      <End Role="publicacion_guardada" EntitySet="publicacion_guardada" />
-    </AssociationSet>
-    <AssociationSet Name="FK_post_user_creator" Association="BorrarDBBrotModel.Store.FK_post_user_creator">
-      <End Role="users" EntitySet="users" />
-      <End Role="publicaciones" EntitySet="publicaciones" />
-    </AssociationSet>
-    <AssociationSet Name="FK_visita_pefil_post_publicaciones" Association="BorrarDBBrotModel.Store.FK_visita_pefil_post_publicaciones">
-      <End Role="publicaciones" EntitySet="publicaciones" />
-      <End Role="visita_pefil_post" EntitySet="visita_pefil_post" />
-    </AssociationSet>
-    <AssociationSet Name="fk_seguidores_user" Association="BorrarDBBrotModel.Store.fk_seguidores_user">
-      <End Role="users" EntitySet="users" />
-      <End Role="seguidores" EntitySet="seguidores" />
-    </AssociationSet>
-    <AssociationSet Name="FK_seguidores_users" Association="BorrarDBBrotModel.Store.FK_seguidores_users">
-      <End Role="users" EntitySet="users" />
-      <End Role="seguidores" EntitySet="seguidores" />
-    </AssociationSet>
-    <AssociationSet Name="FK_visita_busqueda_users" Association="BorrarDBBrotModel.Store.FK_visita_busqueda_users">
-      <End Role="users" EntitySet="users" />
-      <End Role="visita_busqueda" EntitySet="visita_busqueda" />
-    </AssociationSet>
-    <AssociationSet Name="FK_visita_busqueda_users1" Association="BorrarDBBrotModel.Store.FK_visita_busqueda_users1">
-      <End Role="users" EntitySet="users" />
-      <End Role="visita_busqueda" EntitySet="visita_busqueda" />
-    </AssociationSet>
-    <AssociationSet Name="FK_visita_pefil_post_users" Association="BorrarDBBrotModel.Store.FK_visita_pefil_post_users">
-      <End Role="users" EntitySet="users" />
-      <End Role="visita_pefil_post" EntitySet="visita_pefil_post" />
-    </AssociationSet>
-  </EntityContainer>
-  <EntityType Name="comentarios">
-    <Key>
-      <PropertyRef Name="id_comentario" />
-    </Key>
-    <Property Name="id_comentario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="id_user" Type="int" Nullable="false" />
-    <Property Name="id_post" Type="int" Nullable="false" />
-    <Property Name="contenido" Type="varchar" Nullable="true" MaxLength="200" />
-    <Property Name="fecha_creacion" Type="datetime" Nullable="true" />
-    <Property Name="isDeleted" Type="bit" Nullable="true" />
-  </EntityType>
-  <EntityType Name="interaccion_post">
-    <Key>
-      <PropertyRef Name="id_interaccion_post" />
-    </Key>
-    <Property Name="id_interaccion_post" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="id_post" Type="int" Nullable="false" />
-    <Property Name="id_userqueinteractuo" Type="int" Nullable="false" />
-    <Property Name="id_perfilvisitado" Type="int" Nullable="false" />
-    <Property Name="fecha" Type="datetime" Nullable="true" />
-  </EntityType>
-  <EntityType Name="like_comentario">
-    <Key>
-      <PropertyRef Name="id_like_comentario" />
-    </Key>
-    <Property Name="id_like_comentario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="id_user" Type="int" Nullable="false" />
-    <Property Name="id_comentario" Type="int" Nullable="false" />
-    <Property Name="fecha" Type="datetime" Nullable="true" />
-  </EntityType>
-  <EntityType Name="like_post">
-    <Key>
-      <PropertyRef Name="id" />
-    </Key>
-    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="id_user" Type="int" Nullable="false" />
-    <Property Name="id_post" Type="int" Nullable="false" />
-    <Property Name="fecha" Type="datetime" Nullable="true" />
-  </EntityType>
-  <EntityType Name="publicacion_guardada">
-    <Key>
-      <PropertyRef Name="id_publicacion_guardada" />
-    </Key>
-    <Property Name="id_publicacion_guardada" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="id_user" Type="int" Nullable="false" />
-    <Property Name="id_post" Type="int" Nullable="false" />
-    <Property Name="fecha" Type="datetime" Nullable="true" />
-  </EntityType>
-  <EntityType Name="publicaciones">
-    <Key>
-      <PropertyRef Name="id_post" />
-    </Key>
-    <Property Name="id_post" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="id_user" Type="int" Nullable="false" />
-    <Property Name="img" Type="varchar" Nullable="true" MaxLength="100" />
-    <Property Name="isImg" Type="bit" Nullable="true" />
-    <Property Name="descripcion" Type="varchar" Nullable="true" MaxLength="300" />
-    <Property Name="fecha_creacion" Type="datetime" Nullable="true" />
-    <Property Name="fecha_actualizacion" Type="datetime" Nullable="true" />
-    <Property Name="isDeleted" Type="bit" Nullable="true" />
-  </EntityType>
-  <EntityType Name="seguidores">
-    <Key>
-      <PropertyRef Name="id_seguidores" />
-    </Key>
-    <Property Name="id_seguidores" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="seguidor_id" Type="int" Nullable="false" />
-    <Property Name="id_seguido" Type="int" Nullable="false" />
-    <Property Name="accepted" Type="bit" Nullable="true" />
-    <Property Name="fecha" Type="datetime" Nullable="true" />
-  </EntityType>
-  <EntityType Name="users">
-    <Key>
-      <PropertyRef Name="id_user" />
-    </Key>
-    <Property Name="id_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="username" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="puesto_name" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="nombre" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="apellido" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="descripcion" Type="varchar" Nullable="true" MaxLength="200" />
-    <Property Name="pass" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="isVendor" Type="bit" Nullable="false" />
-    <Property Name="puntaje" Type="int" Nullable="true" />
-    <Property Name="email" Type="varchar" Nullable="true" MaxLength="50" />
-    <Property Name="xlat" Type="real" Nullable="true" />
-    <Property Name="ylon" Type="real" Nullable="true" />
-    <Property Name="isActive" Type="bit" Nullable="true" />
-    <Property Name="dui" Type="varchar" Nullable="true" MaxLength="15" />
-    <Property Name="num_telefono" Type="varchar" Nullable="true" MaxLength="15" />
-    <Property Name="img" Type="varchar" Nullable="true" MaxLength="100" />
-    <Property Name="isDeleted" Type="bit" Nullable="true" />
-  </EntityType>
-  <EntityType Name="visita_busqueda">
-    <Key>
-      <PropertyRef Name="id_visita_busqueda" />
-    </Key>
-    <Property Name="id_visita_busqueda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="id_userquebusco" Type="int" Nullable="false" />
-    <Property Name="id_perfilvisitado" Type="int" Nullable="false" />
-    <Property Name="fecha" Type="datetime" Nullable="true" />
-  </EntityType>
-  <EntityType Name="visita_pefil_post">
-    <Key>
-      <PropertyRef Name="id_visita_pefil_post" />
-    </Key>
-    <Property Name="id_visita_pefil_post" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="id_post" Type="int" Nullable="false" />
-    <Property Name="id_userquevisito" Type="int" Nullable="false" />
-    <Property Name="id_perfilvisitado" Type="int" Nullable="false" />
-    <Property Name="fecha" Type="datetime" Nullable="true" />
-  </EntityType>
-  <Association Name="fk_comentarios_post">
-    <End Role="publicaciones" Type="BorrarDBBrotModel.Store.publicaciones" Multiplicity="1" />
-    <End Role="comentarios" Type="BorrarDBBrotModel.Store.comentarios" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="publicaciones">
-        <PropertyRef Name="id_post" />
-      </Principal>
-      <Dependent Role="comentarios">
-        <PropertyRef Name="id_post" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_comentarios_users">
-    <End Role="users" Type="BorrarDBBrotModel.Store.users" Multiplicity="1" />
-    <End Role="comentarios" Type="BorrarDBBrotModel.Store.comentarios" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="users">
-        <PropertyRef Name="id_user" />
-      </Principal>
-      <Dependent Role="comentarios">
-        <PropertyRef Name="id_user" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="fk_like_comentario">
-    <End Role="comentarios" Type="BorrarDBBrotModel.Store.comentarios" Multiplicity="1" />
-    <End Role="like_comentario" Type="BorrarDBBrotModel.Store.like_comentario" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="comentarios">
-        <PropertyRef Name="id_comentario" />
-      </Principal>
-      <Dependent Role="like_comentario">
-        <PropertyRef Name="id_comentario" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_interaccion_post_publicaciones">
-    <End Role="publicaciones" Type="BorrarDBBrotModel.Store.publicaciones" Multiplicity="1" />
-    <End Role="interaccion_post" Type="BorrarDBBrotModel.Store.interaccion_post" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="publicaciones">
-        <PropertyRef Name="id_post" />
-      </Principal>
-      <Dependent Role="interaccion_post">
-        <PropertyRef Name="id_post" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_interaccion_post_users">
-    <End Role="users" Type="BorrarDBBrotModel.Store.users" Multiplicity="1" />
-    <End Role="interaccion_post" Type="BorrarDBBrotModel.Store.interaccion_post" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="users">
-        <PropertyRef Name="id_user" />
-      </Principal>
-      <Dependent Role="interaccion_post">
-        <PropertyRef Name="id_perfilvisitado" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_interaccion_post_users1">
-    <End Role="users" Type="BorrarDBBrotModel.Store.users" Multiplicity="1" />
-    <End Role="interaccion_post" Type="BorrarDBBrotModel.Store.interaccion_post" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="users">
-        <PropertyRef Name="id_user" />
-      </Principal>
-      <Dependent Role="interaccion_post">
-        <PropertyRef Name="id_userqueinteractuo" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="fk_like_comentario_users">
-    <End Role="users" Type="BorrarDBBrotModel.Store.users" Multiplicity="1" />
-    <End Role="like_comentario" Type="BorrarDBBrotModel.Store.like_comentario" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="users">
-        <PropertyRef Name="id_user" />
-      </Principal>
-      <Dependent Role="like_comentario">
-        <PropertyRef Name="id_user" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_like_post">
-    <End Role="publicaciones" Type="BorrarDBBrotModel.Store.publicaciones" Multiplicity="1" />
-    <End Role="like_post" Type="BorrarDBBrotModel.Store.like_post" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="publicaciones">
-        <PropertyRef Name="id_post" />
-      </Principal>
-      <Dependent Role="like_post">
-        <PropertyRef Name="id_post" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Like_user">
-    <End Role="users" Type="BorrarDBBrotModel.Store.users" Multiplicity="1" />
-    <End Role="like_post" Type="BorrarDBBrotModel.Store.like_post" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="users">
-        <PropertyRef Name="id_user" />
-      </Principal>
-      <Dependent Role="like_post">
-        <PropertyRef Name="id_user" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_publicacion_guardada_publicaciones">
-    <End Role="publicaciones" Type="BorrarDBBrotModel.Store.publicaciones" Multiplicity="1" />
-    <End Role="publicacion_guardada" Type="BorrarDBBrotModel.Store.publicacion_guardada" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="publicaciones">
-        <PropertyRef Name="id_post" />
-      </Principal>
-      <Dependent Role="publicacion_guardada">
-        <PropertyRef Name="id_post" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_publicacion_guardada_users">
-    <End Role="users" Type="BorrarDBBrotModel.Store.users" Multiplicity="1" />
-    <End Role="publicacion_guardada" Type="BorrarDBBrotModel.Store.publicacion_guardada" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="users">
-        <PropertyRef Name="id_user" />
-      </Principal>
-      <Dependent Role="publicacion_guardada">
-        <PropertyRef Name="id_user" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_post_user_creator">
-    <End Role="users" Type="BorrarDBBrotModel.Store.users" Multiplicity="1" />
-    <End Role="publicaciones" Type="BorrarDBBrotModel.Store.publicaciones" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="users">
-        <PropertyRef Name="id_user" />
-      </Principal>
-      <Dependent Role="publicaciones">
-        <PropertyRef Name="id_user" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_visita_pefil_post_publicaciones">
-    <End Role="publicaciones" Type="BorrarDBBrotModel.Store.publicaciones" Multiplicity="1" />
-    <End Role="visita_pefil_post" Type="BorrarDBBrotModel.Store.visita_pefil_post" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="publicaciones">
-        <PropertyRef Name="id_post" />
-      </Principal>
-      <Dependent Role="visita_pefil_post">
-        <PropertyRef Name="id_post" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="fk_seguidores_user">
-    <End Role="users" Type="BorrarDBBrotModel.Store.users" Multiplicity="1" />
-    <End Role="seguidores" Type="BorrarDBBrotModel.Store.seguidores" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="users">
-        <PropertyRef Name="id_user" />
-      </Principal>
-      <Dependent Role="seguidores">
-        <PropertyRef Name="seguidor_id" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_seguidores_users">
-    <End Role="users" Type="BorrarDBBrotModel.Store.users" Multiplicity="1" />
-    <End Role="seguidores" Type="BorrarDBBrotModel.Store.seguidores" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="users">
-        <PropertyRef Name="id_user" />
-      </Principal>
-      <Dependent Role="seguidores">
-        <PropertyRef Name="id_seguido" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_visita_busqueda_users">
-    <End Role="users" Type="BorrarDBBrotModel.Store.users" Multiplicity="1" />
-    <End Role="visita_busqueda" Type="BorrarDBBrotModel.Store.visita_busqueda" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="users">
-        <PropertyRef Name="id_user" />
-      </Principal>
-      <Dependent Role="visita_busqueda">
-        <PropertyRef Name="id_perfilvisitado" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_visita_busqueda_users1">
-    <End Role="users" Type="BorrarDBBrotModel.Store.users" Multiplicity="1" />
-    <End Role="visita_busqueda" Type="BorrarDBBrotModel.Store.visita_busqueda" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="users">
-        <PropertyRef Name="id_user" />
-      </Principal>
-      <Dependent Role="visita_busqueda">
-        <PropertyRef Name="id_userquebusco" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_visita_pefil_post_users">
-    <End Role="users" Type="BorrarDBBrotModel.Store.users" Multiplicity="1" />
-    <End Role="visita_pefil_post" Type="BorrarDBBrotModel.Store.visita_pefil_post" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="users">
-        <PropertyRef Name="id_user" />
-      </Principal>
-      <Dependent Role="visita_pefil_post">
-        <PropertyRef Name="id_perfilvisitado" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-</Schema></edmx:StorageModels>
+    <Schema Namespace="BorrarDBBrotModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="id_categoria" />
+          </Key>
+          <Property Name="id_categoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="img" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="comentarios">
+          <Key>
+            <PropertyRef Name="id_comentario" />
+          </Key>
+          <Property Name="id_comentario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_user" Type="int" Nullable="false" />
+          <Property Name="id_post" Type="int" Nullable="false" />
+          <Property Name="contenido" Type="varchar" MaxLength="200" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="isDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="interaccion_post">
+          <Key>
+            <PropertyRef Name="id_interaccion_post" />
+          </Key>
+          <Property Name="id_interaccion_post" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_post" Type="int" Nullable="false" />
+          <Property Name="id_userqueinteractuo" Type="int" Nullable="false" />
+          <Property Name="id_perfilvisitado" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="datetime" />
+        </EntityType>
+        <EntityType Name="like_comentario">
+          <Key>
+            <PropertyRef Name="id_like_comentario" />
+          </Key>
+          <Property Name="id_like_comentario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_user" Type="int" Nullable="false" />
+          <Property Name="id_comentario" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="datetime" />
+        </EntityType>
+        <EntityType Name="like_post">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_user" Type="int" Nullable="false" />
+          <Property Name="id_post" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="datetime" />
+        </EntityType>
+        <EntityType Name="publicacion_guardada">
+          <Key>
+            <PropertyRef Name="id_publicacion_guardada" />
+          </Key>
+          <Property Name="id_publicacion_guardada" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_user" Type="int" Nullable="false" />
+          <Property Name="id_post" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="datetime" />
+        </EntityType>
+        <EntityType Name="publicaciones">
+          <Key>
+            <PropertyRef Name="id_post" />
+          </Key>
+          <Property Name="id_post" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_user" Type="int" Nullable="false" />
+          <Property Name="img" Type="varchar" MaxLength="100" />
+          <Property Name="isImg" Type="bit" />
+          <Property Name="descripcion" Type="varchar" MaxLength="300" />
+          <Property Name="fecha_creacion" Type="datetime" />
+          <Property Name="fecha_actualizacion" Type="datetime" />
+          <Property Name="isDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="seguidores">
+          <Key>
+            <PropertyRef Name="id_seguidores" />
+          </Key>
+          <Property Name="id_seguidores" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="seguidor_id" Type="int" Nullable="false" />
+          <Property Name="id_seguido" Type="int" Nullable="false" />
+          <Property Name="accepted" Type="bit" />
+          <Property Name="fecha" Type="datetime" />
+        </EntityType>
+        <EntityType Name="users">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="puesto_name" Type="varchar" MaxLength="50" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" />
+          <Property Name="apellido" Type="varchar" MaxLength="50" />
+          <Property Name="descripcion" Type="varchar" MaxLength="200" />
+          <Property Name="pass" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="isVendor" Type="bit" Nullable="false" />
+          <Property Name="puntaje" Type="int" />
+          <Property Name="email" Type="varchar" MaxLength="50" />
+          <Property Name="xlat" Type="real" />
+          <Property Name="ylon" Type="real" />
+          <Property Name="isActive" Type="bit" />
+          <Property Name="dui" Type="varchar" MaxLength="15" />
+          <Property Name="num_telefono" Type="varchar" MaxLength="15" />
+          <Property Name="img" Type="varchar" MaxLength="100" />
+          <Property Name="isDeleted" Type="bit" />
+        </EntityType>
+        <EntityType Name="usuario_categoria">
+          <Key>
+            <PropertyRef Name="id_usuario_categoria" />
+          </Key>
+          <Property Name="id_usuario_categoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_usuario" Type="int" Nullable="false" />
+          <Property Name="id_categoria" Type="int" Nullable="false" />
+          <Property Name="isPrimary" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="visita_busqueda">
+          <Key>
+            <PropertyRef Name="id_visita_busqueda" />
+          </Key>
+          <Property Name="id_visita_busqueda" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_userquebusco" Type="int" Nullable="false" />
+          <Property Name="id_perfilvisitado" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="datetime" />
+        </EntityType>
+        <EntityType Name="visita_pefil_post">
+          <Key>
+            <PropertyRef Name="id_visita_pefil_post" />
+          </Key>
+          <Property Name="id_visita_pefil_post" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="id_post" Type="int" Nullable="false" />
+          <Property Name="id_userquevisito" Type="int" Nullable="false" />
+          <Property Name="id_perfilvisitado" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="datetime" />
+        </EntityType>
+        <Association Name="FK__usuario_c__id_ca__5FB337D6">
+          <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
+          <End Role="usuario_categoria" Type="Self.usuario_categoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="id_categoria" />
+            </Principal>
+            <Dependent Role="usuario_categoria">
+              <PropertyRef Name="id_categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__usuario_c__id_us__5EBF139D">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="usuario_categoria" Type="Self.usuario_categoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="usuario_categoria">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_comentarios_post">
+          <End Role="publicaciones" Type="Self.publicaciones" Multiplicity="1" />
+          <End Role="comentarios" Type="Self.comentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="publicaciones">
+              <PropertyRef Name="id_post" />
+            </Principal>
+            <Dependent Role="comentarios">
+              <PropertyRef Name="id_post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_comentarios_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="comentarios" Type="Self.comentarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="comentarios">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_interaccion_post_publicaciones">
+          <End Role="publicaciones" Type="Self.publicaciones" Multiplicity="1" />
+          <End Role="interaccion_post" Type="Self.interaccion_post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="publicaciones">
+              <PropertyRef Name="id_post" />
+            </Principal>
+            <Dependent Role="interaccion_post">
+              <PropertyRef Name="id_post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_interaccion_post_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="interaccion_post" Type="Self.interaccion_post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="interaccion_post">
+              <PropertyRef Name="id_perfilvisitado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_interaccion_post_users1">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="interaccion_post" Type="Self.interaccion_post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="interaccion_post">
+              <PropertyRef Name="id_userqueinteractuo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_like_comentario">
+          <End Role="comentarios" Type="Self.comentarios" Multiplicity="1" />
+          <End Role="like_comentario" Type="Self.like_comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="comentarios">
+              <PropertyRef Name="id_comentario" />
+            </Principal>
+            <Dependent Role="like_comentario">
+              <PropertyRef Name="id_comentario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_like_comentario_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="like_comentario" Type="Self.like_comentario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="like_comentario">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_like_post">
+          <End Role="publicaciones" Type="Self.publicaciones" Multiplicity="1" />
+          <End Role="like_post" Type="Self.like_post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="publicaciones">
+              <PropertyRef Name="id_post" />
+            </Principal>
+            <Dependent Role="like_post">
+              <PropertyRef Name="id_post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Like_user">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="like_post" Type="Self.like_post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="like_post">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_post_user_creator">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="publicaciones" Type="Self.publicaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="publicaciones">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_publicacion_guardada_publicaciones">
+          <End Role="publicaciones" Type="Self.publicaciones" Multiplicity="1" />
+          <End Role="publicacion_guardada" Type="Self.publicacion_guardada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="publicaciones">
+              <PropertyRef Name="id_post" />
+            </Principal>
+            <Dependent Role="publicacion_guardada">
+              <PropertyRef Name="id_post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_publicacion_guardada_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="publicacion_guardada" Type="Self.publicacion_guardada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="publicacion_guardada">
+              <PropertyRef Name="id_user" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_seguidores_user">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="seguidores" Type="Self.seguidores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="seguidores">
+              <PropertyRef Name="seguidor_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_seguidores_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="seguidores" Type="Self.seguidores" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="seguidores">
+              <PropertyRef Name="id_seguido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_visita_busqueda_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="visita_busqueda" Type="Self.visita_busqueda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="visita_busqueda">
+              <PropertyRef Name="id_perfilvisitado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_visita_busqueda_users1">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="visita_busqueda" Type="Self.visita_busqueda" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="visita_busqueda">
+              <PropertyRef Name="id_userquebusco" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_visita_pefil_post_publicaciones">
+          <End Role="publicaciones" Type="Self.publicaciones" Multiplicity="1" />
+          <End Role="visita_pefil_post" Type="Self.visita_pefil_post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="publicaciones">
+              <PropertyRef Name="id_post" />
+            </Principal>
+            <Dependent Role="visita_pefil_post">
+              <PropertyRef Name="id_post" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_visita_pefil_post_users">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="visita_pefil_post" Type="Self.visita_pefil_post" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="visita_pefil_post">
+              <PropertyRef Name="id_perfilvisitado" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BorrarDBBrotModelStoreContainer">
+          <EntitySet Name="categoria" EntityType="Self.categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="comentarios" EntityType="Self.comentarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="interaccion_post" EntityType="Self.interaccion_post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="like_comentario" EntityType="Self.like_comentario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="like_post" EntityType="Self.like_post" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="publicacion_guardada" EntityType="Self.publicacion_guardada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="publicaciones" EntityType="Self.publicaciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="seguidores" EntityType="Self.seguidores" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="users" EntityType="Self.users" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="usuario_categoria" EntityType="Self.usuario_categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="visita_busqueda" EntityType="Self.visita_busqueda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="visita_pefil_post" EntityType="Self.visita_pefil_post" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__usuario_c__id_ca__5FB337D6" Association="Self.FK__usuario_c__id_ca__5FB337D6">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="usuario_categoria" EntitySet="usuario_categoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK__usuario_c__id_us__5EBF139D" Association="Self.FK__usuario_c__id_us__5EBF139D">
+            <End Role="users" EntitySet="users" />
+            <End Role="usuario_categoria" EntitySet="usuario_categoria" />
+          </AssociationSet>
+          <AssociationSet Name="fk_comentarios_post" Association="Self.fk_comentarios_post">
+            <End Role="publicaciones" EntitySet="publicaciones" />
+            <End Role="comentarios" EntitySet="comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_comentarios_users" Association="Self.FK_comentarios_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="comentarios" EntitySet="comentarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_interaccion_post_publicaciones" Association="Self.FK_interaccion_post_publicaciones">
+            <End Role="publicaciones" EntitySet="publicaciones" />
+            <End Role="interaccion_post" EntitySet="interaccion_post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_interaccion_post_users" Association="Self.FK_interaccion_post_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="interaccion_post" EntitySet="interaccion_post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_interaccion_post_users1" Association="Self.FK_interaccion_post_users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="interaccion_post" EntitySet="interaccion_post" />
+          </AssociationSet>
+          <AssociationSet Name="fk_like_comentario" Association="Self.fk_like_comentario">
+            <End Role="comentarios" EntitySet="comentarios" />
+            <End Role="like_comentario" EntitySet="like_comentario" />
+          </AssociationSet>
+          <AssociationSet Name="fk_like_comentario_users" Association="Self.fk_like_comentario_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="like_comentario" EntitySet="like_comentario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_like_post" Association="Self.FK_like_post">
+            <End Role="publicaciones" EntitySet="publicaciones" />
+            <End Role="like_post" EntitySet="like_post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Like_user" Association="Self.FK_Like_user">
+            <End Role="users" EntitySet="users" />
+            <End Role="like_post" EntitySet="like_post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_post_user_creator" Association="Self.FK_post_user_creator">
+            <End Role="users" EntitySet="users" />
+            <End Role="publicaciones" EntitySet="publicaciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_publicacion_guardada_publicaciones" Association="Self.FK_publicacion_guardada_publicaciones">
+            <End Role="publicaciones" EntitySet="publicaciones" />
+            <End Role="publicacion_guardada" EntitySet="publicacion_guardada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_publicacion_guardada_users" Association="Self.FK_publicacion_guardada_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="publicacion_guardada" EntitySet="publicacion_guardada" />
+          </AssociationSet>
+          <AssociationSet Name="fk_seguidores_user" Association="Self.fk_seguidores_user">
+            <End Role="users" EntitySet="users" />
+            <End Role="seguidores" EntitySet="seguidores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_seguidores_users" Association="Self.FK_seguidores_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="seguidores" EntitySet="seguidores" />
+          </AssociationSet>
+          <AssociationSet Name="FK_visita_busqueda_users" Association="Self.FK_visita_busqueda_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="visita_busqueda" EntitySet="visita_busqueda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_visita_busqueda_users1" Association="Self.FK_visita_busqueda_users1">
+            <End Role="users" EntitySet="users" />
+            <End Role="visita_busqueda" EntitySet="visita_busqueda" />
+          </AssociationSet>
+          <AssociationSet Name="FK_visita_pefil_post_publicaciones" Association="Self.FK_visita_pefil_post_publicaciones">
+            <End Role="publicaciones" EntitySet="publicaciones" />
+            <End Role="visita_pefil_post" EntitySet="visita_pefil_post" />
+          </AssociationSet>
+          <AssociationSet Name="FK_visita_pefil_post_users" Association="Self.FK_visita_pefil_post_users">
+            <End Role="users" EntitySet="users" />
+            <End Role="visita_pefil_post" EntitySet="visita_pefil_post" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BorrarDBBrotModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -545,6 +596,7 @@
           <NavigationProperty Name="visita_busqueda" Relationship="Self.FK_visita_busqueda_users" FromRole="users" ToRole="visita_busqueda" />
           <NavigationProperty Name="visita_busqueda1" Relationship="Self.FK_visita_busqueda_users1" FromRole="users" ToRole="visita_busqueda" />
           <NavigationProperty Name="visita_pefil_post" Relationship="Self.FK_visita_pefil_post_users" FromRole="users" ToRole="visita_pefil_post" />
+          <NavigationProperty Name="usuario_categoria" Relationship="BorrarDBBrotModel.FK__usuario_c__id_us__5EBF139D" FromRole="users" ToRole="usuario_categoria" />
         </EntityType>
         <EntityType Name="visita_busqueda">
           <Key>
@@ -868,7 +920,61 @@
             <End Role="users" EntitySet="users" />
             <End Role="visita_pefil_post" EntitySet="visita_pefil_post" />
           </AssociationSet>
+          <EntitySet Name="categoria" EntityType="BorrarDBBrotModel.categoria" />
+          <EntitySet Name="usuario_categoria" EntityType="BorrarDBBrotModel.usuario_categoria" />
+          <AssociationSet Name="FK__usuario_c__id_ca__5FB337D6" Association="BorrarDBBrotModel.FK__usuario_c__id_ca__5FB337D6">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="usuario_categoria" EntitySet="usuario_categoria" />
+          </AssociationSet>
+          <AssociationSet Name="FK__usuario_c__id_us__5EBF139D" Association="BorrarDBBrotModel.FK__usuario_c__id_us__5EBF139D">
+            <End Role="users" EntitySet="users" />
+            <End Role="usuario_categoria" EntitySet="usuario_categoria" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="id_categoria" />
+          </Key>
+          <Property Name="id_categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="img" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="usuario_categoria" Relationship="BorrarDBBrotModel.FK__usuario_c__id_ca__5FB337D6" FromRole="categoria" ToRole="usuario_categoria" />
+        </EntityType>
+        <EntityType Name="usuario_categoria">
+          <Key>
+            <PropertyRef Name="id_usuario_categoria" />
+          </Key>
+          <Property Name="id_usuario_categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="id_categoria" Type="Int32" Nullable="false" />
+          <Property Name="isPrimary" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="categoria" Relationship="BorrarDBBrotModel.FK__usuario_c__id_ca__5FB337D6" FromRole="usuario_categoria" ToRole="categoria" />
+          <NavigationProperty Name="users" Relationship="BorrarDBBrotModel.FK__usuario_c__id_us__5EBF139D" FromRole="usuario_categoria" ToRole="users" />
+        </EntityType>
+        <Association Name="FK__usuario_c__id_ca__5FB337D6">
+          <End Type="BorrarDBBrotModel.categoria" Role="categoria" Multiplicity="1" />
+          <End Type="BorrarDBBrotModel.usuario_categoria" Role="usuario_categoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="id_categoria" />
+            </Principal>
+            <Dependent Role="usuario_categoria">
+              <PropertyRef Name="id_categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__usuario_c__id_us__5EBF139D">
+          <End Type="BorrarDBBrotModel.users" Role="users" Multiplicity="1" />
+          <End Type="BorrarDBBrotModel.usuario_categoria" Role="usuario_categoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="usuario_categoria">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -997,6 +1103,25 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+          <EntitySetMapping Name="categoria">
+            <EntityTypeMapping TypeName="BorrarDBBrotModel.categoria">
+              <MappingFragment StoreEntitySet="categoria">
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuario_categoria">
+            <EntityTypeMapping TypeName="BorrarDBBrotModel.usuario_categoria">
+              <MappingFragment StoreEntitySet="usuario_categoria">
+                <ScalarProperty Name="isPrimary" ColumnName="isPrimary" />
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_usuario_categoria" ColumnName="id_usuario_categoria" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping></edmx:Mappings>
   </edmx:Runtime>

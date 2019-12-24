@@ -12,24 +12,19 @@ namespace BrotAPI_Final.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class comentarios
+    public partial class categoria
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public comentarios()
+        public categoria()
         {
-            this.like_comentario = new HashSet<like_comentario>();
+            this.usuario_categoria = new HashSet<usuario_categoria>();
         }
     
-        public int id_comentario { get; set; }
-        public int id_user { get; set; }
-        public int id_post { get; set; }
-        public string contenido { get; set; }
-        public Nullable<System.DateTime> fecha_creacion { get; set; }
-        public Nullable<bool> isDeleted { get; set; }
+        public int id_categoria { get; set; }
+        public string nombre { get; set; }
+        public string img { get; set; }
     
-        public virtual publicaciones publicaciones { get; set; }
-        public virtual users users { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<like_comentario> like_comentario { get; set; }
+        public virtual ICollection<usuario_categoria> usuario_categoria { get; set; }
     }
 }

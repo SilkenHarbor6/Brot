@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b6a51d102193434580356afd4e183f65" Name="Diagram1">
+      <Diagram DiagramId="b6a51d102193434580356afd4e183f65" Name="Diagram1" ZoomLevel="76">
         <EntityTypeShape EntityType="BorrarDBBrotModel.comentarios" Width="1.5" PointX="5.25" PointY="15.875" IsExpanded="true" />
         <EntityTypeShape EntityType="BorrarDBBrotModel.interaccion_post" Width="1.5" PointX="8.25" PointY="16" IsExpanded="true" />
         <EntityTypeShape EntityType="BorrarDBBrotModel.like_comentario" Width="1.5" PointX="7.5" PointY="12.125" IsExpanded="true" />
@@ -33,6 +33,10 @@
         <AssociationConnector Association="BorrarDBBrotModel.FK_visita_busqueda_users" ManuallyRouted="false" />
         <AssociationConnector Association="BorrarDBBrotModel.FK_visita_busqueda_users1" ManuallyRouted="false" />
         <AssociationConnector Association="BorrarDBBrotModel.FK_visita_pefil_post_users" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BorrarDBBrotModel.categoria" Width="1.5" PointX="0.75" PointY="6.375" />
+        <EntityTypeShape EntityType="BorrarDBBrotModel.usuario_categoria" Width="1.5" PointX="3" PointY="12.125" />
+        <AssociationConnector Association="BorrarDBBrotModel.FK__usuario_c__id_ca__5FB337D6" />
+        <AssociationConnector Association="BorrarDBBrotModel.FK__usuario_c__id_us__5EBF139D" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -12,14 +12,14 @@ namespace BrotAPI_Final.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class visita_busqueda
+    public partial class usuario_categoria
     {
-        public int id_visita_busqueda { get; set; }
-        public int id_userquebusco { get; set; }
-        public int id_perfilvisitado { get; set; }
-        public Nullable<System.DateTime> fecha { get; set; }
+        public int id_usuario_categoria { get; set; }
+        public int id_usuario { get; set; }
+        public int id_categoria { get; set; }
+        public int isPrimary { get; set; }
     
+        public virtual categoria categoria { get; set; }
         public virtual users users { get; set; }
-        public virtual users users1 { get; set; }
     }
 }
