@@ -286,4 +286,16 @@
   <ItemGroup>
     <BundleResource Include="Resources\PinBlack250.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\dislike.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\like.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\no_comments.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\loading.png" />
+  </ItemGroup>
 </Project>

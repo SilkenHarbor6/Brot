@@ -3,61 +3,110 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Celdas="clr-namespace:Brot.Cells"
+             xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
              mc:Ignorable="d"
              x:Class="Brot.Views.Tabs.Profile"
              
              Icon="DefaultUser.png"
              Title="Profile">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical"
-                     Padding="20">
-            <StackLayout Orientation="Horizontal">
+        <StackLayout Orientation="Vertical">
+            <ListView HasUnevenRows="True"
+                  HorizontalOptions="Fill"
+                  Header="{Binding }"
+                  IsPullToRefreshEnabled="True"
+                  ItemsSource="{Binding UserProfile.publicacionesUser}"
+                  RefreshCommand="{Binding RefreshCommand}"
+                  ItemSelected="ListView_ItemSelected"
+                  IsRefreshing="{Binding IsRefreshing,Mode=OneWay}"
+                  SelectedItem="{Binding publicacionesThis}">
 
-                <Image Source="DefaultUser.png"
-                       VerticalOptions="StartAndExpand"
-                       HorizontalOptions="Center"
-                       HeightRequest="80"
-                       Margin="20"/>
+                <ListView.HeaderTemplate>
+                    <DataTemplate>
+                        <ContentView>
+                            <StackLayout>
+                                <StackLayout BackgroundColor="Transparent" Padding="8" Spacing="-6">
+                                    <ffimage:CachedImage Source="{Binding UserProfile.UserProfile.img}"
+                                                     Margin="0,15,0,0"
+                                                     HeightRequest="100"
+                                                     WidthRequest="100"
+                                                     Aspect="AspectFit">
+                                        <ffimage:CachedImage.Transformations>
+                                            <fftransformations:RoundedTransformation Radius="500"/>
+                                        </ffimage:CachedImage.Transformations>
+                                    </ffimage:CachedImage>
+                                    <StackLayout Margin="10,20,10,0">
+                                        <Label Text="{Binding UserProfile.UserProfile.puesto_name}"
+                                                FontSize="Medium"
+                                                TextColor="Black"
+                                                HorizontalOptions="Center"/>
+                                        <Label Text="{Binding UserProfile.UserProfile.descripcion}"
+                                               LineBreakMode="TailTruncation"
+                                               MaxLines="3"
+                                               HorizontalOptions="Center"/>
+                                        <StackLayout Orientation="Horizontal">
+                                            <Button Text="Edit Profile"
+                                                    TextColor="#031540"
+                                                    BackgroundColor="Transparent"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    Command="{Binding EditProfileCommand}"/>
+                                            <Button Text="Sign Out"
+                                                    TextColor="#031540"
+                                                    BackgroundColor="Transparent"
+                                                    HorizontalOptions="FillAndExpand"
+                                                    Command="{Binding SignOutCommand}"/>
+                                        </StackLayout>
+                                        <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center">
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="{Binding UserProfile.cantSeguidores,StringFormat='{0}'}" FontAttributes="Bold" TextColor="Black" FontSize="16">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidoresCommand}"/>
+                                                    </Label.GestureRecognizers>
+                                                </Label>
+                                                <Label Text="Seguidores" FontSize="16">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidoresCommand}"/>
+                                                    </Label.GestureRecognizers>
+                                                </Label>
+                                            </StackLayout>
+                                            <StackLayout Orientation="Horizontal">
+                                                <Label Text="{Binding UserProfile.cantSeguidos,StringFormat='{0}'}" FontAttributes="Bold" TextColor="Black" FontSize="16">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidosCommand}"/>
+                                                    </Label.GestureRecognizers>
+                                                </Label>
+                                                <Label Text="Seguidos" FontSize="16">
+                                                    <Label.GestureRecognizers>
+                                                        <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidosCommand}"/>
+                                                    </Label.GestureRecognizers>
+                                                </Label>
+                                            </StackLayout>
+                                        </StackLayout>
+                                    </StackLayout>
+                                </StackLayout>
 
-                <StackLayout Orientation="Vertical"
-                             Padding="5"
-                             HorizontalOptions="FillAndExpand">
-                    <Label Text="{Binding CurrentUser.username, StringFormat='@{0}'}"
-                           FontSize="Medium"
-                           FontAttributes="Bold"
-                           TextColor="#031540"/>
-                    <Label Text="{Binding CurrentUser.nombre}"
-                           FontSize="Small"
-                           TextColor="Black"/>
-                    <Label Text="{Binding CurrentUser.apellido}"
-                           FontSize="Small"
-                           TextColor="Black"/>
-                    <Label Text="Description"
-                           FontSize="Medium"
-                           FontAttributes="Bold"
-                           TextColor="#031540"/>
-                    <Label Text="{Binding CurrentUser.descripcion}"
-                           FontSize="Small"
-                           TextColor="Black"/>
-                </StackLayout>
-            </StackLayout>
+                                <Frame BackgroundColor="#f0f4ff"
+                                   BorderColor="Black"
+                                   Margin="0,0,0,5">
+                                    <Label Text="Publicaciones"
+                                    FontSize="Medium"
+                                    TextColor="Black"/>
+                                </Frame>
+                            </StackLayout>
+                        </ContentView>
+                    </DataTemplate>
+                </ListView.HeaderTemplate>
 
-            <StackLayout Orientation="Horizontal">
-                <Button Text="Edit Profile"
-                        TextColor="#031540"
-                        BackgroundColor="Transparent"
-                        HorizontalOptions="FillAndExpand"
-                        Command="{Binding EditProfileCommand}"
-                        />
-                <Button Text="Sign Out"
-                        TextColor="#031540"
-                        BackgroundColor="Transparent"
-                        HorizontalOptions="FillAndExpand"
-                        Command="{Binding SignOutCommand}"
-                        
-                        />
-            </StackLayout>
-
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Celdas:ResponsePublicacionFeedViewCell/>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
             <ScrollView VerticalOptions="FillAndExpand">
                 
             </ScrollView>

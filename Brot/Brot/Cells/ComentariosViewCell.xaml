@@ -17,9 +17,10 @@
             <Circle:CircleImage Source="{Binding usuario.img}"
                                 Aspect="AspectFit"
                                 Grid.Column="0"
+                                HeightRequest="40"
                                 HorizontalOptions="Center"
                                 VerticalOptions="Start">
-
+                 
                 <Circle:CircleImage.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding usuario.BtnProfileNameClicked}"/>
                 </Circle:CircleImage.GestureRecognizers>
