@@ -9,25 +9,47 @@ namespace BrotAPI_Final.Repository
 {
     public class RCategoria : ICategoria
     {
-        private SomeeDBBrotEntities db;
+        private SomeeDBBrotEntities db= new SomeeDBBrotEntities();
         public categoria ActualizarCategoria(categoria item)
         {
-            throw new NotImplementedException();
+            var obj = db.categoria.Find(item.id_categoria);
+            if (obj==null)
+            {
+                return null; 
+            }
+            obj.img = item.img;
+            obj.nombre = item.nombre;
+            db.Entry(obj).State = System.Data.Entity.EntityState.Modified;
+            db.SaveChanges();
+            return obj;
         }
 
         public categoria AgregarCategoria(categoria item)
         {
-            throw new NotImplementedException();
+            if (item==null)
+            {
+                return null;
+            }
+            db.categoria.Add(item);
+            db.SaveChanges();
+            return item;
         }
 
         public bool EliminarCategoria(categoria item)
         {
-            throw new NotImplementedException();
+            var obj = db.categoria.Find(item.id_categoria);
+            if (obj==null)
+            {
+                return false;
+            }
+            db.categoria.Remove(obj);
+            db.SaveChanges();
+            return true;
         }
 
         public IEnumerable<categoria> GetAll()
         {
-            throw new NotImplementedException();
+            return db.categoria.ToList();
         }
     }
 }
