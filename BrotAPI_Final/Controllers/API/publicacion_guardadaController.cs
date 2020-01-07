@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -92,29 +93,9 @@ namespace BrotAPI_Final.Controllers.API
 
 
 
-        #region DELETE - POST - PUT 
+        #region  POST - PUT - DELETE
 
 
-
-        /// <summary>
-        /// Optiene un id y ese es pasado al repositorio para ver si puede eliminar el objeto en la base de datos
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public HttpResponseMessage Delete(int id)
-        {
-            var item = r.GetById(id);
-            if (item == null)
-            {   
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe tal publicacion_guardada, id: {id}");
-            }
-            if (r.Delete(id))
-            {
-                return Request.CreateResponse(HttpStatusCode.OK, $"publicacion_guardada {id} fue eliminado correctamente");
-            }
-            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No eliminado, publicacion_guardada {id}");
-        }
-        
 
 
         /// <summary>
@@ -128,20 +109,26 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"La publicacion_guardada no puede estar sin datos");
             }
-            //if (!ValidandoSiExistenDatosRelacionados.ExistsUser(item.id_user))
-            //{
-            //    return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No existe el usuario {item.id_user}");
-            //}
-            //if (!ValidandoSiExistenDatosRelacionados.ExistsPublicacion(item.id_post))
-            //{
-            //    return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No existe el Post {item.id_post}");
-            //}
-            item.fecha = DateTime.Now;
-            if (r.Post(item))
+            try
             {
-                return Request.CreateResponse(HttpStatusCode.Created, "publicacion_guardada guardado correctamente");
+                var likeDado = db.publicacion_guardada.SingleOrDefault(l => l.id_post == item.id_post && l.id_user == item.id_user);
+
+                if (likeDado == default(publicacion_guardada))
+                {
+                    item.fecha = DateTime.UtcNow;
+                    if (r.Post(item))
+                    {
+                        return Request.CreateResponse(HttpStatusCode.Created, "publicacion guardada guardado");
+                    }
+                }
+                else
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, "Ya has guardado esta publicación");
+                }
             }
-            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No es posible guardar los datos de la publicacion_guardada");
+            catch (Exception e) { Debug.Print(e.Message); }
+
+            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No es posible guardar el post en este momento");
         }
 
 
@@ -154,6 +141,8 @@ namespace BrotAPI_Final.Controllers.API
         /// <returns></returns>
         public HttpResponseMessage Put(int id, publicacion_guardada item)
         {
+
+            ///TODO: Ris -  Falta aqui para que lo borre!
             var data = r.GetById(id);
             if (data == null)
             {
