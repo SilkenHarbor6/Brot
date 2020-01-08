@@ -1,27 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="Brot.Views.MainTabbed"
-            
-            NavigationPage.HasNavigationBar="False"
-            xmlns:Pages="clr-namespace:Brot.Views.Tabs"
-            xmlns:Android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-            xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
-            BarBackgroundColor="{StaticResource MainDarkColor}"
-           ios:ListView.RowAnimationsEnabled="True"
-            ios:NavigationPage.IsNavigationBarTranslucent="True"
-            BarTextColor="White"
-            Android:TabbedPage.ToolbarPlacement="Bottom"
-            Android:TabbedPage.BarItemColor="White"
-            Android:TabbedPage.BarSelectedItemColor="LightGray">
+<TabbedPage
+    x:Class="Brot.Views.MainTabbed"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:Pages="clr-namespace:Brot.Views.Tabs"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Android:TabbedPage.BarItemColor="White"
+    Android:TabbedPage.BarSelectedItemColor="LightGray"
+    Android:TabbedPage.ToolbarPlacement="Bottom"
+    ios:ListView.RowAnimationsEnabled="True"
+    ios:NavigationPage.IsNavigationBarTranslucent="True"
+    BarBackgroundColor="{StaticResource MainDarkColor}"
+    BarTextColor="White"
+    NavigationPage.HasNavigationBar="False"
+    mc:Ignorable="d">
 
     <TabbedPage.Children>
-        <Pages:Feed/>
-        <Pages:SellersMap/>
-        <Pages:BrotTen/>
-        <Pages:Profile/>
+        <Pages:Feed />
+        <Pages:SellersMap />
+        <Pages:BrotTen />
+        <Pages:Profile />
     </TabbedPage.Children>
 </TabbedPage>

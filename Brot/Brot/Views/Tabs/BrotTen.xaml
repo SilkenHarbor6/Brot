@@ -1,28 +1,30 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="Brot.Views.Tabs.BrotTen"
-             xmlns:Celdas="clr-namespace:Brot.Cells"
-             Title="Brot Ten"
-             IconImageSource="BrotTen.png">
+<ContentPage
+    x:Class="Brot.Views.Tabs.BrotTen"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Celdas="clr-namespace:Brot.Cells"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Brot Ten"
+    IconImageSource="BrotTen.png"
+    mc:Ignorable="d">
     <ContentPage.Content>
-        <ListView VerticalOptions="FillAndExpand"
-                    HasUnevenRows="True"
-                    ItemsSource="{Binding lBrotTen}"
-                    SeparatorColor="#031540"
-                    SeparatorVisibility="Default"
-                    x:Name="BrotTenList"
-                    IsPullToRefreshEnabled="True"
-                    ItemSelected="FeedListView_ItemSelected"
-                    IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
-                    RefreshCommand="{Binding RefreshCommand}">
+        <ListView
+            x:Name="BrotTenList"
+            HasUnevenRows="True"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+            ItemSelected="FeedListView_ItemSelected"
+            ItemsSource="{Binding lBrotTen}"
+            RefreshCommand="{Binding RefreshCommand}"
+            SeparatorColor="#031540"
+            SeparatorVisibility="Default"
+            VerticalOptions="FillAndExpand">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Celdas:UserCell_Grid BindingContext="{Binding userData}"/>
+                        <Celdas:UserCell_Grid BindingContext="{Binding userData}" />
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

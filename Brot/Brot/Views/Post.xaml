@@ -1,76 +1,81 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="Brot.Views.Post"
-             
-             Title="{Binding Title}"
-             xmlns:patterns="clr-namespace:Brot.Patterns"
-             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
-             xmlns:Circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
-             xmlns:cells="clr-namespace:Brot.Cells"
-             >
+<ContentPage
+    x:Class="Brot.Views.Post"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
+    xmlns:cells="clr-namespace:Brot.Cells"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:patterns="clr-namespace:Brot.Patterns"
+    Title="{Binding Title}"
+    mc:Ignorable="d">
     <ContentPage.Resources>
-        <ResourceDictionary>
-        </ResourceDictionary>
+        <ResourceDictionary />
     </ContentPage.Resources>
 
     <ContentPage.Content>
 
         <StackLayout>
-            <ListView VerticalOptions="FillAndExpand"
-                  ItemsSource="{Binding ComentariosData}"
-                  Header="{Binding }"
-                  SeparatorVisibility="None"
-                  HasUnevenRows="True"
-                  SelectionMode="None"
-                  IsPullToRefreshEnabled="True"
-                  IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
-                  RefreshCommand="{Binding RefreshCommand}">
+            <ListView
+                HasUnevenRows="True"
+                Header="{Binding}"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                ItemsSource="{Binding ComentariosData}"
+                RefreshCommand="{Binding RefreshCommand}"
+                SelectionMode="None"
+                SeparatorVisibility="None"
+                VerticalOptions="FillAndExpand">
 
                 <ListView.HeaderTemplate>
                     <DataTemplate>
                         <ContentView>
-                            <cells:ResponsePublicacionFeedViewCell BindingContext="{Binding Post.publicacion}"/>
+                            <cells:ResponsePublicacionFeedViewCell BindingContext="{Binding Post.publicacion}" />
                         </ContentView>
                     </DataTemplate>
                 </ListView.HeaderTemplate>
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <cells:ComentariosViewCell/>
+                        <cells:ComentariosViewCell />
                     </DataTemplate>
                 </ListView.ItemTemplate>
                 <ListView.Footer>
                     <StackLayout IsVisible="{Binding FooterVisible, Mode=TwoWay}">
-                        <Image Source="no_comments"  HeightRequest="60" WidthRequest="60"/>
-                        <Label Text="No comments yet" FontSize="Medium" TextColor="Black" HorizontalOptions="Center"/>
+                        <Image
+                            HeightRequest="60"
+                            Source="no_comments"
+                            WidthRequest="60" />
+                        <Label
+                            FontSize="Medium"
+                            HorizontalOptions="Center"
+                            Text="No comments yet"
+                            TextColor="Black" />
                     </StackLayout>
                 </ListView.Footer>
             </ListView>
-            <StackLayout VerticalOptions="EndAndExpand" Padding="5,0,5,5">
+            <StackLayout Padding="5,0,5,5" VerticalOptions="EndAndExpand">
                 <StackLayout Orientation="Horizontal">
-                    <Rounded:RoundedBorderEntry 
+                    <Rounded:RoundedBorderEntry
                         BorderColor="#031540"
-                        Placeholder="Comment..."
                         HorizontalOptions="FillAndExpand"
-                        TextColor="Black"
+                        MaxLength="300"
+                        Placeholder="Comment..."
                         Text="{Binding texto}"
-                        MaxLength="300"/>
-                    <Button 
-                        TextColor="#fff"
+                        TextColor="Black" />
+                    <Button
                         BackgroundColor="#031540"
                         BorderWidth="1"
-                        CornerRadius="5"
                         Command="{Binding ComentarCommand}"
-                        Text="Comment"/>
+                        CornerRadius="5"
+                        Text="Comment"
+                        TextColor="#fff" />
                 </StackLayout>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
 
-    
-    
-  
+
+

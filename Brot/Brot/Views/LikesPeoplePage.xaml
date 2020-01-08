@@ -1,21 +1,24 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:celdas="clr-namespace:Brot.Cells"
-             x:Class="Brot.Views.LikesPeoplePage"
-             Title="{Binding Title}">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="Brot.Views.LikesPeoplePage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:celdas="clr-namespace:Brot.Cells"
+    Title="{Binding Title}">
     <ContentPage.Content>
-        <ListView IsPullToRefreshEnabled="True"
-                  ItemsSource="{Binding USUARIOS}"
-                  IsRefreshing="{Binding IsRefreshing,Mode=OneWay}"
-                  RefreshCommand="{Binding RefreshCommand}"
-                  ItemSelected="ListView_ItemSelected"
-                  HasUnevenRows="True"
-                  Margin="0, 15, 0, 0"> 
+        <ListView
+            Margin="0,15,0,0"
+            HasUnevenRows="True"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+            ItemSelected="ListView_ItemSelected"
+            ItemsSource="{Binding USUARIOS}"
+            RefreshCommand="{Binding RefreshCommand}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Frame Padding="0" >
-                            <celdas:UserCell_Grid/>
+                        <Frame Padding="0">
+                            <celdas:UserCell_Grid />
                         </Frame>
                     </ViewCell>
                 </DataTemplate>

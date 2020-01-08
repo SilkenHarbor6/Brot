@@ -1,37 +1,40 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="Brot.Views.Tabs.SellersMap"
-             Title="Find a Brot"
-             IconImageSource="PinBlack250.png"
-             xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
-             xmlns:beha="clr-namespace:Prism.Behaviors"
-             >
+<ContentPage
+    x:Class="Brot.Views.Tabs.SellersMap"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:beha="clr-namespace:Prism.Behaviors"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:maps="clr-namespace:Xamarin.Forms.Maps;assembly=Xamarin.Forms.Maps"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Find a Brot"
+    IconImageSource="PinBlack250.png"
+    mc:Ignorable="d">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical"
-                     VerticalOptions="FillAndExpand"
-                     BackgroundColor="#ffffff">
+        <StackLayout
+            BackgroundColor="#ffffff"
+            Orientation="Vertical"
+            VerticalOptions="FillAndExpand">
 
-            <maps:Map VerticalOptions="FillAndExpand"
-                      HorizontalOptions="Fill"
-                      MapType="Street"
-                      Visual="Material"
-                      IsShowingUser="False"
-                      x:Name="Mapa">
-            </maps:Map>
-            
+            <maps:Map
+                x:Name="Mapa"
+                HorizontalOptions="Fill"
+                IsShowingUser="False"
+                MapType="Street"
+                VerticalOptions="FillAndExpand"
+                Visual="Material" />
+
             <!--<StackLayout VerticalOptions="FillAndExpand">
                 <Maps:Map VerticalOptions="FillAndExpand"
                           x:Name="MyMap">
-                    <Maps:Map.Behaviors>    
+                    <Maps:Map.Behaviors>
                         <MapBinding:BindingPinsBehavior Value="{Binding Pins}"/>
-                        <beha:EventToCommandBehavior EventName="PinClicked" 
+                        <beha:EventToCommandBehavior EventName="PinClicked"
                                       Command="{Binding pinClicked}"
                                       />
-                        --><!--<MapBinding:MapClickedToCommandBehavior Command="{Binding MapClicked}"/>--><!--
+            -->
+            <!--<MapBinding:MapClickedToCommandBehavior Command="{Binding MapClicked}"/>-->
+            <!--
                     </Maps:Map.Behaviors>
                 </Maps:Map>
             </StackLayout>-->

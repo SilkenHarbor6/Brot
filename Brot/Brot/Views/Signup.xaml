@@ -1,113 +1,116 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="Brot.Views.Signup"
-             Title="Sign Up"
-             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
-             xmlns:tigger="clr-namespace:Brot.Tigger"
-             >
-    
+<ContentPage
+    x:Class="Brot.Views.Signup"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:tigger="clr-namespace:Brot.Tigger"
+    Title="Sign Up"
+    mc:Ignorable="d">
+
     <ContentPage.Content>
         <ScrollView>
-            <StackLayout Orientation="Vertical"
-                         VerticalOptions="Fill"
-                         Padding="5">
-                <Label FontSize="35" 
-                       HorizontalOptions="Center"
-                       Text="Start Using Brot"
-                       TextColor="#031540"/>
-                <Label FontSize="15" 
-                       HorizontalOptions="Center"
-                       Text="¡Recuerda tus credenciales!"
-                       TextColor="#031540"/>
-                <StackLayout Margin="0, 20">
-                    <Rounded:RoundedBorderEntry Margin="10"
-                                                BorderColor="#031540"
-                                                BorderThickness="2"
-                                                CornerRadius="10"
-                                                Placeholder="Type your name"
-                                                PlaceholderColor="Gray"
-                                                TextColor="#000"
-                                                Text="{Binding Nombre}"
-                                                />
-                    <Rounded:RoundedBorderEntry Margin="10"
-                                                BorderColor="#031540"
-                                                BorderThickness="2"
-                                                CornerRadius="10"
-                                                Placeholder="Type your lastname"
-                                                PlaceholderColor="Gray"
-                                                TextColor="#000"
-                                                Text="{Binding Apellido}"
-                                                />
-                    <Rounded:RoundedBorderEntry Margin="10"
-                                                BorderColor="#031540"
-                                                BorderThickness="2"
-                                                CornerRadius="10"
-                                                Placeholder="Type your username"
-                                                PlaceholderColor="Gray"
-                                                TextColor="#000"
-                                                Text="{Binding Username}"
-                                                />
-                    <Rounded:RoundedBorderEntry Margin="10"
-                                                Keyboard="Email"
-                                                BorderColor="#031540"
-                                                BorderThickness="2"
-                                                CornerRadius="10"
-                                                Placeholder="Type your E-mail"
-                                                PlaceholderColor="Gray"
-                                                TextColor="#000"
-                                                Text="{Binding Email}"
-                                                />
-                    <Rounded:RoundedBorderEntry Margin="10"
-                                                BorderColor="#031540"
-                                                BorderThickness="2"
-                                                CornerRadius="10"
-                                                Placeholder="Type your password"
-                                                PlaceholderColor="Gray"
-                                                IsPassword="True"
-                                                TextColor="#000"
-                                                Text="{Binding Password}"
-                                                />
-                    <Rounded:RoundedBorderEntry Margin="10"
-                                                BorderColor="#031540"
-                                                BorderThickness="2"
-                                                CornerRadius="10"
-                                                Placeholder="Repeat your password"
-                                                PlaceholderColor="Gray"
-                                                IsPassword="True"
-                                                TextColor="#000"
-                                                >
+            <StackLayout
+                Padding="5"
+                Orientation="Vertical"
+                VerticalOptions="Fill">
+                <Label
+                    FontSize="35"
+                    HorizontalOptions="Center"
+                    Text="Start Using Brot"
+                    TextColor="#031540" />
+                <Label
+                    FontSize="15"
+                    HorizontalOptions="Center"
+                    Text="¡Recuerda tus credenciales!"
+                    TextColor="#031540" />
+                <StackLayout Margin="0,20">
+                    <Rounded:RoundedBorderEntry
+                        Margin="10"
+                        BorderColor="#031540"
+                        BorderThickness="2"
+                        CornerRadius="10"
+                        Placeholder="Type your name"
+                        PlaceholderColor="Gray"
+                        Text="{Binding Nombre}"
+                        TextColor="#000" />
+                    <Rounded:RoundedBorderEntry
+                        Margin="10"
+                        BorderColor="#031540"
+                        BorderThickness="2"
+                        CornerRadius="10"
+                        Placeholder="Type your lastname"
+                        PlaceholderColor="Gray"
+                        Text="{Binding Apellido}"
+                        TextColor="#000" />
+                    <Rounded:RoundedBorderEntry
+                        Margin="10"
+                        BorderColor="#031540"
+                        BorderThickness="2"
+                        CornerRadius="10"
+                        Placeholder="Type your username"
+                        PlaceholderColor="Gray"
+                        Text="{Binding Username}"
+                        TextColor="#000" />
+                    <Rounded:RoundedBorderEntry
+                        Margin="10"
+                        BorderColor="#031540"
+                        BorderThickness="2"
+                        CornerRadius="10"
+                        Keyboard="Email"
+                        Placeholder="Type your E-mail"
+                        PlaceholderColor="Gray"
+                        Text="{Binding Email}"
+                        TextColor="#000" />
+                    <Rounded:RoundedBorderEntry
+                        Margin="10"
+                        BorderColor="#031540"
+                        BorderThickness="2"
+                        CornerRadius="10"
+                        IsPassword="True"
+                        Placeholder="Type your password"
+                        PlaceholderColor="Gray"
+                        Text="{Binding Password}"
+                        TextColor="#000" />
+                    <Rounded:RoundedBorderEntry
+                        Margin="10"
+                        BorderColor="#031540"
+                        BorderThickness="2"
+                        CornerRadius="10"
+                        IsPassword="True"
+                        Placeholder="Repeat your password"
+                        PlaceholderColor="Gray"
+                        TextColor="#000">
                         <Rounded:RoundedBorderEntry.Triggers>
                             <EventTrigger Event="TextChanged">
-                                <tigger:PasswordTrigger/>
+                                <tigger:PasswordTrigger />
                             </EventTrigger>
                         </Rounded:RoundedBorderEntry.Triggers>
                     </Rounded:RoundedBorderEntry>
-                    
-                    <StackLayout Margin="10">
-                        <ActivityIndicator IsRunning="{Binding isRefreshing}"
-                                           IsVisible="{Binding isRefreshing}"
-                                           />
-                        <Button Text="Register"
-                                TextColor="#031540"
-                                BackgroundColor="Transparent"
-                                BorderColor="#031540"
-                                BorderWidth="1"
-                                CornerRadius="3"
-                                FontSize="Small"
-                                IsEnabled="{Binding IsNotBusy}"
-                                HorizontalOptions="Fill"
-                                Command="{Binding RegisterCommand}"/>
 
-                        <Button Text="Go Back"
-                                TextColor="#fff"
-                                VerticalOptions="Center"
-                                BackgroundColor="#031540"
-                                IsEnabled="{Binding IsNotBusy}"
-                                Command="{Binding LoginCommand}"/>
+                    <StackLayout Margin="10">
+                        <ActivityIndicator IsRunning="{Binding isRefreshing}" IsVisible="{Binding isRefreshing}" />
+                        <Button
+                            BackgroundColor="Transparent"
+                            BorderColor="#031540"
+                            BorderWidth="1"
+                            Command="{Binding RegisterCommand}"
+                            CornerRadius="3"
+                            FontSize="Small"
+                            HorizontalOptions="Fill"
+                            IsEnabled="{Binding IsNotBusy}"
+                            Text="Register"
+                            TextColor="#031540" />
+
+                        <Button
+                            BackgroundColor="#031540"
+                            Command="{Binding LoginCommand}"
+                            IsEnabled="{Binding IsNotBusy}"
+                            Text="Go Back"
+                            TextColor="#fff"
+                            VerticalOptions="Center" />
                     </StackLayout>
                 </StackLayout>
             </StackLayout>

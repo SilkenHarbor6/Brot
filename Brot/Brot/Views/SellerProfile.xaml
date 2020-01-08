@@ -1,112 +1,134 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="Brot.Views.SellerProfile"    
-             Title="{Binding UserProfile.UserProfile.username, StringFormat='@{0}'}"
-             NavigationPage.HasNavigationBar="True"
-             xmlns:Rounded="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
-             xmlns:patterns="clr-namespace:Brot.Patterns"
-             xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
-             xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-             xmlns:Circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
-             xmlns:Celdas="clr-namespace:Brot.Cells"
-             xmlns:Converts ="clr-namespace:Brot.Converters">
+<ContentPage
+    x:Class="Brot.Views.SellerProfile"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Celdas="clr-namespace:Brot.Cells"
+    xmlns:Circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:Converts="clr-namespace:Brot.Converters"
+    xmlns:Rounded="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:patterns="clr-namespace:Brot.Patterns"
+    Title="{Binding UserProfile.UserProfile.username, StringFormat='@{0}'}"
+    NavigationPage.HasNavigationBar="True"
+    mc:Ignorable="d">
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Converts:BoolToStringSiguiendo x:Key="BoolToStringSeguidores"/>
+            <Converts:BoolToStringSiguiendo x:Key="BoolToStringSeguidores" />
         </ResourceDictionary>
     </ContentPage.Resources>
     <ContentPage.Content>
 
-        <ListView HasUnevenRows="True"
-                  VerticalOptions="Fill"
-                  HorizontalOptions="Fill"
-                  Header="{Binding }"
-                  IsPullToRefreshEnabled="True"
-                  ItemsSource="{Binding UserProfile.publicacionesUser}"
-                  RefreshCommand="{Binding RefreshCommand}"
-                  ItemSelected="ListView_ItemSelected"
-                  IsRefreshing="{Binding IsRefreshing,Mode=OneWay}"
-                  SelectedItem="{Binding publicacionesThis}">
+        <ListView
+            HasUnevenRows="True"
+            Header="{Binding}"
+            HorizontalOptions="Fill"
+            IsPullToRefreshEnabled="True"
+            IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+            ItemSelected="ListView_ItemSelected"
+            ItemsSource="{Binding UserProfile.publicacionesUser}"
+            RefreshCommand="{Binding RefreshCommand}"
+            SelectedItem="{Binding publicacionesThis}"
+            VerticalOptions="Fill">
 
             <ListView.HeaderTemplate>
                 <DataTemplate>
                     <ContentView>
                         <StackLayout>
-                            <StackLayout BackgroundColor="Transparent" Padding="8" Spacing="-6">
-                                <ffimage:CachedImage Source="{Binding UserProfile.UserProfile.img}"
-                                                     Margin="0,15,0,0"
-                                                     HeightRequest="100"
-                                                     WidthRequest="100"
-                                                     Aspect="AspectFit">
+                            <StackLayout
+                                Padding="8"
+                                BackgroundColor="Transparent"
+                                Spacing="-6">
+                                <ffimage:CachedImage
+                                    Margin="0,15,0,0"
+                                    Aspect="AspectFit"
+                                    HeightRequest="100"
+                                    Source="{Binding UserProfile.UserProfile.img}"
+                                    WidthRequest="100">
                                     <ffimage:CachedImage.Transformations>
-                                        <fftransformations:RoundedTransformation Radius="500"/>
+                                        <fftransformations:RoundedTransformation Radius="500" />
                                     </ffimage:CachedImage.Transformations>
                                 </ffimage:CachedImage>
                                 <StackLayout Margin="10,20,10,0">
-                                    <Label Text="{Binding UserProfile.UserProfile.puesto_name}"
-                                                FontSize="Medium"
-                                                TextColor="Black"
-                                                HorizontalOptions="Center"/>
-                                    <Label Text="{Binding UserProfile.UserProfile.descripcion}"
-                                               LineBreakMode="TailTruncation"
-                                               MaxLines="3"
-                                               HorizontalOptions="Center"/>
-                                    <Button Text="{Binding UserProfile.isFollowed, Converter={StaticResource BoolToStringSeguidores}}"
-                                                TextColor="White"
-                                                CornerRadius="15"
-                                                Margin="40,10,40,10"
-                                                Command="{Binding UserProfile.BtnFollowUserCommand}"
-                                                >
+                                    <Label
+                                        FontSize="Medium"
+                                        HorizontalOptions="Center"
+                                        Text="{Binding UserProfile.UserProfile.puesto_name}"
+                                        TextColor="Black" />
+                                    <Label
+                                        HorizontalOptions="Center"
+                                        LineBreakMode="TailTruncation"
+                                        MaxLines="3"
+                                        Text="{Binding UserProfile.UserProfile.descripcion}" />
+                                    <Button
+                                        Margin="40,10,40,10"
+                                        Command="{Binding UserProfile.BtnFollowUserCommand}"
+                                        CornerRadius="15"
+                                        Text="{Binding UserProfile.isFollowed, Converter={StaticResource BoolToStringSeguidores}}"
+                                        TextColor="White">
                                         <Button.Triggers>
-                                            <!--Cuando sigue al usario-->
-                                            <DataTrigger TargetType="Button" 
-                                                             Binding="{Binding UserProfile.isFollowed}"
-                                                             Value="True">
-                                                <Setter Property="BackgroundColor" Value="Green"/>
+                                            <!--  Cuando sigue al usario  -->
+                                            <DataTrigger
+                                                Binding="{Binding UserProfile.isFollowed}"
+                                                TargetType="Button"
+                                                Value="True">
+                                                <Setter Property="BackgroundColor" Value="Green" />
                                             </DataTrigger>
 
-                                            <!--Cuando NO SIGUE al usario-->
-                                            <DataTrigger TargetType="Button" 
-                                                             Binding="{Binding UserProfile.isFollowed}"
-                                                             Value="False">
-                                                <Setter Property="BackgroundColor" Value="{StaticResource MainDarkColor}"/>
+                                            <!--  Cuando NO SIGUE al usario  -->
+                                            <DataTrigger
+                                                Binding="{Binding UserProfile.isFollowed}"
+                                                TargetType="Button"
+                                                Value="False">
+                                                <Setter Property="BackgroundColor" Value="{StaticResource MainDarkColor}" />
                                             </DataTrigger>
 
-                                            <DataTrigger TargetType="Button"
-                                                     Binding="{Binding isMyProfile}"
-                                                     Value="True">
-                                                <Setter Property="HeightRequest" Value="0"/>
-                                                <Setter Property="IsEnabled" Value="False"/>
+                                            <DataTrigger
+                                                Binding="{Binding isMyProfile}"
+                                                TargetType="Button"
+                                                Value="True">
+                                                <Setter Property="HeightRequest" Value="0" />
+                                                <Setter Property="IsEnabled" Value="False" />
                                             </DataTrigger>
                                         </Button.Triggers>
                                     </Button>
-                                    <StackLayout Orientation="Horizontal" Spacing="20" HorizontalOptions="Center">
+                                    <StackLayout
+                                        HorizontalOptions="Center"
+                                        Orientation="Horizontal"
+                                        Spacing="20">
                                         <StackLayout Orientation="Horizontal">
-                                            <Label Text="{Binding UserProfile.cantSeguidores,StringFormat='{0}'}" FontAttributes="Bold" TextColor="Black" FontSize="16">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="16"
+                                                Text="{Binding UserProfile.cantSeguidores, StringFormat='{0}'}"
+                                                TextColor="Black">
                                                 <Label.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidoresCommand}"/>
+                                                    <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidoresCommand}" />
                                                 </Label.GestureRecognizers>
                                             </Label>
-                                            <Label Text="Seguidores" FontSize="16">
+                                            <Label FontSize="16" Text="Seguidores">
                                                 <Label.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidoresCommand}"/>
+                                                    <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidoresCommand}" />
                                                 </Label.GestureRecognizers>
                                             </Label>
                                         </StackLayout>
                                         <StackLayout Orientation="Horizontal">
-                                            <Label Text="{Binding UserProfile.cantSeguidos,StringFormat='{0}'}" FontAttributes="Bold" TextColor="Black" FontSize="16">
+                                            <Label
+                                                FontAttributes="Bold"
+                                                FontSize="16"
+                                                Text="{Binding UserProfile.cantSeguidos, StringFormat='{0}'}"
+                                                TextColor="Black">
                                                 <Label.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidosCommand}"/>
+                                                    <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidosCommand}" />
                                                 </Label.GestureRecognizers>
                                             </Label>
-                                            <Label Text="Seguidos" FontSize="16">
+                                            <Label FontSize="16" Text="Seguidos">
                                                 <Label.GestureRecognizers>
-                                                    <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidosCommand}"/>
+                                                    <TapGestureRecognizer Command="{Binding UserProfile.VerSeguidosCommand}" />
                                                 </Label.GestureRecognizers>
                                             </Label>
                                         </StackLayout>
@@ -114,12 +136,14 @@
                                 </StackLayout>
                             </StackLayout>
 
-                            <Frame BackgroundColor="#f0f4ff"
-                                   BorderColor="Black"
-                                   Margin="0,0,0,5">
-                                <Label Text="Publicaciones"
+                            <Frame
+                                Margin="0,0,0,5"
+                                BackgroundColor="#f0f4ff"
+                                BorderColor="Black">
+                                <Label
                                     FontSize="Medium"
-                                    TextColor="Black"/>
+                                    Text="Publicaciones"
+                                    TextColor="Black" />
                             </Frame>
                         </StackLayout>
                     </ContentView>
@@ -129,7 +153,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
-                        <Celdas:ResponsePublicacionFeedViewCell/>
+                        <Celdas:ResponsePublicacionFeedViewCell />
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>

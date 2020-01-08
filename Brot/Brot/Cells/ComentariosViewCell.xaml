@@ -1,59 +1,62 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
-<ViewCell xmlns="http://xamarin.com/schemas/2014/forms" 
-          xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-          xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-          xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-          mc:Ignorable="d"
-          x:Class="Brot.Cells.ComentariosViewCell"
-          xmlns:Circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin">
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ViewCell
+    x:Class="Brot.Cells.ComentariosViewCell"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
 
     <ViewCell.View>
         <Grid Padding="5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="4*"/>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="4*" />
             </Grid.ColumnDefinitions>
 
-            <Circle:CircleImage Source="{Binding usuario.img}"
-                                Aspect="AspectFit"
-                                Grid.Column="0"
-                                HeightRequest="40"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Start">
-                 
+            <Circle:CircleImage
+                Grid.Column="0"
+                Aspect="AspectFit"
+                HeightRequest="40"
+                HorizontalOptions="Center"
+                Source="{Binding usuario.img}"
+                VerticalOptions="Start">
+
                 <Circle:CircleImage.GestureRecognizers>
-                    <TapGestureRecognizer Command="{Binding usuario.BtnProfileNameClicked}"/>
+                    <TapGestureRecognizer Command="{Binding usuario.BtnProfileNameClicked}" />
                 </Circle:CircleImage.GestureRecognizers>
-                
+
             </Circle:CircleImage>
 
             <StackLayout Grid.Column="1">
                 <StackLayout>
-                    <Label Text="{Binding usuario.username, StringFormat='@{0}'}"
-                               TextColor="#53504d"
-                           FontAttributes="Bold">
+                    <Label
+                        FontAttributes="Bold"
+                        Text="{Binding usuario.username, StringFormat='@{0}'}"
+                        TextColor="#53504d">
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding usuario.BtnProfileNameClicked}"/>
+                            <TapGestureRecognizer Command="{Binding usuario.BtnProfileNameClicked}" />
                         </Label.GestureRecognizers>
                     </Label>
-                    <Label Text="{Binding comentario.contenido}"
-                               TextColor="#53504d"/>
+                    <Label Text="{Binding comentario.contenido}" TextColor="#53504d" />
                 </StackLayout>
 
-                <StackLayout Orientation="Horizontal" >
+                <StackLayout Orientation="Horizontal">
 
-                    <ImageButton Source="{Binding isLiked,Converter={StaticResource BoolToStringConverter}}"
-	                             BackgroundColor="Transparent"
-                                 HeightRequest="32"
-                                 WidthRequest="32"
-                                 Command="{Binding BtnLikedClicked}"
-                                 />
+                    <ImageButton
+                        BackgroundColor="Transparent"
+                        Command="{Binding BtnLikedClicked}"
+                        HeightRequest="32"
+                        Source="{Binding isLiked, Converter={StaticResource BoolToStringConverter}}"
+                        WidthRequest="32" />
 
-                    <Label Text="{Binding CantLikes,StringFormat='{0} # Brots', Mode=TwoWay}"
-	                       VerticalOptions="Center"
-	                       TextColor="#565351">
+                    <Label
+                        Text="{Binding CantLikes, StringFormat='{0} # Brots', Mode=TwoWay}"
+                        TextColor="#565351"
+                        VerticalOptions="Center">
                         <Label.GestureRecognizers>
-                            <TapGestureRecognizer Command="{Binding BtnLikesPeopleCommand}"/>
+                            <TapGestureRecognizer Command="{Binding BtnLikesPeopleCommand}" />
                         </Label.GestureRecognizers>
                     </Label>
 

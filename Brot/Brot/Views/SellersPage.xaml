@@ -1,57 +1,62 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             mc:Ignorable="d"
-             x:Class="Brot.Views.SellersPage"
-             
-             Title="@Sellername">
+<ContentPage
+    x:Class="Brot.Views.SellersPage"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="@Sellername"
+    mc:Ignorable="d">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical"
-                     Padding="20">
+        <StackLayout Padding="20" Orientation="Vertical">
             <StackLayout Orientation="Horizontal">
 
-                <Image Source="DefaultUser.png"
-                       VerticalOptions="Center"
-                       HorizontalOptions="Center"
-                       HeightRequest="100"/>
+                <Image
+                    HeightRequest="100"
+                    HorizontalOptions="Center"
+                    Source="DefaultUser.png"
+                    VerticalOptions="Center" />
 
-                <StackLayout Orientation="Vertical"
-                             Padding="5"
-                             HorizontalOptions="FillAndExpand">
-                    <Label Text="@Username"
-                           FontSize="Large"
-                           FontAttributes="Bold"
-                           TextColor="#ff5001"/>
-                    <Label Text="User full name"
-                           FontSize="Medium"
-                           TextColor="Black"/>
-                    <Label Text="Status"
-                           FontSize="Medium"
-                           FontAttributes="Bold"
-                           TextColor="#ff5001"/>
-                    <Label Text="lorem ipsum dolor sit amet..."
-                           FontSize="Medium"
-                           TextColor="Black"/>
+                <StackLayout
+                    Padding="5"
+                    HorizontalOptions="FillAndExpand"
+                    Orientation="Vertical">
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="Large"
+                        Text="@Username"
+                        TextColor="#ff5001" />
+                    <Label
+                        FontSize="Medium"
+                        Text="User full name"
+                        TextColor="Black" />
+                    <Label
+                        FontAttributes="Bold"
+                        FontSize="Medium"
+                        Text="Status"
+                        TextColor="#ff5001" />
+                    <Label
+                        FontSize="Medium"
+                        Text="lorem ipsum dolor sit amet..."
+                        TextColor="Black" />
                 </StackLayout>
             </StackLayout>
 
             <StackLayout Orientation="Horizontal">
-                <Button Text="Edit Profile"
-                        TextColor="#ff5001"
-                        BackgroundColor="Transparent"
-                        HorizontalOptions="FillAndExpand"
-                        Command="{Binding EditProfileCommand}"/>
-                <Button Text="Sign Out"
-                        TextColor="#ff5001"
-                        BackgroundColor="Transparent"
-                        HorizontalOptions="FillAndExpand"/>
+                <Button
+                    BackgroundColor="Transparent"
+                    Command="{Binding EditProfileCommand}"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Edit Profile"
+                    TextColor="#ff5001" />
+                <Button
+                    BackgroundColor="Transparent"
+                    HorizontalOptions="FillAndExpand"
+                    Text="Sign Out"
+                    TextColor="#ff5001" />
             </StackLayout>
 
-            <ScrollView VerticalOptions="FillAndExpand">
-
-            </ScrollView>
+            <ScrollView VerticalOptions="FillAndExpand" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

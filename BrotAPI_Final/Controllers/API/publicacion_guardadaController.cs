@@ -111,9 +111,9 @@ namespace BrotAPI_Final.Controllers.API
             }
             try
             {
-                var likeDado = db.publicacion_guardada.SingleOrDefault(l => l.id_post == item.id_post && l.id_user == item.id_user);
+                var publicacionGuardada = db.publicacion_guardada.SingleOrDefault(l => l.id_post == item.id_post && l.id_user == item.id_user);
 
-                if (likeDado == default(publicacion_guardada))
+                if (publicacionGuardada == default(publicacion_guardada))
                 {
                     item.fecha = DateTime.UtcNow;
                     if (r.Post(item))
@@ -139,20 +139,23 @@ namespace BrotAPI_Final.Controllers.API
         /// <param name="id"></param>
         /// <param name="item"></param>
         /// <returns></returns>
-        public HttpResponseMessage Put(int id, publicacion_guardada item)
+        public HttpResponseMessage Put(publicacion_guardada item)
         {
 
             ///TODO: Ris -  Falta aqui para que lo borre!
-            var data = r.GetById(id);
+            var data = r.GetById(item.id_publicacion_guardada);
             if (data == null)
             {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe en la base de datos la publicacion_guardada a actualizar");
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"Publicación quitada de guardados");
             }
-            if (r.Put(id, item))
+
+            var publicacionesGuardada = db.publicacion_guardada.Where(l => l.id_post == item.id_post && l.id_user == item.id_user).ToArray();
+
+            foreach (var publicacion in publicacionesGuardada)
             {
-                return Request.CreateResponse(HttpStatusCode.OK, $"Datos modificados para la publicacion_guardada {id}");
+                r.Delete(publicacion.id_publicacion_guardada);
             }
-            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No fue posible actualizar la publicacion_guardada, id: {id}");
+            return Request.CreateErrorResponse(HttpStatusCode.OK, $"Publicación quitada de guardados");
         }
         #endregion
 
