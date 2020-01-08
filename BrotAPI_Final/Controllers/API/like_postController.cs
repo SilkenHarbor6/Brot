@@ -124,7 +124,7 @@ namespace BrotAPI_Final.Controllers.API
 
                 if (likeDado == default(like_post))
                 {
-                    item.fecha = DateTime.Now;
+                    item.fecha = DateTime.UtcNow;
 
                     if (r.Post(item))
                     {

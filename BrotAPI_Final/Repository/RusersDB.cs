@@ -1,5 +1,6 @@
 ﻿using BrotAPI_Final.Models;
 using System;
+using System.Diagnostics;
 
 namespace BrotAPI_Final.Repository
 {
@@ -41,8 +42,10 @@ namespace BrotAPI_Final.Repository
                     db.SaveChanges();
                     return true;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    
+                    Debug.Print(e.Message);
                     return false;
                 }
 
