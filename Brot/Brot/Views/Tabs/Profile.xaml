@@ -46,7 +46,7 @@
                                         <Label
                                             FontSize="Medium"
                                             HorizontalOptions="Center"
-                                            Text="{Binding UserProfile.UserProfile.puesto_name}"
+                                            Text="{Binding UsuarioNombreMostrar, Mode=TwoWay}"
                                             TextColor="Black" />
                                         <Label
                                             HorizontalOptions="Center"

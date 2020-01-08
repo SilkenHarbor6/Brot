@@ -91,7 +91,7 @@
                     </Rounded:RoundedBorderEntry>
 
                     <StackLayout Margin="10">
-                        <ActivityIndicator IsRunning="{Binding isRefreshing}" IsVisible="{Binding isRefreshing}" />
+                        <ActivityIndicator IsRunning="{Binding IsRefreshing, Mode=TwoWay}" IsVisible="{Binding IsRefreshing, Mode=TwoWay}" />
                         <Button
                             BackgroundColor="Transparent"
                             BorderColor="#031540"

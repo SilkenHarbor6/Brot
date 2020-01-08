@@ -84,7 +84,7 @@ namespace Brot.ViewModels
         }
         public ICommand RefreshCommand
         {
-            get { return new Xamarin.Forms.Command(Refresh); }
+            get { return new Xamarin.Forms.Command(async ()=> await Refresh()); }
         }
 
         public ICommand LikeCommand
@@ -99,17 +99,15 @@ namespace Brot.ViewModels
 
         #region Methods
 
-        public async void Refresh()
+        public async Task Refresh()
         {
-            if (IsRefreshing)
-                return;
 
             IsRefreshing = true;
 
             try
             {
                 this.lPosts.Clear();
-                LoadFeed();
+                await LoadFeed();
             }
             catch (Exception)
             {
@@ -126,9 +124,8 @@ namespace Brot.ViewModels
             await App.Current.MainPage.DisplayAlert("EXITO", "Has presionado el boton " + idLike, "Ok");
         }
 
-        public async void LoadFeed()
+        public async Task LoadFeed()
         {
-            IsRefreshing = true;
             var result = await RestClient.GetAll<ResponsePublicacionFeed>($"publicaciones/all/{Singleton.Instance.User.id_user}/");
 
             if (!result.IsSuccess)
@@ -136,7 +133,7 @@ namespace Brot.ViewModels
                 await Singleton.Instance.Dialogs.Message("There was a problem trying to get the feed", result.Message);
                 return;
             }
-
+            var datosNuevos= new List<ResponsePublicacionFeed>();
             foreach (var post in (ObservableCollection<ResponsePublicacionFeed>)result.Result)
             {
                 if (string.IsNullOrEmpty(post.publicacion.img))
@@ -157,9 +154,10 @@ namespace Brot.ViewModels
                     post.UsuarioCreator.img = DLL.constantes.urlImages + post.UsuarioCreator.img;
 
                 }
-                this.lPosts.Add(post);
+                datosNuevos.Add(post);
             }
-            IsRefreshing = false;
+            lPosts = new ObservableCollection<ResponsePublicacionFeed>(datosNuevos);
+
         }
         public async void AddPost()
         {
