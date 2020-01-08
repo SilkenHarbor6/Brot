@@ -172,6 +172,7 @@
     <Compile Include="Controllers\API\usersController.cs" />
     <Compile Include="Controllers\API\visita_busquedaController.cs" />
     <Compile Include="Controllers\API\visita_pefil_postController.cs" />
+    <Compile Include="Controllers\CategoriaController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ValidandoSiExistenDatosRelacionados.cs" />
     <Compile Include="Controllers\ValuesController.cs" />

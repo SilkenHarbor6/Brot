@@ -13,6 +13,6 @@ namespace BrotAPI_Final.Repository
         categoria AgregarCategoria(categoria item);
         categoria ActualizarCategoria(categoria item);
         bool EliminarCategoria(categoria item);
-
+        IEnumerable<categoria> GetByUser(int id);
     }
 }

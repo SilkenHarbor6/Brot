@@ -1,7 +1,6 @@
 ﻿using BrotAPI_Final.Models;
 using System;
 using System.Collections.Generic;
-using BrotAPI_Final.Models;
 using System.Linq;
 using System.Web;
 
@@ -50,6 +49,35 @@ namespace BrotAPI_Final.Repository
         public IEnumerable<categoria> GetAll()
         {
             return db.categoria.ToList();
+        }
+
+        public IEnumerable<categoria> GetByUser(int id)
+        {
+            var lcategorias = db.usuario_categoria.ToList();
+            var cat = from cate in lcategorias where cate.id_usuario.Equals(id) select cate;
+            if (cat==null)
+            {
+                return null;
+            }
+            List<categoria> ca = new List<categoria>();
+            foreach (var item in cat)
+            {
+                var i = db.categoria.Find(item.id_categoria);
+                if (item.isPrimary.Equals(1))
+                {
+                    ca.Insert(0, i);
+                }
+                else
+                {
+                    ca.Add(i);
+                }
+            }
+            return ca;
+        }
+
+        public RCategoria()
+        {
+
         }
     }
 }
