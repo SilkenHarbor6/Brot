@@ -5,10 +5,13 @@
     using System.Diagnostics;
     using Views;
     using Xamarin.Forms;
-    public partial class App : Application
+    using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
+
+    public partial class App : Xamarin.Forms.Application
     {
         public App()
         {
+            Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
             InitializeComponent();
             inicializar();
         }
@@ -32,7 +35,7 @@
                 Debug.Print(ex.Message);
                 MainPage = new NavigationPage(new Login()); 
             }
-           ((NavigationPage)Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#031540");
+           ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#031540");
         }
 
 

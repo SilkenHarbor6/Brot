@@ -1,11 +1,13 @@
 ﻿namespace Brot.Models
 {
+    using Brot.ViewModels;
     using Newtonsoft.Json;
     using System;
     using Xamarin.Forms;
 
-    public class userModel
+    public class userModel 
     {
+       
 
         public int id_user { get; set; }
         public string username { get; set; }
@@ -24,6 +26,10 @@
         public string num_telefono { get; set; }
         public string img { get; set; }
         public Nullable<bool> isDeleted { get; set; }
+
+     
+
+        
 
         [JsonIgnore]
         private Command _BtnProfileNameClicked;

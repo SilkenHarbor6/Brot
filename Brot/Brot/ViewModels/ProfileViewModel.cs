@@ -9,6 +9,7 @@ namespace Brot.ViewModels
     using System;
     using System.Collections.Generic;
     using System.Text;
+    using System.Threading.Tasks;
     using System.Windows.Input;
     using Xamarin.Forms;
     public class ProfileViewModel : BaseViewModel
@@ -19,6 +20,14 @@ namespace Brot.ViewModels
             get { return this._Usuario; }
             set => SetProperty(ref _Usuario, value);
         }
+
+        private string _UsuarioNombreMostrar="Usuario";
+        public string UsuarioNombreMostrar
+        {
+            set => SetProperty(ref _UsuarioNombreMostrar, value);
+            get => _UsuarioNombreMostrar;
+        }
+
 
         private ResponsePublicacionFeed _publicacionesThis;
 
@@ -80,6 +89,8 @@ namespace Brot.ViewModels
                 }
             }
 
+            UsuarioNombreMostrar = UserProfile.UserProfile.isVendor ? UserProfile.UserProfile.puesto_name : UserProfile.UserProfile.nombre + " " + UserProfile.UserProfile.apellido;
+            await Task.Delay(200);
             IsRefreshing = false;
 
         }
