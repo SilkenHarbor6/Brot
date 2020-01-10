@@ -10,7 +10,7 @@ namespace Brot.ViewModels
     //using Xamarin.Forms.GoogleMaps;
     using System.Diagnostics;
     using System.Windows.Input;
-    using Xamarin.Forms.Maps;
+    using Xamarin.Forms.GoogleMaps;
 
     public class SellersMapViewModel : BaseViewModel
     {
@@ -31,9 +31,9 @@ namespace Brot.ViewModels
             this.Pins = new ObservableCollection<Pin>();
         }
 
-        public SellersMapViewModel(Xamarin.Forms.Maps.Map map)
+        public SellersMapViewModel(Xamarin.Forms.GoogleMaps.Map map)
         {
-            Mapa = map as Xamarin.Forms.Maps.Map;
+            Mapa = map as Xamarin.Forms.GoogleMaps.Map;
         }
 
         public async void InitPins()
