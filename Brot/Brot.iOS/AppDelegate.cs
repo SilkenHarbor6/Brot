@@ -33,9 +33,8 @@ namespace Brot.iOS
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
             //Initializaing Popup
             Rg.Plugins.Popup.Popup.Init();
-            Xamarin.FormsMaps.Init();
-
-
+            Xamarin.FormsGoogleMaps.Init("AIzaSyCclda6I_HaCY5N4GxtCL85BhYJbjhkhFo");
+            
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);

@@ -11,7 +11,7 @@
     //using Xamarin.Forms.GoogleMaps;
     using Xamarin.Forms.Xaml;
     using XamarinStyles;
-    using Xamarin.Forms.Maps;
+    using Xamarin.Forms.GoogleMaps;
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SellersMap : ContentPage

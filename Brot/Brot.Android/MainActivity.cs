@@ -7,6 +7,7 @@ using Android.Views;
 using Android.Widget;
 using Android.OS;
 using Plugin.Permissions;
+using Xamarin.Forms.GoogleMaps.Android;
 
 namespace Brot.Droid
 {
@@ -32,8 +33,7 @@ namespace Brot.Droid
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init(true);
             //Initializaing Popup
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
-
-            Xamarin.FormsMaps.Init(this, savedInstanceState);
+            Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
 
 
             LoadApplication(new App());
