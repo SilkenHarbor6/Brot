@@ -1,5 +1,6 @@
 ﻿namespace Brot.Views
 {
+    using Brot.ViewModels;
     using System.ComponentModel;
 
     using Xamarin.Forms;
@@ -13,6 +14,7 @@
         public EditProfile()
         {
             InitializeComponent();
+            BindingContext = new EditProfileViewModel();
         }
     }
 }

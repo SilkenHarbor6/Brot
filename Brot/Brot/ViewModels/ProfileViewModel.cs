@@ -28,7 +28,6 @@ namespace Brot.ViewModels
             get => _UsuarioNombreMostrar;
         }
 
-
         private ResponsePublicacionFeed _publicacionesThis;
 
         public ResponsePublicacionFeed publicacionesThis
