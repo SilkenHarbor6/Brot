@@ -139,22 +139,24 @@ namespace BrotAPI_Final.Controllers.API
         /// <param name="id"></param>
         /// <param name="item"></param>
         /// <returns></returns>
-        public HttpResponseMessage Put(publicacion_guardada item)
+        [HttpPut]
+        [Route("api/publicacion_guardada/{CualquierNumeroxd}")]
+        public HttpResponseMessage Put(int CualquierNumeroxd, publicacion_guardada item)
         {
 
-            ///TODO: Ris -  Falta aqui para que lo borre!
-            var data = r.GetById(item.id_publicacion_guardada);
-            if (data == null)
+            try
             {
-                return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"Publicación quitada de guardados");
+                var publicacionesGuardada = db.publicacion_guardada.Where(l => l.id_post == item.id_post && l.id_user == item.id_user).ToList();
+                foreach (var publicacion in publicacionesGuardada)
+                {
+                    r.Delete(publicacion.id_publicacion_guardada);
+                }
             }
-
-            var publicacionesGuardada = db.publicacion_guardada.Where(l => l.id_post == item.id_post && l.id_user == item.id_user).ToArray();
-
-            foreach (var publicacion in publicacionesGuardada)
+            catch (Exception ex)
             {
-                r.Delete(publicacion.id_publicacion_guardada);
+                Debug.Print(ex.Message);
             }
+            
             return Request.CreateErrorResponse(HttpStatusCode.OK, $"Publicación quitada de guardados");
         }
         #endregion

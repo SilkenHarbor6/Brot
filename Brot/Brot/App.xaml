@@ -10,6 +10,7 @@
 
         <Color x:Key="NaranjaBrot">#ff5001</Color>
         <Converters:BoolToStringConverter x:Key="BoolToStringConverter"/>
+        <Converters:BoolToStringSavedPost x:Key="BoolToStringSavedPostImage"/>
         <Color x:Key="MainDarkColor">#031540</Color>
         <ResourceDictionary>
             <Color x:Key="MainAppCOLOR">#FFFFFF</Color>

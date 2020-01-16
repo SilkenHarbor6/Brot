@@ -30,6 +30,13 @@
             base.OnAppearing();
         }
 
+        private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            if (e.SelectedItem == null)
+                return;
 
+            ((Brot.Models.ResponseApi.ResponseComentarios)e.SelectedItem).usuario.BtnProfileNameClicked.Execute(null);
+            ((ListView)sender).SelectedItem = null;
+        }
     }
 }

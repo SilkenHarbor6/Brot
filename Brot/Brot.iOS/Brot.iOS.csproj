@@ -307,4 +307,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\loading.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Threedots.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\SavedPostNOT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\SavedPost.png" />
+  </ItemGroup>
 </Project>

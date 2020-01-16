@@ -117,7 +117,7 @@ namespace Brot.Services
             {
                 try
                 {
-                    HttpResponseMessage response = await cliente.DeleteAsync(url + controller + id.ToString());
+                    HttpResponseMessage response = await cliente.DeleteAsync(url + controller +"/"+ id.ToString());
                     if (!response.IsSuccessStatusCode)
                     {
                         return false;
@@ -140,7 +140,7 @@ namespace Brot.Services
                 {
                     var json = JsonConvert.SerializeObject(item);
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = await cliente.PutAsync(url + controller + id, content);
+                    HttpResponseMessage response = await cliente.PutAsync(url + controller + "/"+id, content);
                     if (!response.IsSuccessStatusCode)
                     {
                         return false;

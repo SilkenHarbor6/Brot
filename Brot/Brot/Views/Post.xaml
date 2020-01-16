@@ -25,7 +25,7 @@
                 IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
                 ItemsSource="{Binding ComentariosData}"
                 RefreshCommand="{Binding RefreshCommand}"
-                SelectionMode="None"
+                ItemSelected="ListView_ItemSelected"
                 SeparatorVisibility="None"
                 VerticalOptions="FillAndExpand">
 
@@ -42,7 +42,14 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
                 <ListView.Footer>
-                    <StackLayout IsVisible="{Binding FooterVisible, Mode=TwoWay}">
+                    <StackLayout>
+                        <StackLayout.Triggers>
+                            <DataTrigger TargetType="StackLayout"
+                                         Binding="{Binding FooterVisible}"
+                                         Value="False">
+                                <Setter Property="HeightRequest" Value="0"/>
+                            </DataTrigger>
+                        </StackLayout.Triggers>
                         <Image
                             HeightRequest="60"
                             Source="no_comments"

@@ -2,6 +2,7 @@
 {
     using Brot.ViewModels;
     using Models;
+    using System.Threading.Tasks;
 
     public class ResponseComentarios : ObservableObject
     {
@@ -38,6 +39,26 @@
                 id_comentario = comentario.id_comentario,
                 id_user = Brot.Patterns.Singleton.Instance.User.id_user
             };
+
+            if (obj!=null) //Cuando da 2 taps al comentario
+            {
+                if (isLiked)
+                {
+                    //Se quita el like
+                    isLiked = !isLiked;
+                    await Task.Delay(200).ConfigureAwait(false);
+                    isLiked = !isLiked;
+                }
+                else
+                {
+                    //Se crea el Like
+                    isLiked = !isLiked;
+                    CantLikes++;
+                    await Brot.Services.RestClient.Post<like_comentarioModel>("like_comentario", likeObject);
+                }
+                return;
+            }
+            
             if (isLiked)
             {
                 //Se quita el like

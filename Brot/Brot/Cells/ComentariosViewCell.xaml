@@ -10,6 +10,9 @@
 
     <ViewCell.View>
         <Grid Padding="5">
+            <Grid.GestureRecognizers>
+                <TapGestureRecognizer NumberOfTapsRequired="2" Command="{Binding BtnLikedClicked}" CommandParameter="True"/>
+            </Grid.GestureRecognizers>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="4*" />
@@ -18,10 +21,13 @@
             <Circle:CircleImage
                 Grid.Column="0"
                 Aspect="AspectFit"
-                HeightRequest="40"
+                HeightRequest="60"
+                WidthRequest="60"
                 HorizontalOptions="Center"
+                BorderColor="Black"
+                BorderThickness="2"
                 Source="{Binding usuario.img}"
-                VerticalOptions="Start">
+                VerticalOptions="Center">
 
                 <Circle:CircleImage.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding usuario.BtnProfileNameClicked}" />

@@ -47,7 +47,24 @@
         private async Task BtnSavePostMethod()
         {
             //Modified API! only Saved once! Do it as Likes Method
-           
+            var postsavedObject = new publicacion_guardadasModel()
+            {
+                id_post = publicacion.id_post,
+                id_user = Singleton.Instance.User.id_user
+            };
+
+            if ((bool)IsSavedPost)
+            {
+                //Se quita el objeto
+                IsSavedPost = !IsSavedPost;
+                var x = await RestAPI.Put<publicacion_guardadasModel>(0,postsavedObject, "publicacion_guardada");
+            }
+            else
+            {
+                //se crea el objecto
+                IsSavedPost = !IsSavedPost;
+                var y = await RestAPI.Post<publicacion_guardadasModel>(postsavedObject, "publicacion_guardada");
+            }
         }
 
         #endregion
