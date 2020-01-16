@@ -7,9 +7,11 @@
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:cv="clr-namespace:Brot"
     Title="Find a Brot"
     IconImageSource="PinBlack250.png"
     mc:Ignorable="d">
+    
     <ContentPage.Content>
         <StackLayout
             BackgroundColor="#ffffff"
@@ -19,10 +21,20 @@
             <maps:Map
                 x:Name="Mapa"
                 HorizontalOptions="Fill"
-                IsShowingUser="False"
+                IsShowingUser="false"
                 MapType="Street"
+                ItemsSource="{Binding places}"
                 VerticalOptions="FillAndExpand"
-                Visual="Material" />
+                Visual="Material" >
+                <maps:Map.ItemTemplate>
+                    <DataTemplate>
+                        <maps:Pin Position="{Binding Position}"
+                                 Address="{Binding Address}"
+                                 Label="{Binding Label}"
+                                 />
+                    </DataTemplate>
+                </maps:Map.ItemTemplate>
+            </maps:Map>
 
             <!--<StackLayout VerticalOptions="FillAndExpand">
                 <Maps:Map VerticalOptions="FillAndExpand"
