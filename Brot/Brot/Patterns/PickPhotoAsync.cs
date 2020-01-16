@@ -28,7 +28,6 @@ namespace Brot.Patterns
             if ( status!= PermissionStatus.Granted)
             {
                 await CrossPermissions.Current.RequestPermissionsAsync(Permission.Storage);
-                
             }
             if (!CrossMedia.Current.IsPickPhotoSupported)
             {
