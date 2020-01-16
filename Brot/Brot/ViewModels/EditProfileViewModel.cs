@@ -4,6 +4,7 @@ using Brot.Services;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Xamarin.Forms;
 
 namespace Brot.ViewModels
 {
@@ -23,6 +24,7 @@ namespace Brot.ViewModels
             get { return this._isvendor; }
             set => SetProperty(ref _isvendor, value);
         }
+        private string imgName;
 
 
         public EditProfileViewModel()
@@ -37,6 +39,7 @@ namespace Brot.ViewModels
 
             if (profiledata != null)
             {
+                imgName = profiledata.UserProfile.img;
                 if (profiledata.UserProfile.img != null)
                 {
                     profiledata.UserProfile.img = DLL.constantes.urlImages + profiledata.UserProfile.img;
@@ -47,8 +50,31 @@ namespace Brot.ViewModels
                 }
                 UserProfile = profiledata;
 
-                IsVendor = UserProfile.UserProfile.isVendor ? true : false;
+                IsVendor = UserProfile.UserProfile.isVendor;
             }
+
+        }
+
+
+        private Command _UpdateProfileCommand;
+        public Command UpdateProfileCommand { get => _UpdateProfileCommand ?? (_UpdateProfileCommand = new Command(UpdateProfileMethod)); }
+
+        private async void UpdateProfileMethod(object obj)
+        {
+            IsRefreshing = true;
+
+            bool result = await RestAPI.Put<Models.userModel>(UserProfile.UserProfile.id_user, UserProfile.UserProfile, DLL.constantes.userst);
+
+            if (result)
+            {
+                await App.Current.MainPage.DisplayAlert("Datos Actualizados", "", "Ok");
+                Singleton.Instance.User = UserProfile.UserProfile;
+                Singleton.Instance.LocalJson.SaveData(Singleton.Instance.User);
+                App.Current.MainPage = new NavigationPage(new Views.MainTabbed());
+
+            }
+
+            IsRefreshing = false;
 
         }
     }
