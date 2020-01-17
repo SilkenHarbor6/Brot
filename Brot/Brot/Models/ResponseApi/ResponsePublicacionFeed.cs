@@ -46,15 +46,31 @@
         private async void OpcionesMethod(object obj)
         {
             string respuesta = String.Empty;
-            if (Singleton.Instance.User.id_user == publicacion.id_user) //Su propio comentario
+            if (publicacion.isImg==true)
             {
-                respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "",
-                new string[] { "Editar", "Eliminar", "Dar Like" });
+                if (Singleton.Instance.User.id_user == publicacion.id_user) //Su propio comentario
+                {
+                    respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "",
+                    new string[] { "Editar", "Eliminar", "Dar Like", "Download Media" });
+                }
+                else
+                {
+                    respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "",
+                    new string[] { "Dar Like", "Guardar", "Download Media" });
+                }
             }
             else
             {
-                respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "",
-                new string[] { "Dar Like", "Guardar" });
+                if (Singleton.Instance.User.id_user == publicacion.id_user) //Su propio comentario
+                {
+                    respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "",
+                    new string[] { "Editar", "Eliminar", "Dar Like" });
+                }
+                else
+                {
+                    respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "",
+                    new string[] { "Dar Like", "Guardar" });
+                }
             }
             switch (respuesta)
             {
@@ -71,6 +87,10 @@
                     break;
                 case "Guardar":
                     await BtnSavePostMethod("Guardar");
+                    break;
+                case "Download Media":
+                    DownloadService ds = new DownloadService();
+                    ds.DownloadImage(publicacion.img);
                     break;
                 default:
                     break;
