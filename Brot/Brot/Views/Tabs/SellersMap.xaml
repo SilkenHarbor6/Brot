@@ -21,7 +21,7 @@
             <maps:Map
                 x:Name="Mapa"
                 HorizontalOptions="Fill"
-                IsShowingUser="True"
+                IsShowingUser="False"
                 ItemsSource="{Binding places}"
                 MapType="Street"
                 PinClicked="Mapa_PinClicked"
