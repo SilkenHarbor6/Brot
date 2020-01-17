@@ -26,6 +26,7 @@
                 ItemsSource="{Binding places}"
                 VerticalOptions="FillAndExpand"
                 PinClicked="Mapa_PinClicked"
+                SelectedPin="{Binding pin,Mode=TwoWay}"
                 >
                 <maps:Map.ItemTemplate>
                     <DataTemplate>

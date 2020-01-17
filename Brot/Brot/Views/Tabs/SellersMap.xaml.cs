@@ -56,7 +56,8 @@
 
         private void Mapa_PinClicked(object sender, PinClickedEventArgs e)
         {
-            ViewModel.pinClicked.Execute(null);
+            var pin = e.Pin;
+            ViewModel.pinClicked.Execute(Convert.ToInt32(pin.Address));
         }
     }
 }

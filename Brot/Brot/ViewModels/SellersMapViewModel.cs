@@ -2,7 +2,10 @@
 {
     using Brot.Patterns;
     using Brot.Services;
+    using Brot.Views.Popups;
+    using DLL;
     using Models;
+    using Rg.Plugins.Popup.Services;
     using System;
     using System.Collections;
     using System.Collections.ObjectModel;
@@ -16,6 +19,18 @@
     {
         public Map Mapa;
         private ObservableCollection<Pin> _places;
+        private Pin _pin;
+        public Pin pin
+        {
+            get
+            {
+                return _pin;
+            }
+            set
+            {
+                _pin = value;OnPropertyChanged("pin");
+            }
+        }
         public ObservableCollection<Pin> places
         {
             get
@@ -54,6 +69,7 @@
             ObservableCollection<String> cats = new ObservableCollection<String>();
             foreach (var seller in (ObservableCollection<userModel>)result.Result)
             {
+                seller.img = constantes.urlImages+seller.img;
                 var r = await RestClient.GetAllS<string>("categoria/GMC/" + seller.id_user);
                 if (!r.IsSuccess)
                 {
@@ -63,14 +79,17 @@
                 var c = r.Result.ToString();
                 c = c.Replace("\"", "");
                 cats.Add(c);
+                Singleton.Instance.AddStore(seller);
             }
             int i = 0;
             foreach (var seller in (ObservableCollection<userModel>)result.Result)
             {
                 Pin pin = new Pin();
-                pin.Label = $"Seller name: {seller.username} Description: {seller.descripcion}";
+                //pin.Label = $"Seller name: {seller.username} Description: {seller.descripcion}";
+                pin.Label = "";
                 pin.Position = new Position(Convert.ToDouble(seller.xlat), Convert.ToDouble(seller.ylon));
                 pin.Icon = BitmapDescriptorFactory.FromBundle(cats[i]);
+                pin.Address = i.ToString();
                 pin.Type = PinType.Place;
                 i++;
                 places.Add(pin);
@@ -80,12 +99,12 @@
         {
             get
             {
-                return new Xamarin.Forms.Command(LoadBottom);
+                return new Xamarin.Forms.Command<int>(LoadBottom);
             }
         }
-        public void LoadBottom()
+        public void LoadBottom(int id)
         {
-            Debug.Print("Clickeado");
+            PopupNavigation.PushAsync(new mapPopup(Singleton.Instance.GetStore(id)));
         }
         #region InCaseYouWantToAddPins
         /*     

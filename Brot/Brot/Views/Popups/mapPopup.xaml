@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pg:PopupPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:pg="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+              xmlns:celld="clr-namespace:Brot.Cells"
+              xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+             mc:Ignorable="d"
+             x:Class="Brot.Views.Popups.mapPopup">
+    <pg:PopupPage.Animation>
+        <animations:ScaleAnimation
+          PositionIn="Bottom"
+          PositionOut="Center"
+          ScaleIn="1"
+          ScaleOut="0.7"
+          DurationIn="700"
+          EasingIn="BounceOut"/>
+    </pg:PopupPage.Animation>
+    <ContentPage.Content>
+            <Frame HasShadow="True" CornerRadius="10" VerticalOptions="End">
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer NumberOfTapsRequired="1" Command="{Binding frmClicked}" CommandParameter="True"/>
+                </Frame.GestureRecognizers>
+                <StackLayout >
+                    <celld:UserCell_Grid BindingContext="{Binding seller}"/>
+                </StackLayout>
+            </Frame>
+    </ContentPage.Content>
+</pg:PopupPage>
