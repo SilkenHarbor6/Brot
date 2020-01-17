@@ -8,13 +8,13 @@ namespace BrotAPI_Final.Repository
 {
     public class RCategoria : ICategoria
     {
-        private SomeeDBBrotEntities db= new SomeeDBBrotEntities();
+        private SomeeDBBrotEntities db = new SomeeDBBrotEntities();
         public categoria ActualizarCategoria(categoria item)
         {
             var obj = db.categoria.Find(item.id_categoria);
-            if (obj==null)
+            if (obj == null)
             {
-                return null; 
+                return null;
             }
             obj.img = item.img;
             obj.nombre = item.nombre;
@@ -25,7 +25,7 @@ namespace BrotAPI_Final.Repository
 
         public categoria AgregarCategoria(categoria item)
         {
-            if (item==null)
+            if (item == null)
             {
                 return null;
             }
@@ -37,7 +37,7 @@ namespace BrotAPI_Final.Repository
         public bool EliminarCategoria(categoria item)
         {
             var obj = db.categoria.Find(item.id_categoria);
-            if (obj==null)
+            if (obj == null)
             {
                 return false;
             }
@@ -55,7 +55,7 @@ namespace BrotAPI_Final.Repository
         {
             var lcategorias = db.usuario_categoria.ToList();
             var cat = from cate in lcategorias where cate.id_usuario.Equals(id) select cate;
-            if (cat==null)
+            if (cat == null)
             {
                 return null;
             }
@@ -73,6 +73,24 @@ namespace BrotAPI_Final.Repository
                 }
             }
             return ca;
+        }
+        public categoria GetMainCategory(int id)
+        {
+            var lcategorias = db.usuario_categoria.ToList();
+            var cat = from cate in lcategorias where cate.id_usuario.Equals(id) select cate;
+            if (cat == null)
+            {
+                return null;
+            }
+            foreach (var item in cat)
+            {
+                if (item.isPrimary.Equals(1))
+                {
+                    var i = db.categoria.Find(item.id_categoria);
+                    return i;
+                }
+            }
+            return null;
         }
 
         public RCategoria()

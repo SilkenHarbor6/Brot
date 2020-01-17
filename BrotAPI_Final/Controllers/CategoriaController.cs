@@ -54,5 +54,15 @@ namespace BrotAPI_Final.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, resp);
         }
+        [Route("api/categoria/GMC/{id}")]
+        public HttpResponseMessage GetMainCategory(int id)
+        {
+            var resp = cate.GetMainCategory(id);
+            if (resp==null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No se ha encontrado categorias para ese usuario");
+            }
+            return Request.CreateResponse(HttpStatusCode.OK, resp.img);
+        }
     }
 }

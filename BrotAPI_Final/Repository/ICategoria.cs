@@ -14,5 +14,6 @@ namespace BrotAPI_Final.Repository
         categoria ActualizarCategoria(categoria item);
         bool EliminarCategoria(categoria item);
         IEnumerable<categoria> GetByUser(int id);
+        categoria GetMainCategory(int id);
     }
 }

@@ -53,5 +53,10 @@
 
             //this.ViewModel.InitPinsCommand.Execute(null);
         }
+
+        private void Mapa_PinClicked(object sender, PinClickedEventArgs e)
+        {
+            ViewModel.pinClicked.Execute(null);
+        }
     }
 }
