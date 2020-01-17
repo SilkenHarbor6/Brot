@@ -4,14 +4,14 @@
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:beha="clr-namespace:Prism.Behaviors"
+    xmlns:cv="clr-namespace:Brot"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:maps="clr-namespace:Xamarin.Forms.GoogleMaps;assembly=Xamarin.Forms.GoogleMaps"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:cv="clr-namespace:Brot"
     Title="Find a Brot"
     IconImageSource="PinBlack250.png"
     mc:Ignorable="d">
-    
+
     <ContentPage.Content>
         <StackLayout
             BackgroundColor="#ffffff"
@@ -21,21 +21,19 @@
             <maps:Map
                 x:Name="Mapa"
                 HorizontalOptions="Fill"
-                IsShowingUser="false"
-                MapType="Street"
+                IsShowingUser="True"
                 ItemsSource="{Binding places}"
-                VerticalOptions="FillAndExpand"
+                MapType="Street"
                 PinClicked="Mapa_PinClicked"
-                SelectedPin="{Binding pin,Mode=TwoWay}"
-                >
+                SelectedPin="{Binding pin, Mode=TwoWay}"
+                VerticalOptions="FillAndExpand">
                 <maps:Map.ItemTemplate>
                     <DataTemplate>
-                        <maps:Pin 
-                                Position="{Binding Position}"
-                                Address="{Binding Address}"
-                                Label="{Binding Label}"
-                                Icon="{Binding Icon}"
-                                 />
+                        <maps:Pin
+                            Address="{Binding Address}"
+                            Icon="{Binding Icon}"
+                            Label="{Binding Label}"
+                            Position="{Binding Position}" />
                     </DataTemplate>
                 </maps:Map.ItemTemplate>
             </maps:Map>

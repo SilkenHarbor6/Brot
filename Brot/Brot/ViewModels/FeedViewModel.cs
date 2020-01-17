@@ -137,14 +137,6 @@ namespace Brot.ViewModels
                 await App.Current.MainPage.DisplayAlert("Error", resp.Message, "Aceptar");
                 return;
             }
-            if (niu.img == null)
-            {
-                await Task.Delay(10000);
-            }
-            else
-            {
-                await Task.Delay(25000);
-            }
 
             lPosts = new ObservableCollection<ResponsePublicacionFeed>();
             await LoadFeed();
