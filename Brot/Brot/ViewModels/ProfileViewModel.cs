@@ -8,6 +8,7 @@ namespace Brot.ViewModels
     using Brot.Views;
     using System;
     using System.Collections.Generic;
+    using System.Collections.ObjectModel;
     using System.Text;
     using System.Threading.Tasks;
     using System.Windows.Input;
@@ -28,6 +29,13 @@ namespace Brot.ViewModels
             get => _UsuarioNombreMostrar;
         }
 
+        private bool _VerPostPropios;
+        public bool VerPostPropios
+        {
+            get { return _VerPostPropios; }
+            set { SetProperty(ref _VerPostPropios, value); }
+        }
+
         private ResponsePublicacionFeed _publicacionesThis;
 
         public ResponsePublicacionFeed publicacionesThis
@@ -41,6 +49,14 @@ namespace Brot.ViewModels
                     SetProperty(ref _publicacionesThis, null);
                 }
             }
+        }
+
+        private ObservableCollection<ResponsePublicacionFeed> _publicacionesGuardadas;
+        private ObservableCollection<ResponsePublicacionFeed> _PublicacionesMostradas;
+        public ObservableCollection<ResponsePublicacionFeed> publicacionesMostradas
+        {
+            get { return _PublicacionesMostradas; }
+            set { SetProperty(ref _PublicacionesMostradas, value); }
         }
         #region Commands
 
@@ -60,6 +76,7 @@ namespace Brot.ViewModels
 
         public ProfileViewModel()
         {
+            VerPostPropios = true;
             CargarDatos();
         }
         public async void CargarDatos()
@@ -80,11 +97,48 @@ namespace Brot.ViewModels
                     profiledata.UserProfile.img = DLL.constantes.ProfileImageError;
                 }
                 UserProfile = profiledata;
+
+                //Publicaciones Propias
                 for (int i = 0; i < UserProfile.publicacionesUser.Count; i++)
                 {
                     ///No verifico si la imagen es null, porque ya lo hice en alguna page anterior
                     UserProfile.publicacionesUser[i].UsuarioCreator = UserProfile.UserProfile;
                     UserProfile.publicacionesUser[i].publicacion.img = DLL.constantes.urlImages + UserProfile.publicacionesUser[i].publicacion.img;
+                }
+
+                //Postsguardados
+                _publicacionesGuardadas = new ObservableCollection<ResponsePublicacionFeed>();
+                for (int i = 0; i < UserProfile.publicacionesGuardadas.Count; i++)
+                {
+                    try
+                    {
+                        UserProfile.publicacionesGuardadas[i].UsuarioCreator.img = DLL.constantes.urlImages + UserProfile.publicacionesGuardadas[i].UsuarioCreator.img;
+                    }
+                    catch (Exception)
+                    {
+                            ///No llegar el usuario
+                            ///TODO Modificar api Usuario de pOst guardados
+                    }
+                    UserProfile.publicacionesGuardadas[i].publicacion.img = DLL.constantes.urlImages + UserProfile.publicacionesGuardadas[i].publicacion.img;
+                    _publicacionesGuardadas.Add(new ResponsePublicacionFeed()
+                    {
+                        cantComentarios = UserProfile.publicacionesGuardadas[i].cantComentarios,
+                        cantLikes = UserProfile.publicacionesGuardadas[i].cantLikes,
+                        IsLiked = UserProfile.publicacionesGuardadas[i].IsLiked,
+                        IsSavedPost = UserProfile.publicacionesGuardadas[i].IsSavedPost,
+                        publicacion = UserProfile.publicacionesGuardadas[i].publicacion,
+                        UsuarioCreator = UserProfile.publicacionesGuardadas[i].UsuarioCreator
+                    });
+                }
+
+
+                if (VerPostPropios)
+                {
+                    publicacionesMostradas = new ObservableCollection<ResponsePublicacionFeed>(UserProfile.publicacionesUser);
+                }
+                else
+                {
+                    publicacionesMostradas = new ObservableCollection<ResponsePublicacionFeed>(_publicacionesGuardadas);
                 }
             }
 
@@ -105,6 +159,43 @@ namespace Brot.ViewModels
             App.Current.MainPage = new NavigationPage(new Login());
         }
 
+
+
+        private Xamarin.Forms.Command _ChangePostPropiosViews;
+        public Xamarin.Forms.Command ChangePostPropiosViews
+        {
+            get => _ChangePostPropiosViews ?? (_ChangePostPropiosViews = new Xamarin.Forms.Command<string>(ChangePostPropiosViewsMethod));
+        }
+        private void ChangePostPropiosViewsMethod(string obj)
+        {
+            if (obj!="Null")
+            {
+                if (obj == "True")
+                {
+                    VerPostPropios = true;
+                }
+                else
+                {
+                    VerPostPropios = false;
+                }
+            }
+
+            if (VerPostPropios)
+            {
+                if (UserProfile.publicacionesUser!=null)
+                {
+                    publicacionesMostradas = new ObservableCollection<ResponsePublicacionFeed>(UserProfile.publicacionesUser);
+                }
+            }
+            else
+            {
+                if (_publicacionesGuardadas!=null)
+                {
+                    publicacionesMostradas = new ObservableCollection<ResponsePublicacionFeed>(_publicacionesGuardadas);
+                }
+            }
+
+        }
 
         #endregion
     }

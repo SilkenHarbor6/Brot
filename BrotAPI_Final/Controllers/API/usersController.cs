@@ -656,6 +656,37 @@ namespace BrotAPI_Final.Controllers.API
             }
             return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No fue posible actualizar la contraseña");
         }
+
+
+
+
+        [Route("photo/{id}")]
+        [HttpPut]
+        public HttpResponseMessage ChangePhoto(int id, users itemNew)
+        {
+
+            var data = r.GetById(itemNew.id_user);
+            if (data == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe en la base de datos sobre el usuario a actualizar");
+            }
+            try
+            {
+
+                data.img = itemNew.img;
+                using (var db = new SomeeDBBrotEntities())
+                {
+                    db.Entry(data).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, $"Foto cambiada");
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No fue posible actualizar la contraseña");
+        }
         #endregion
 
 

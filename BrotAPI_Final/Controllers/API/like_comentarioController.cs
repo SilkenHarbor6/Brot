@@ -12,7 +12,7 @@ namespace BrotAPI_Final.Controllers.API
 {
     public class like_comentarioController : ApiController
     {
-        private SomeeDBBrotEntities db = new SomeeDBBrotEntities();
+        private readonly SomeeDBBrotEntities db = new SomeeDBBrotEntities();
         private Rlike_comentarioDB r = new Rlike_comentarioDB();
 
         public HttpResponseMessage GetLikesbyIDComentario(int id)

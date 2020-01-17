@@ -20,6 +20,7 @@
                 Command="{Binding ActualizarCommand}"
                 HorizontalOptions="CenterAndExpand"
                 Text="Actualizar" />
+            <ActivityIndicator IsRunning="{Binding IsRefreshing}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

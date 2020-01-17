@@ -45,19 +45,45 @@
 
         private async void OpcionesMethod(object obj)
         {
-            //TODO Hacer funcionalidad
-            string respuesta = await App.Current.MainPage.DisplayActionSheet("Titulo", "Atras", "Destruccion",
-                new string[] { "Ir al perfil", "Guardar publicacion", "Editar" });
+            string respuesta = String.Empty;
+            if (Singleton.Instance.User.id_user == publicacion.id_user) //Su propio comentario
+            {
+                respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "",
+                new string[] { "Editar", "Eliminar", "Dar Like" });
+            }
+            else
+            {
+                respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "",
+                new string[] { "Dar Like", "Guardar" });
+            }
+            switch (respuesta)
+            {
+                case "Editar":
+                    await App.Current.MainPage.Navigation.PushAsync(new Views.EditarPublicacion(this));
 
-            await App.Current.MainPage.DisplayAlert("Seleccionado", respuesta, "Ok");
+                    break;
+                case "Eliminar":
+                    var resultDelete = await RestClient.Delete<publicacionesModel>(DLL.constantes.publicacionest, publicacion.id_post);
+                    App.Current.MainPage = new NavigationPage(new Views.MainTabbed());
+                    break;
+                case "Dar Like":
+                    await BtnLikedMethod("Like");
+                    break;
+                case "Guardar":
+                    await BtnSavePostMethod("Guardar");
+                    break;
+                default:
+                    break;
+            }
         }
         #endregion
 
 
+
         #region Save Post
         private Command _btnSavePost;
-        public Command BtnSavePostCommand => _btnSavePost ??= new Command(async () => await BtnSavePostMethod());
-        private async Task BtnSavePostMethod()
+        public Command BtnSavePostCommand => _btnSavePost ??= new Command(async () => await BtnSavePostMethod(null));
+        private async Task BtnSavePostMethod(Object obj)
         {
             //Modified API! only Saved once! Do it as Likes Method
             var postsavedObject = new publicacion_guardadasModel()
@@ -65,7 +91,22 @@
                 id_post = publicacion.id_post,
                 id_user = Singleton.Instance.User.id_user
             };
-
+            if (obj != null) //Cuando da 2 taps al comentario
+            {
+                if ((bool)IsSavedPost)
+                {
+                    //Se quita y se vuelve a pponer, solo por la animacion minima
+                    IsSavedPost = !IsSavedPost;
+                    IsSavedPost = !IsSavedPost;
+                }
+                else
+                {
+                    //Se crea el Like
+                    IsSavedPost = !IsSavedPost;
+                    var y = await RestAPI.Post<publicacion_guardadasModel>(postsavedObject, "publicacion_guardada");
+                }
+                return;
+            }
             if ((bool)IsSavedPost)
             {
                 //Se quita el objeto
@@ -84,14 +125,32 @@
 
         #region Like Buttom Clicked
         private Command _BtnLikedClicked;
-        public Command BtnLikedClicked => _BtnLikedClicked ??= new Command(async () => await BtnLikedMethod());
-        private async Task BtnLikedMethod()
+        public Command BtnLikedClicked => _BtnLikedClicked ??= new Command(async () => await BtnLikedMethod(null));
+        private async Task BtnLikedMethod(Object obj)
         {
             var likeObject = new like_postModel()
             {
                 id_post = publicacion.id_post,
                 id_user = Singleton.Instance.User.id_user
             };
+
+            if (obj != null) //Cuando da 2 taps al comentario
+            {
+                if ((bool)IsLiked)
+                {
+                    //Se quita el like
+                    IsLiked = !IsLiked;
+                    IsLiked = !IsLiked;
+                }
+                else
+                {
+                    //Se crea el Like
+                    IsLiked = !IsLiked;
+                    cantLikes++;
+                    await Brot.Services.RestClient.Post<like_postModel>(DLL.constantes.like_postt, likeObject);
+                }
+                return;
+            }
 
             if ((bool)IsLiked)
             {

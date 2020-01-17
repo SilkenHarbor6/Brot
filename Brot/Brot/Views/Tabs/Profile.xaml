@@ -11,6 +11,22 @@
     Title="Profile"
     Icon="DefaultUser.png"
     mc:Ignorable="d">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <Style x:Key="btnStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="LightGray" />
+                <Setter Property="BorderColor" Value="Blue" />
+                <Setter Property="BorderRadius" Value="20" />
+                <Setter Property="BorderWidth" Value="2" />
+                <Setter Property="FontSize" Value="Subtitle" />
+                <Setter Property="TextColor" Value="DarkBlue" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
             <ListView
@@ -20,7 +36,7 @@
                 IsPullToRefreshEnabled="True"
                 IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
                 ItemSelected="ListView_ItemSelected"
-                ItemsSource="{Binding UserProfile.publicacionesUser}"
+                ItemsSource="{Binding publicacionesMostradas}"
                 RefreshCommand="{Binding RefreshCommand}"
                 SelectedItem="{Binding publicacionesThis}">
 
@@ -107,14 +123,65 @@
                                     </StackLayout>
                                 </StackLayout>
 
+                                <!--  ELEGIR PUBLICACIONES PROPIAS O GUARDADAS  -->
                                 <Frame
                                     Margin="0,0,0,5"
                                     BackgroundColor="#f0f4ff"
-                                    BorderColor="Black">
-                                    <Label
-                                        FontSize="Medium"
-                                        Text="Publicaciones"
-                                        TextColor="Black" />
+                                    BorderColor="Black"
+                                    HorizontalOptions="Fill">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Button
+                                            Grid.Column="0"
+                                            Command="{Binding ChangePostPropiosViews}"
+                                            CommandParameter="True"
+                                            Style="{StaticResource btnStyle}"
+                                            Text="Publicaciones">
+                                            <Button.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding VerPostPropios}"
+                                                    TargetType="Button"
+                                                    Value="False">
+                                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                                    <Setter Property="TextColor" Value="DarkBlue" />
+                                                </DataTrigger>
+                                                <DataTrigger
+                                                    Binding="{Binding VerPostPropios}"
+                                                    TargetType="Button"
+                                                    Value="True">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource MainDarkColor}" />
+                                                    <Setter Property="TextColor" Value="White" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                        <Button
+                                            Grid.Column="1"
+                                            Command="{Binding ChangePostPropiosViews}"
+                                            CommandParameter="False"
+                                            Style="{StaticResource btnStyle}"
+                                            Text="Guardados">
+                                            <Button.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding VerPostPropios}"
+                                                    TargetType="Button"
+                                                    Value="True">
+                                                    <Setter Property="BackgroundColor" Value="LightGray" />
+                                                    <Setter Property="TextColor" Value="DarkBlue" />
+                                                </DataTrigger>
+                                                <DataTrigger
+                                                    Binding="{Binding VerPostPropios}"
+                                                    TargetType="Button"
+                                                    Value="False">
+                                                    <Setter Property="BackgroundColor" Value="{StaticResource MainDarkColor}" />
+                                                    <Setter Property="TextColor" Value="White" />
+                                                </DataTrigger>
+                                            </Button.Triggers>
+                                        </Button>
+                                    </Grid>
+
                                 </Frame>
                             </StackLayout>
                         </ContentView>

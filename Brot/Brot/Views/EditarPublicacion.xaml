@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Brot.Views.EditarPublicacion"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:celdas="clr-namespace:Brot.Cells"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout>
+                <celdas:ResponsePublicacionFeedViewCell BindingContext="{Binding userM}" />
+                <Label Text="Ingrese la nueva descripción" />
+                <Editor
+                    Margin="10"
+                    HorizontalOptions="Fill"
+                    Text="{Binding userM.publicacion.descripcion}" />
+                <Button Command="{Binding ActualizarCommand}" Text="Actualizar" />
+                <ActivityIndicator IsRunning="{Binding IsRefreshing}" />
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -21,5 +21,7 @@
             <Color x:Key="EntryPlaceholderColor">#4A6572</Color>
             <Color x:Key="frameBorderColor">#232F34</Color>
         </ResourceDictionary>
+        
+        
     </Application.Resources>
 </Application>

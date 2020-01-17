@@ -75,7 +75,6 @@ namespace BrotAPI_Final.Repository
                 dbitem.descripcion = item.descripcion;
                 dbitem.dui = item.dui;
                 dbitem.email = item.email;
-                dbitem.img = item.img;
                 dbitem.isActive = item.isActive;
                 dbitem.isDeleted = item.isDeleted;
                 dbitem.isVendor = item.isVendor;
