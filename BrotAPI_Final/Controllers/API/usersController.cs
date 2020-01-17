@@ -361,8 +361,20 @@ namespace BrotAPI_Final.Controllers.API
                            ylon = u.ylon
                        },
 
-                       publicacionesUser = u.publicaciones
-                       .Where(pu => pu.isDeleted == false)
+
+
+
+
+
+
+                   }
+
+
+               ).ToList().FirstOrDefault();
+
+
+                varUserProfile.publicacionesUser = db.publicaciones
+                       .Where(pu => pu.isDeleted == false && pu.users.isDeleted == false && pu.id_user == idUser)
                        .Select(
                            b =>
                                new ResponsePublicacionFeed
@@ -380,6 +392,8 @@ namespace BrotAPI_Final.Controllers.API
                                        isDeleted = b.isDeleted
 
                                    },
+
+                                   //No lo mando porque ya lo tengo en un JSON y Singleton Localmente
 
                                    //UsuarioCreator = new userModel()
                                    //{
@@ -408,51 +422,62 @@ namespace BrotAPI_Final.Controllers.API
                                    IsSavedPost = b.publicacion_guardada.FirstOrDefault(p => p.id_user == idUser) == default(publicacion_guardada) ? false : true
 
                                }
-                           ).ToList(),
+                           ).ToList();
 
-
-
-                       publicacionesGuardadas = u.publicacion_guardada
-                       .Where(pu => pu.publicaciones.isDeleted == false)
-                       .Select(
+                varUserProfile.publicacionesGuardadas = db.publicacion_guardada
+                    .Where(postSaved => postSaved.id_user == idUser && postSaved.publicaciones.isDeleted == false && postSaved.users.isDeleted == false)
+                    .Select(
                            b =>
-                               new ResponsePublicacionGuardada
-                               {
-                                   publicacionGuardada = new publicacion_guardadasModel
-                                   {
-                                       fecha = b.fecha,
-                                       id_post = b.id_post,
-                                       id_publicacion_guardada = b.id_publicacion_guardada,
-                                       id_user = b.id_user
-                                   },
+                     new ResponsePublicacionGuardada
+                     {
+                         publicacionGuardada = new publicacion_guardadasModel
+                         {
+                             fecha = b.fecha,
+                             id_post = b.id_post,
+                             id_publicacion_guardada = b.id_publicacion_guardada,
+                             id_user = b.id_user
+                         },
 
 
-                                   publicacion = new publicacionesModel
-                                   {
-                                       descripcion = b.publicaciones.descripcion,
-                                       fecha_actualizacion = b.publicaciones.fecha_actualizacion,
-                                       fecha_creacion = b.publicaciones.fecha_creacion,
-                                       id_post = b.publicaciones.id_post,
-                                       id_user = b.publicaciones.id_user,
-                                       img = b.publicaciones.img,
-                                       isImg = b.publicaciones.isImg,
-                                       isDeleted = b.publicaciones.isDeleted
+                         publicacion = new publicacionesModel
+                         {
+                             descripcion = b.publicaciones.descripcion,
+                             fecha_actualizacion = b.publicaciones.fecha_actualizacion,
+                             fecha_creacion = b.publicaciones.fecha_creacion,
+                             id_post = b.publicaciones.id_post,
+                             id_user = b.publicaciones.id_user,
+                             img = b.publicaciones.img,
+                             isImg = b.publicaciones.isImg,
+                             isDeleted = b.publicaciones.isDeleted
 
-                                   },
+                         },
+                         UsuarioCreator = new userModel()
+                         {
+                             apellido = b.publicaciones.users.apellido,
+                             descripcion = b.publicaciones.users.descripcion,
+                             email = b.publicaciones.users.email,
+                             id_user = b.publicaciones.users.id_user,
+                             isVendor = b.publicaciones.users.isVendor,
+                             nombre = b.publicaciones.users.nombre,
+                             pass = "pass",
+                             puntaje = b.publicaciones.users.puntaje,
+                             username = b.publicaciones.users.username,
+                             img = b.publicaciones.users.img,
+                             puesto_name = b.publicaciones.users.puesto_name,
+                             isActive = b.publicaciones.users.isActive,
+                             dui = b.publicaciones.users.dui,
+                             isDeleted = b.publicaciones.users.isDeleted,
+                             num_telefono = b.publicaciones.users.num_telefono,
+                             xlat = b.publicaciones.users.xlat,
+                             ylon = b.publicaciones.users.ylon
+                         },
 
-                                   IsSavedPost = true,
-                                   cantComentarios = b.publicaciones.comentarios.Where(c => c.users.isDeleted == false && c.isDeleted == false).ToList().Count,
-                                   cantLikes = b.publicaciones.like_post.Where(l => l.users.isDeleted == false).ToList().Count,
-                                   IsLiked = b.publicaciones.like_post.FirstOrDefault(l => l.id_user == idUser) == default(like_post) ? false : true
-
-
-                               }
-                           ).ToList()
-
-                   }
-
-
-               ).ToList().FirstOrDefault();
+                         IsSavedPost = true,
+                         cantComentarios = b.publicaciones.comentarios.Where(c => c.users.isDeleted == false && c.isDeleted == false).ToList().Count,
+                         cantLikes = b.publicaciones.like_post.Where(l => l.users.isDeleted == false).ToList().Count,
+                         IsLiked = b.publicaciones.like_post.FirstOrDefault(l => l.id_user == idUser) == default(like_post) ? false : true
+                     }
+                    ).ToList();
 
                 return Request.CreateResponse(HttpStatusCode.OK, varUserProfile);
             }
