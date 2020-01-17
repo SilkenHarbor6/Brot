@@ -36,6 +36,7 @@
                     Distance.FromMeters(2500)
                     )
                 );
+            Mapa.MapStyle = MapStyle.FromJson(new XamarinMapStyle().Text);
             BindingContext = this.ViewModel = new SellersMapViewModel(ref Mapa);
             XamarinMapStyle Style = new XamarinMapStyle();
             //this.MyMap.MapStyle = MapStyle.FromJson(Style.Text);

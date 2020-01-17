@@ -481,5 +481,17 @@
   <ItemGroup>
     <AndroidResource Include="Resources\drawable\SavedPost.png" />
   </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\coffee.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\HotDogPin2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Tienda.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Tortas.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>

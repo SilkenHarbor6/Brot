@@ -13,7 +13,7 @@ namespace Brot.Services
     public static class RestClient
     {
         //private static string url = "http://brotproject.somee.com/api/"; //Last one
-        private static string url = "https://brotmainapi.azurewebsites.net/api/"; //New One
+        private static string url = "http://brotnewapi.azurewebsites.net/api/"; //New One
 
         //private static string url = "http://192.168.22.127:61092/api/";
 
@@ -184,6 +184,47 @@ namespace Brot.Services
                     {
                         IsSuccess = false,
                         Message = "Error Ex " + ex.Message
+                    };
+                }
+            }
+            return new Response()
+            {
+                IsSuccess = false,
+                Message = "No es posible conectarse a internet"
+            };
+
+        }
+        public static async Task<Response> GetAllS<T>(String Controller)
+        {
+            if (isConnectedToInterned())
+            {
+                try
+                {
+                    var response = await cliente.GetAsync(url + Controller);
+
+                    if (!response.IsSuccessStatusCode)
+                    {
+                        return new Response
+                        {
+                            IsSuccess = false,
+                            Message = JsonConvert.DeserializeObject<Response>(await response.Content.ReadAsStringAsync()).Message
+                        };
+                    }
+
+                    var result = await response.Content.ReadAsStringAsync();
+
+                    return new Response
+                    {
+                        IsSuccess = true,
+                        Result = result
+                    };
+                }
+                catch (Exception e)
+                {
+                    return new Response
+                    {
+                        IsSuccess = false,
+                        Message = $"Error al cargar los datos {e}"
                     };
                 }
             }

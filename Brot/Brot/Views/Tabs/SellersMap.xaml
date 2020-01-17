@@ -25,12 +25,13 @@
                 MapType="Street"
                 ItemsSource="{Binding places}"
                 VerticalOptions="FillAndExpand"
-                Visual="Material" >
+                >
                 <maps:Map.ItemTemplate>
                     <DataTemplate>
                         <maps:Pin Position="{Binding Position}"
                                  Address="{Binding Address}"
                                  Label="{Binding Label}"
+                                    Icon="{Binding Icon}"
                                  />
                     </DataTemplate>
                 </maps:Map.ItemTemplate>
