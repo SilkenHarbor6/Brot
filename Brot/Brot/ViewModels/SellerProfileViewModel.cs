@@ -60,7 +60,7 @@ namespace Brot.ViewModels
         {
             IsRefreshing = true;
             ResponseUserProfile profiledata = new ResponseUserProfile();
-            if (UserProfile.UserProfile.id_user!=Singleton.Instance.User.id_user)
+            if (UserProfile.UserProfile.id_user != Singleton.Instance.User.id_user)
             {
                 profiledata = await RestAPI.GetOtherUserrofile(this.UserProfile.UserProfile.id_user, Singleton.Instance.User.id_user);
             }
@@ -70,9 +70,9 @@ namespace Brot.ViewModels
                 profiledata = await RestAPI.userprofile(Singleton.Instance.User.id_user);
             }
 
-            if (profiledata!= null)
+            if (profiledata != null)
             {
-                if (profiledata.UserProfile.img!=null)
+                if (profiledata.UserProfile.img != null)
                 {
                     profiledata.UserProfile.img = DLL.constantes.urlImages + profiledata.UserProfile.img;
                 }
@@ -81,11 +81,11 @@ namespace Brot.ViewModels
                     profiledata.UserProfile.img = DLL.constantes.ProfileImageError;
                 }
                 UserProfile = profiledata;
-                for (int i = 0; i < UserProfile.publicacionesUser.Count; i++)
+                for (int i = UserProfile.publicacionesUser.Count - 1; i >= 0; i--)
                 {
                     ///No verifico si la imagen es null, porque ya lo hice en alguna page anterior
                     UserProfile.publicacionesUser[i].UsuarioCreator = UserProfile.UserProfile;
-                    UserProfile.publicacionesUser[i].publicacion.img = DLL.constantes.urlImages+ UserProfile.publicacionesUser[i].publicacion.img;
+                    UserProfile.publicacionesUser[i].publicacion.img = DLL.constantes.urlImages + UserProfile.publicacionesUser[i].publicacion.img;
                 }
             }
 

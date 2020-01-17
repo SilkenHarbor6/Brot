@@ -44,7 +44,7 @@ namespace BrotAPI_Final.Repository
                 }
                 catch (Exception e)
                 {
-                    
+
                     Debug.Print(e.Message);
                     return false;
                 }
@@ -81,7 +81,6 @@ namespace BrotAPI_Final.Repository
                 dbitem.isVendor = item.isVendor;
                 dbitem.nombre = item.nombre;
                 dbitem.num_telefono = item.num_telefono;
-                dbitem.pass = item.pass;
                 dbitem.puesto_name = item.puesto_name;
                 dbitem.puntaje = item.puntaje;
                 dbitem.username = item.username;

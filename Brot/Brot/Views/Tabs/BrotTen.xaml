@@ -14,7 +14,7 @@
             x:Name="BrotTenList"
             HasUnevenRows="True"
             IsPullToRefreshEnabled="True"
-            IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+            IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
             ItemSelected="FeedListView_ItemSelected"
             ItemsSource="{Binding lBrotTen}"
             RefreshCommand="{Binding RefreshCommand}"

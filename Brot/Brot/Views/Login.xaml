@@ -79,7 +79,22 @@
                 </StackLayout>
 
                 <StackLayout Margin="0,10">
-                    <ActivityIndicator IsRunning="{Binding IsRefreshing}" IsVisible="{Binding IsRefreshing}" />
+                    <ActivityIndicator IsRunning="{Binding IsRefreshing}">
+                        <ActivityIndicator.Triggers>
+                            <DataTrigger
+                                Binding="{Binding IsRefreshing}"
+                                TargetType="ActivityIndicator"
+                                Value="False">
+                                <Setter Property="HeightRequest" Value="0" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding IsRefreshing}"
+                                TargetType="ActivityIndicator"
+                                Value="True">
+                                <Setter Property="HeightRequest" Value="40" />
+                            </DataTrigger>
+                        </ActivityIndicator.Triggers>
+                    </ActivityIndicator>
                     <Button
                         BackgroundColor="Transparent"
                         BorderColor="#031540"

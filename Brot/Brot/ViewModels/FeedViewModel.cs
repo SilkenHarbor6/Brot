@@ -68,13 +68,7 @@ namespace Brot.ViewModels
         #endregion
 
         #region Commands
-        public ICommand PostSomething
-        {
-            get
-            {
-                return new Xamarin.Forms.Command(AddPost);
-            }
-        }
+        
         public ICommand takePhoto
         {
             get
@@ -82,24 +76,14 @@ namespace Brot.ViewModels
                 return new Xamarin.Forms.Command(Singleton.Instance.ChangePic);
             }
         }
-        public ICommand RefreshCommand
+
+
+        private Xamarin.Forms.Command _RefreshCommand;
+        public Xamarin.Forms.Command RefreshCommand
         {
-            get { return new Xamarin.Forms.Command(async ()=> await Refresh()); }
+            get => _RefreshCommand ?? (_RefreshCommand = new Xamarin.Forms.Command(Refresh));
         }
-
-        public ICommand LikeCommand
-        {
-            get
-            {
-                return new Xamarin.Forms.Command<int>(Like);
-            }
-        }
-
-        #endregion
-
-        #region Methods
-
-        public async Task Refresh()
+        public async void Refresh()
         {
 
             IsRefreshing = true;
@@ -118,46 +102,10 @@ namespace Brot.ViewModels
                 IsRefreshing = false;
             }
         }
-
-        private async void Like(int idLike)
+        private Xamarin.Forms.Command _PostSomething;
+        public Xamarin.Forms.Command PostSomething
         {
-            await App.Current.MainPage.DisplayAlert("EXITO", "Has presionado el boton " + idLike, "Ok");
-        }
-
-        public async Task LoadFeed()
-        {
-            var result = await RestClient.GetAll<ResponsePublicacionFeed>($"publicaciones/all/{Singleton.Instance.User.id_user}/");
-
-            if (!result.IsSuccess)
-            {
-                await Singleton.Instance.Dialogs.Message("There was a problem trying to get the feed", result.Message);
-                return;
-            }
-            var datosNuevos= new List<ResponsePublicacionFeed>();
-            foreach (var post in (ObservableCollection<ResponsePublicacionFeed>)result.Result)
-            {
-                if (string.IsNullOrEmpty(post.publicacion.img))
-                {
-                    post.publicacion.img = DLL.constantes.ProfileImageError;
-                }
-                else
-                {
-                    post.publicacion.img = DLL.constantes.urlImages + post.publicacion.img;
-                }
-
-                if (string.IsNullOrEmpty(post.UsuarioCreator.img))
-                {
-                    post.UsuarioCreator.img = DLL.constantes.ProfileImageError;
-                }
-                else
-                {
-                    post.UsuarioCreator.img = DLL.constantes.urlImages + post.UsuarioCreator.img;
-
-                }
-                datosNuevos.Add(post);
-            }
-            lPosts = new ObservableCollection<ResponsePublicacionFeed>(datosNuevos);
-
+            get => _PostSomething ?? (_PostSomething = new Xamarin.Forms.Command(AddPost));
         }
         public async void AddPost()
         {
@@ -197,10 +145,51 @@ namespace Brot.ViewModels
             }
 
             lPosts = new ObservableCollection<ResponsePublicacionFeed>();
-            LoadFeed();
+            await LoadFeed();
+            IsRefreshing = false;
         }
 
 
+        #endregion
+
+        #region Methods
+
+        public async Task LoadFeed()
+        {
+            var result = await RestClient.GetAll<ResponsePublicacionFeed>($"publicaciones/all/{Singleton.Instance.User.id_user}/");
+
+            if (!result.IsSuccess)
+            {
+                await Singleton.Instance.Dialogs.Message("There was a problem trying to get the feed", result.Message);
+                return;
+            }
+            var datosNuevos= new List<ResponsePublicacionFeed>();
+            foreach (var post in (ObservableCollection<ResponsePublicacionFeed>)result.Result)
+            {
+                if (string.IsNullOrEmpty(post.publicacion.img))
+                {
+                    post.publicacion.img = DLL.constantes.ProfileImageError;
+                }
+                else
+                {
+                    post.publicacion.img = DLL.constantes.urlImages + post.publicacion.img;
+                }
+
+                if (string.IsNullOrEmpty(post.UsuarioCreator.img))
+                {
+                    post.UsuarioCreator.img = DLL.constantes.ProfileImageError;
+                }
+                else
+                {
+                    post.UsuarioCreator.img = DLL.constantes.urlImages + post.UsuarioCreator.img;
+
+                }
+                datosNuevos.Add(post);
+            }
+            lPosts = new ObservableCollection<ResponsePublicacionFeed>(datosNuevos);
+
+        }
+        
         #endregion
     }
 }

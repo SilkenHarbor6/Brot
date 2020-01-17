@@ -22,17 +22,38 @@
                 HasUnevenRows="True"
                 Header="{Binding}"
                 IsPullToRefreshEnabled="True"
-                IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
+                ItemSelected="ListView_ItemSelected"
                 ItemsSource="{Binding ComentariosData}"
                 RefreshCommand="{Binding RefreshCommand}"
-                ItemSelected="ListView_ItemSelected"
+                RefreshControlColor="DarkBlue"
                 SeparatorVisibility="None"
                 VerticalOptions="FillAndExpand">
 
                 <ListView.HeaderTemplate>
                     <DataTemplate>
                         <ContentView>
-                            <cells:ResponsePublicacionFeedViewCell BindingContext="{Binding Post.publicacion}" />
+                            <StackLayout>
+                                <cells:ResponsePublicacionFeedViewCell BindingContext="{Binding Post.publicacion}" />
+                                <ActivityIndicator IsRunning="{Binding IsRefreshing, Mode=TwoWay}">
+                                    <ActivityIndicator.Triggers>
+                                        <DataTrigger
+                                            Binding="{Binding IsRefreshing, Mode=TwoWay}"
+                                            TargetType="ActivityIndicator"
+                                            Value="False">
+                                            <Setter Property="HeightRequest" Value="0" />
+                                        </DataTrigger>
+                                        <DataTrigger
+                                            Binding="{Binding IsRefreshing, Mode=TwoWay}"
+                                            TargetType="ActivityIndicator"
+                                            Value="True">
+                                            <Setter Property="HeightRequest" Value="40" />
+                                        </DataTrigger>
+                                    </ActivityIndicator.Triggers>
+                                </ActivityIndicator>
+
+
+                            </StackLayout>
                         </ContentView>
                     </DataTemplate>
                 </ListView.HeaderTemplate>
@@ -43,13 +64,22 @@
                 </ListView.ItemTemplate>
                 <ListView.Footer>
                     <StackLayout>
+
                         <StackLayout.Triggers>
-                            <DataTrigger TargetType="StackLayout"
-                                         Binding="{Binding FooterVisible}"
-                                         Value="False">
-                                <Setter Property="HeightRequest" Value="0"/>
+                            <DataTrigger
+                                Binding="{Binding FooterVisible, Mode=TwoWay}"
+                                TargetType="StackLayout"
+                                Value="False">
+                                <Setter Property="HeightRequest" Value="0" />
+                            </DataTrigger>
+                            <DataTrigger
+                                Binding="{Binding FooterVisible, Mode=TwoWay}"
+                                TargetType="StackLayout"
+                                Value="True">
+                                <Setter Property="HeightRequest" Value="100" />
                             </DataTrigger>
                         </StackLayout.Triggers>
+
                         <Image
                             HeightRequest="60"
                             Source="no_comments"

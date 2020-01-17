@@ -79,6 +79,9 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// 
+        [HttpDelete]
+        [Route("api/comentarios/{id}")]
         public HttpResponseMessage Delete(int id)
         {
             var item = r.GetById(id);
@@ -86,7 +89,7 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe tal comentario, id: {id}");
             }
-            item.isDeleted = false;
+            item.isDeleted = true;
             item.fecha_creacion = DateTime.Now;
             if (r.Put(id, item))
             {
@@ -140,6 +143,8 @@ namespace BrotAPI_Final.Controllers.API
         /// <param name="id"></param>
         /// <param name="item"></param>
         /// <returns></returns>
+        [HttpPut]
+        [Route("api/comentarios/{id}")]
         public HttpResponseMessage Put(int id, comentarios item)
         {
             var data = r.GetById(id);

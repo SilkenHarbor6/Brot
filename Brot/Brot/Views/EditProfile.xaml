@@ -5,48 +5,55 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
-    Title="Editar perfil"
+    xmlns:forms="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Editar"
     mc:Ignorable="d">
     <!--<ContentPage.ToolbarItems>
         <ToolbarItem IconImageSource="save.png" />
     </ContentPage.ToolbarItems>-->
 
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Cambiar Contraseña" />
+    </ContentPage.ToolbarItems>
+
     <ContentPage.Content>
         <ScrollView Padding="20">
             <StackLayout Orientation="Vertical" VerticalOptions="Start">
                 <forms:CachedImage
-                       Margin="0,10,0,5"
-                       Aspect="AspectFit"
-                       HeightRequest="150"
-                       Source="{Binding UserProfile.UserProfile.img}"
-                       WidthRequest="150">
+                    Margin="0,10,0,5"
+                    Aspect="AspectFit"
+                    HeightRequest="150"
+                    Source="{Binding UserProfile.UserProfile.img}"
+                    WidthRequest="150">
                     <forms:CachedImage.Transformations>
                         <fftransformations:RoundedTransformation Radius="500" />
                     </forms:CachedImage.Transformations>
                 </forms:CachedImage>
                 <Button
+                    Padding="20,0,20,0"
+                    BackgroundColor="Transparent"
                     BorderColor="#031540"
                     BorderWidth="2"
-                    BackgroundColor="Transparent"
                     CornerRadius="20"
-                    Padding="20, 0, 20, 0"
-                    FontSize="Caption"  
+                    FontSize="Caption"
                     HorizontalOptions="Center"
                     Text="Change profile photo"
                     TextColor="#031540" />
 
-                <Label Text="Username" TextColor="#031540" FontSize="Small"/>
+                <Label
+                    FontSize="Small"
+                    Text="Username"
+                    TextColor="#031540" />
                 <Rounded:RoundedBorderEntry
-                    Text="{Binding UserProfile.UserProfile.username}"
                     BorderColor="#031540"
                     BorderThickness="2"
                     CornerRadius="10"
                     FontSize="Small"
                     Placeholder="Username"
                     PlaceholderColor="#031540"
+                    Text="{Binding UserProfile.UserProfile.username}"
                     TextColor="#031540" />
 
                 <!--<Label Text="Username" TextColor="#031540" FontSize="Small"/>
@@ -60,59 +67,89 @@
                     PlaceholderColor="#031540"
                     TextColor="#031540" />-->
 
-                <Label Text="Name" TextColor="#031540" FontSize="Small"/>
+                <Label
+                    FontSize="Small"
+                    Text="Name"
+                    TextColor="#031540" />
                 <Rounded:RoundedBorderEntry
-                    Text="{Binding UserProfile.UserProfile.nombre}"
                     BorderColor="#031540"
                     BorderThickness="2"
                     CornerRadius="10"
                     FontSize="Small"
                     Placeholder="Name"
                     PlaceholderColor="#031540"
+                    Text="{Binding UserProfile.UserProfile.nombre}"
                     TextColor="#031540" />
 
-                <Label Text="Last Name" TextColor="#031540" FontSize="Small"/>
+                <Label
+                    FontSize="Small"
+                    Text="Last Name"
+                    TextColor="#031540" />
                 <Rounded:RoundedBorderEntry
+                    BorderColor="#031540"
+                    BorderThickness="2"
+                    CornerRadius="10"
+                    FontSize="Small"
+                    Placeholder="User Lastname"
+                    PlaceholderColor="#031540"
                     Text="{Binding UserProfile.UserProfile.apellido}"
-                    BorderColor="#031540"
-                    BorderThickness="2"
-                    CornerRadius="10"
-                    FontSize="Small"
-                    Placeholder="User Lastname"
-                    PlaceholderColor="#031540"
                     TextColor="#031540" />
 
-                <Label Text="Puesto" TextColor="#031540" FontSize="Small" IsVisible="{Binding IsVendor}"/>
-                <Rounded:RoundedBorderEntry
-                    Text="{Binding UserProfile.UserProfile.puesto_name}"
+                <Label
+                    FontSize="Small"
                     IsVisible="{Binding IsVendor}"
+                    Text="Puesto"
+                    TextColor="#031540" />
+                <Rounded:RoundedBorderEntry
                     BorderColor="#031540"
                     BorderThickness="2"
                     CornerRadius="10"
                     FontSize="Small"
+                    IsVisible="{Binding IsVendor}"
                     Placeholder="User Lastname"
                     PlaceholderColor="#031540"
+                    Text="{Binding UserProfile.UserProfile.puesto_name}"
                     TextColor="#031540" />
 
-                <Label Text="Description" TextColor="#031540" FontSize="Small"/>
+                <Label
+                    FontSize="Small"
+                    Text="Description"
+                    TextColor="#031540" />
                 <Rounded:RoundedBorderEntry
-                    Text="{Binding UserProfile.UserProfile.descripcion}"
                     BorderColor="#031540"
                     BorderThickness="2"
                     CornerRadius="10"
                     FontSize="Small"
                     Placeholder="Description"
                     PlaceholderColor="#031540"
+                    Text="{Binding UserProfile.UserProfile.descripcion}"
                     TextColor="#031540" />
+                <ActivityIndicator IsRunning="{Binding IsRefreshing}">
+                    <ActivityIndicator.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsRefreshing}"
+                            TargetType="ActivityIndicator"
+                            Value="False">
+                            <Setter Property="HeightRequest" Value="0" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding IsRefreshing}"
+                            TargetType="ActivityIndicator"
+                            Value="True">
+                            <Setter Property="HeightRequest" Value="40" />
+                        </DataTrigger>
+
+                    </ActivityIndicator.Triggers>
+                </ActivityIndicator>
 
                 <Button
                     Margin="15"
                     BackgroundColor="#031540"
+                    Command="{Binding UpdateProfileCommand}"
                     CornerRadius="5"
                     FontSize="Small"
                     HorizontalOptions="Center"
                     IsEnabled="{Binding IsNotBusy}"
-                    Command="{Binding UpdateProfileCommand}"
                     Text="Save Changes"
                     TextColor="White" />
             </StackLayout>

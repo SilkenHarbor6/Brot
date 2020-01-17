@@ -30,7 +30,7 @@ namespace Brot.ViewModels
         public EditProfileViewModel()
         {
             CargarDatos();
-            
+
         }
 
         private async void CargarDatos()
@@ -56,13 +56,15 @@ namespace Brot.ViewModels
         }
 
 
+        #region Update Profile Command
+
         private Command _UpdateProfileCommand;
         public Command UpdateProfileCommand { get => _UpdateProfileCommand ?? (_UpdateProfileCommand = new Command(UpdateProfileMethod)); }
 
         private async void UpdateProfileMethod(object obj)
         {
             IsRefreshing = true;
-
+            UserProfile.UserProfile.img = imgName;
             bool result = await RestAPI.Put<Models.userModel>(UserProfile.UserProfile.id_user, UserProfile.UserProfile, DLL.constantes.userst);
 
             if (result)
@@ -71,11 +73,12 @@ namespace Brot.ViewModels
                 Singleton.Instance.User = UserProfile.UserProfile;
                 Singleton.Instance.LocalJson.SaveData(Singleton.Instance.User);
                 App.Current.MainPage = new NavigationPage(new Views.MainTabbed());
-
             }
 
             IsRefreshing = false;
 
         }
+        #endregion
+
     }
 }

@@ -8,26 +8,31 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
+
     <ViewCell.View>
         <Grid Padding="5">
             <Grid.GestureRecognizers>
-                <TapGestureRecognizer NumberOfTapsRequired="2" Command="{Binding BtnLikedClicked}" CommandParameter="True"/>
+                <TapGestureRecognizer
+                    Command="{Binding BtnLikedClicked}"
+                    CommandParameter="True"
+                    NumberOfTapsRequired="2" />
             </Grid.GestureRecognizers>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="4*" />
+                <ColumnDefinition Width="45" />
             </Grid.ColumnDefinitions>
 
             <Circle:CircleImage
                 Grid.Column="0"
                 Aspect="AspectFit"
-                HeightRequest="60"
-                WidthRequest="60"
-                HorizontalOptions="Center"
                 BorderColor="Black"
                 BorderThickness="2"
+                HeightRequest="60"
+                HorizontalOptions="Center"
                 Source="{Binding usuario.img}"
-                VerticalOptions="Center">
+                VerticalOptions="Center"
+                WidthRequest="60">
 
                 <Circle:CircleImage.GestureRecognizers>
                     <TapGestureRecognizer Command="{Binding usuario.BtnProfileNameClicked}" />
@@ -68,6 +73,13 @@
 
                 </StackLayout>
             </StackLayout>
+            <ImageButton
+                Grid.Column="2"
+                BackgroundColor="Transparent"
+                Command="{Binding OpcionesCommand}"
+                HeightRequest="45"
+                HorizontalOptions="EndAndExpand"
+                Source="Threedots.png" />
         </Grid>
     </ViewCell.View>
 </ViewCell>
