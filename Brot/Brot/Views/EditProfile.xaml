@@ -15,7 +15,7 @@
     </ContentPage.ToolbarItems>-->
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Cambiar Contraseña" />
+        <ToolbarItem Text="Cambiar Contraseña" Command="{Binding chP}"/>
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>

@@ -82,6 +82,7 @@
                         IsPassword="True"
                         Placeholder="Repeat your password"
                         PlaceholderColor="Gray"
+                        Text="{Binding RepeatedPassword}"
                         TextColor="#000">
                         <Rounded:RoundedBorderEntry.Triggers>
                             <EventTrigger Event="TextChanged">
@@ -103,7 +104,6 @@
                             IsEnabled="{Binding IsNotBusy}"
                             Text="Register"
                             TextColor="#031540" />
-
                         <Button
                             BackgroundColor="#031540"
                             Command="{Binding LoginCommand}"

@@ -2,6 +2,7 @@
 using Brot.Models.ResponseApi;
 using Brot.Patterns;
 using Brot.Services;
+using Brot.Views;
 using DLL;
 using System;
 using System.Collections.Generic;
@@ -80,6 +81,17 @@ namespace Brot.ViewModels
             {
                 return new Xamarin.Forms.Command(cp);
             }
+        }
+        public ICommand chP
+        {
+            get
+            {
+                return new Xamarin.Forms.Command(chPs);
+            }
+        }
+        private async void chPs()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new ChngP());
         }
         private async void cp()
         {

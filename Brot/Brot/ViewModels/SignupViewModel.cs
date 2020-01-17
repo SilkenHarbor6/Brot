@@ -16,6 +16,7 @@
         private string username;
         private string email;
         private string password;
+        private string spassword;
         #endregion
         #region Propiedades
         public string Nombre
@@ -73,6 +74,17 @@
                 SetProperty(ref password, value);Singleton.passw = value;
             }
         }
+        public string RepeatedPassword
+        {
+            get
+            {
+                return spassword;
+            }
+            set
+            {
+                SetProperty(ref password, value);
+            }
+        }
         #endregion
         #region Comandos
         public ICommand LoginCommand
@@ -109,6 +121,10 @@
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Los campos no pueden quedar vacios", "Aceptar");
                 return;
+            }
+            if (password!=spassword)
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "Las claves no coinciden", "Aceptar");
             }
             userModel user = new userModel();
             user.apellido = Apellido;
