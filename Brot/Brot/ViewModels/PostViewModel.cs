@@ -16,7 +16,7 @@ namespace Brot.ViewModels
     public class PostViewModel : BaseViewModel
     {
         #region Propiedades
-
+        private int idPublicacion;
         private ObservableCollection<ResponseComentarios> _comentariosData;
         private ResponsePublicacion _Post;
         public ObservableCollection<ResponseComentarios> ComentariosData
@@ -95,8 +95,16 @@ namespace Brot.ViewModels
             {
                 FooterVisible = true;
             }
+            idPublicacion = Post.publicacion.publicacion.id_post;
             CargarDatos();
             isActivityActive = false;
+            IsRefreshing = false;
+        }
+        public PostViewModel(int idPost)
+        {
+            idPublicacion = idPost;
+            IsRefreshing = true;
+            CargarDatos();
             IsRefreshing = false;
         }
 
@@ -122,7 +130,7 @@ namespace Brot.ViewModels
             try
             {
 
-                ResponsePublicacion publicacionData = await RestAPI.Getpublicacion(Post.publicacion.publicacion.id_post, Singleton.Instance.User.id_user);
+                ResponsePublicacion publicacionData = await RestAPI.Getpublicacion(idPublicacion, Singleton.Instance.User.id_user);
                 if (publicacionData != null)
                 {
                     publicacionData.publicacion.publicacion.img = DLL.constantes.urlImages + publicacionData.publicacion.publicacion.img;

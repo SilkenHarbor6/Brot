@@ -12,11 +12,11 @@
 
 
     <ContentPage.Content>
-        <ScrollView BackgroundColor="White">
+        <ScrollView BackgroundColor="White" VerticalOptions="Fill">
             <StackLayout
                 Padding="20"
                 Orientation="Vertical"
-                VerticalOptions="Fill">
+                VerticalOptions="Center">
 
                 <StackLayout Margin="0,20">
 
@@ -56,7 +56,7 @@
                         Text="{Binding Password}"
                         TextColor="#000" />
 
-                    <StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
+                    <!--<StackLayout HorizontalOptions="EndAndExpand" Orientation="Horizontal">
                         <Label
                             Text="Keep session alive?"
                             TextColor="#031540"
@@ -76,44 +76,45 @@
                             </Switch.Triggers>
                         </Switch>
                     </StackLayout>
-                </StackLayout>
+                </StackLayout>-->
 
-                <StackLayout Margin="0,10">
-                    <ActivityIndicator IsRunning="{Binding IsRefreshing}">
-                        <ActivityIndicator.Triggers>
-                            <DataTrigger
-                                Binding="{Binding IsRefreshing}"
-                                TargetType="ActivityIndicator"
-                                Value="False">
-                                <Setter Property="HeightRequest" Value="0" />
-                            </DataTrigger>
-                            <DataTrigger
-                                Binding="{Binding IsRefreshing}"
-                                TargetType="ActivityIndicator"
-                                Value="True">
-                                <Setter Property="HeightRequest" Value="40" />
-                            </DataTrigger>
-                        </ActivityIndicator.Triggers>
-                    </ActivityIndicator>
-                    <Button
-                        BackgroundColor="Transparent"
-                        BorderColor="#031540"
-                        BorderWidth="1"
-                        Command="{Binding LoginCommand}"
-                        CornerRadius="3"
-                        FontSize="Small"
-                        HorizontalOptions="Fill"
-                        IsEnabled="{Binding IsNotBusy}"
-                        Text="Login"
-                        TextColor="#031540" />
+                    <StackLayout Margin="0,10">
+                        <ActivityIndicator IsRunning="{Binding IsRefreshing}">
+                            <ActivityIndicator.Triggers>
+                                <DataTrigger
+                                    Binding="{Binding IsRefreshing}"
+                                    TargetType="ActivityIndicator"
+                                    Value="False">
+                                    <Setter Property="HeightRequest" Value="0" />
+                                </DataTrigger>
+                                <DataTrigger
+                                    Binding="{Binding IsRefreshing}"
+                                    TargetType="ActivityIndicator"
+                                    Value="True">
+                                    <Setter Property="HeightRequest" Value="40" />
+                                </DataTrigger>
+                            </ActivityIndicator.Triggers>
+                        </ActivityIndicator>
+                        <Button
+                            BackgroundColor="Transparent"
+                            BorderColor="#031540"
+                            BorderWidth="1"
+                            Command="{Binding LoginCommand}"
+                            CornerRadius="3"
+                            FontSize="Small"
+                            HorizontalOptions="Fill"
+                            IsEnabled="{Binding IsNotBusy}"
+                            Text="Login"
+                            TextColor="#031540" />
 
-                    <Button
-                        BackgroundColor="#031540"
-                        Command="{Binding SignupCommand}"
-                        IsEnabled="{Binding IsNotBusy}"
-                        Text="Register"
-                        TextColor="#fff"
-                        VerticalOptions="Center" />
+                        <Button
+                            BackgroundColor="#031540"
+                            Command="{Binding SignupCommand}"
+                            IsEnabled="{Binding IsNotBusy}"
+                            Text="Register"
+                            TextColor="#fff"
+                            VerticalOptions="Center" />
+                    </StackLayout>
                 </StackLayout>
             </StackLayout>
         </ScrollView>

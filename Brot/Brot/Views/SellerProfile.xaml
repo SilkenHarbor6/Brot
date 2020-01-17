@@ -141,7 +141,8 @@
                                 BackgroundColor="#f0f4ff"
                                 BorderColor="Black">
                                 <Label
-                                    FontSize="Medium"
+                                    FontSize="Large"
+                                    HorizontalOptions="Center"
                                     Text="Publicaciones"
                                     TextColor="Black" />
                             </Frame>

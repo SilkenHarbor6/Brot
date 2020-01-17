@@ -48,7 +48,7 @@
             switch (respuesta)
             {
                 case "Editar":
-                    await App.Current.MainPage.Navigation.PushAsync(new Views.EditarComentario(comentario));
+                    await App.Current.MainPage.Navigation.PushAsync(new Views.EditarComentario(new ViewModels.EditarComentarioVM(this)));
 
                     break;
                 case "Eliminar":

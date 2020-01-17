@@ -3,6 +3,8 @@
     x:Class="Brot.Views.EditarComentario"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Circle="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
+    xmlns:celdas="clr-namespace:Brot.Cells"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
@@ -15,12 +17,63 @@
             <Editor
                 AutoSize="TextChanges"
                 HorizontalOptions="Fill"
-                Text="{Binding Comentario.contenido}" />
+                Text="{Binding Comentario.comentario.contenido}" />
             <Button
                 Command="{Binding ActualizarCommand}"
                 HorizontalOptions="CenterAndExpand"
+                Style="{StaticResource btnStyle}"
                 Text="Actualizar" />
             <ActivityIndicator IsRunning="{Binding IsRefreshing}" />
+
+
+
+            <Grid Padding="5" BindingContext="{Binding Comentario}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="4*" />
+                    <ColumnDefinition Width="45" />
+                </Grid.ColumnDefinitions>
+
+                <Circle:CircleImage
+                    Grid.Column="0"
+                    Aspect="AspectFit"
+                    BorderColor="Black"
+                    BorderThickness="2"
+                    HeightRequest="60"
+                    HorizontalOptions="Center"
+                    Source="{Binding usuario.img}"
+                    VerticalOptions="Center"
+                    WidthRequest="60" />
+
+
+
+                <StackLayout Grid.Column="1">
+                    <StackLayout>
+                        <Label
+                            FontAttributes="Bold"
+                            Text="{Binding usuario.username, StringFormat='@{0}'}"
+                            TextColor="#53504d" />
+
+                        <Label Text="{Binding comentario.contenido}" TextColor="#53504d" />
+                    </StackLayout>
+
+                    <StackLayout Orientation="Horizontal">
+
+                        <ImageButton
+                            BackgroundColor="Transparent"
+                            HeightRequest="32"
+                            Source="{Binding isLiked, Converter={StaticResource BoolToStringConverter}}"
+                            WidthRequest="32" />
+
+                        <Label
+                            Text="{Binding CantLikes, StringFormat='{0} # Brots', Mode=TwoWay}"
+                            TextColor="#565351"
+                            VerticalOptions="Center" />
+
+
+                    </StackLayout>
+                </StackLayout>
+            </Grid>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -14,15 +14,7 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <Style x:Key="btnStyle" TargetType="Button">
-                <Setter Property="BackgroundColor" Value="LightGray" />
-                <Setter Property="BorderColor" Value="Blue" />
-                <Setter Property="BorderRadius" Value="20" />
-                <Setter Property="BorderWidth" Value="2" />
-                <Setter Property="FontSize" Value="Subtitle" />
-                <Setter Property="TextColor" Value="DarkBlue" />
-                <Setter Property="FontAttributes" Value="Bold" />
-            </Style>
+            
         </ResourceDictionary>
     </ContentPage.Resources>
 

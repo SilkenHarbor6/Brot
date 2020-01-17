@@ -1,18 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<Application xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:Converters="clr-namespace:Brot.Converters"
-             mc:Ignorable="d"
-             x:Class="Brot.App">
+<Application
+    x:Class="Brot.App"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Converters="clr-namespace:Brot.Converters"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
     <Application.Resources>
 
-        <Color x:Key="NaranjaBrot">#ff5001</Color>
-        <Converters:BoolToStringConverter x:Key="BoolToStringConverter"/>
-        <Converters:BoolToStringSavedPost x:Key="BoolToStringSavedPostImage"/>
-        <Color x:Key="MainDarkColor">#031540</Color>
+
         <ResourceDictionary>
+
+            <Color x:Key="NaranjaBrot">#ff5001</Color>
+            <Converters:BoolToStringConverter x:Key="BoolToStringConverter" />
+            <Converters:BoolToStringSavedPost x:Key="BoolToStringSavedPostImage" />
+            <Color x:Key="MainDarkColor">#031540</Color>
+
+
+
             <Color x:Key="MainAppCOLOR">#FFFFFF</Color>
             <Color x:Key="buttonLoginRegisterText">#000000</Color>
             <Color x:Key="buttonLoginRegisterBg">#F9AA33</Color>
@@ -20,8 +26,24 @@
             <Color x:Key="EntryTextColor">#232F34</Color>
             <Color x:Key="EntryPlaceholderColor">#4A6572</Color>
             <Color x:Key="frameBorderColor">#232F34</Color>
+
+            <Style TargetType="ActivityIndicator">
+                <Setter Property="Color" Value="{StaticResource MainDarkColor}" />
+            </Style>
+
+
+            <!--  Button Style  -->
+            <Style x:Key="btnStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="LightGray" />
+                <Setter Property="BorderColor" Value="Blue" />
+                <Setter Property="BorderRadius" Value="20" />
+                <Setter Property="BorderWidth" Value="2" />
+                <Setter Property="FontSize" Value="Subtitle" />
+                <Setter Property="TextColor" Value="DarkBlue" />
+                <Setter Property="FontAttributes" Value="Bold" />
+            </Style>
         </ResourceDictionary>
-        
-        
+
+
     </Application.Resources>
 </Application>

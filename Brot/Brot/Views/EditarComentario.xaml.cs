@@ -7,10 +7,10 @@ namespace Brot.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class EditarComentario : ContentPage
     {
-        public EditarComentario(Models.comentariosModel comentario)
+        public EditarComentario(ViewModels.EditarComentarioVM VM)
         {
             InitializeComponent();
-            BindingContext = new ViewModels.EditarComentarioVM(comentario);
+            BindingContext = VM;
         }
     }
 }

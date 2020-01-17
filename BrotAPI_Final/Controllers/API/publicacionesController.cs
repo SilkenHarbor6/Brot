@@ -437,6 +437,8 @@ namespace BrotAPI_Final.Controllers.API
         /// <param name="id"></param>
         /// <param name="item"></param>
         /// <returns></returns>
+        [HttpPut]
+        [Route("{id}")]
         public HttpResponseMessage Put(int id, publicaciones item)
         {
             var data = r.GetById(id);

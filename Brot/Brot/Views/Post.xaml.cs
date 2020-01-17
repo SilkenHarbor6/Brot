@@ -18,11 +18,12 @@
 
             BindingContext = this.ViewModel = viewModel;
         }
-        public Post()
+
+        public Post(int idPost)
         {
             InitializeComponent();
 
-            BindingContext = ViewModel = new PostViewModel(new ResponsePublicacionFeed());
+            BindingContext = ViewModel = new PostViewModel(idPost);
         }
 
         protected override void OnAppearing()

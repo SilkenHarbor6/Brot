@@ -10,14 +10,18 @@
     <ContentPage.Content>
         <ScrollView>
             <StackLayout>
-                <celdas:ResponsePublicacionFeedViewCell BindingContext="{Binding userM}" />
                 <Label Text="Ingrese la nueva descripción" />
                 <Editor
                     Margin="10"
                     HorizontalOptions="Fill"
                     Text="{Binding userM.publicacion.descripcion}" />
-                <Button Command="{Binding ActualizarCommand}" Text="Actualizar" />
+                <Button
+                    Command="{Binding ActualizarCommand}"
+                    Style="{StaticResource btnStyle}"
+                    Text="Actualizar" />
                 <ActivityIndicator IsRunning="{Binding IsRefreshing}" />
+                <celdas:ResponsePublicacionFeedViewCell BindingContext="{Binding userM}" />
+
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

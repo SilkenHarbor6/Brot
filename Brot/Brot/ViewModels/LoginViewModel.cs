@@ -14,7 +14,7 @@ namespace Brot.ViewModels
 
         private string _Username;
         private string _Password;
-        private bool _Remember;
+        private bool _Remember = true; //True por defecto
 
         #endregion
 

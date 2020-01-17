@@ -15,18 +15,18 @@
     </ContentPage.ToolbarItems>-->
 
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Cambiar Contraseña" Command="{Binding chP}"/>
+        <ToolbarItem Command="{Binding chP}" Text="Cambiar Contraseña" />
     </ContentPage.ToolbarItems>
 
     <ContentPage.Content>
-        <ScrollView Padding="20">
+        <ScrollView Padding="20" VerticalOptions="Fill">
             <StackLayout Orientation="Vertical" VerticalOptions="Start">
                 <forms:CachedImage
-                       Margin="0,10,0,5"
-                       Aspect="AspectFit"
-                       HeightRequest="150"
-                       Source="{Binding pic}"
-                       WidthRequest="150">
+                    Margin="0,10,0,5"
+                    Aspect="AspectFit"
+                    HeightRequest="150"
+                    Source="{Binding pic}"
+                    WidthRequest="150">
 
                     <forms:CachedImage.Transformations>
                         <fftransformations:RoundedTransformation Radius="500" />
@@ -37,11 +37,11 @@
                     BackgroundColor="Transparent"
                     BorderColor="#031540"
                     BorderWidth="2"
+                    Command="{Binding changePicture}"
                     CornerRadius="20"
                     FontSize="Caption"
                     HorizontalOptions="Center"
                     Text="Change profile photo"
-                    Command="{Binding changePicture}"
                     TextColor="#031540" />
 
                 <Label
