@@ -22,19 +22,12 @@
         <ScrollView Padding="20">
             <StackLayout Orientation="Vertical" VerticalOptions="Start">
                 <forms:CachedImage
-<<<<<<< HEAD
                        Margin="0,10,0,5"
                        Aspect="AspectFit"
                        HeightRequest="150"
                        Source="{Binding pic}"
                        WidthRequest="150">
-=======
-                    Margin="0,10,0,5"
-                    Aspect="AspectFit"
-                    HeightRequest="150"
-                    Source="{Binding UserProfile.UserProfile.img}"
-                    WidthRequest="150">
->>>>>>> 7bcc9753c9017ffa60adde787f74ecbe683145cf
+
                     <forms:CachedImage.Transformations>
                         <fftransformations:RoundedTransformation Radius="500" />
                     </forms:CachedImage.Transformations>

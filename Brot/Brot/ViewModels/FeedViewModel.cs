@@ -76,19 +76,10 @@ namespace Brot.ViewModels
                 return new Xamarin.Forms.Command(cp);
             }
         }
-<<<<<<< HEAD
         private async void cp()
         {
             await Singleton.Instance.ChangePic();
         }
-        public ICommand RefreshCommand
-        {
-            get { return new Xamarin.Forms.Command(async ()=> await Refresh()); }
-        }
-=======
->>>>>>> 7bcc9753c9017ffa60adde787f74ecbe683145cf
-
-
         private Xamarin.Forms.Command _RefreshCommand;
         public Xamarin.Forms.Command RefreshCommand
         {
