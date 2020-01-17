@@ -22,7 +22,7 @@ namespace Brot.Patterns
         #endregion
 
         #region MyRegion
-        public static string passw;
+        public static string passw = String.Empty; 
         public static bool fromProfile;
         public static Singleton Instance
         {

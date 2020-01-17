@@ -27,7 +27,7 @@
             }
             set
             {
-                SetProperty(ref nombre,value);
+                SetProperty(ref nombre, value);
             }
         }
         public string Apellido
@@ -71,7 +71,7 @@
             }
             set
             {
-                SetProperty(ref password, value);Singleton.passw = value;
+                SetProperty(ref password, value); Singleton.passw = value;
             }
         }
         public string RepeatedPassword
@@ -82,8 +82,15 @@
             }
             set
             {
-                SetProperty(ref password, value);
+                SetProperty(ref spassword, value);
             }
+        }
+
+        private bool _correctPassword;
+        public bool CorrectPassword
+        {
+            get { return _correctPassword; }
+            set { SetProperty(ref _correctPassword, value); }
         }
         #endregion
         #region Comandos
@@ -120,11 +127,14 @@
             if (string.IsNullOrWhiteSpace(Nombre) || string.IsNullOrWhiteSpace(Apellido) || string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Los campos no pueden quedar vacios", "Aceptar");
+                IsRefreshing = false;
                 return;
             }
-            if (password!=spassword)
+            if (password != spassword)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "Las claves no coinciden", "Aceptar");
+                IsRefreshing = false;
+                return;
             }
             userModel user = new userModel();
             user.apellido = Apellido;
@@ -137,12 +147,13 @@
             if (!resp.IsSuccess)
             {
                 await Application.Current.MainPage.DisplayAlert("No se ha podido registrar el usuario", resp.Message, "Aceptar");
+                IsRefreshing = false;
                 return;
             }
             await Application.Current.MainPage.DisplayAlert("Exito", "El usuario ha sido registrado", "Aceptar");
             await Application.Current.MainPage.Navigation.PopAsync();
             IsRefreshing = false;
-            
+
         }
         #endregion
     }

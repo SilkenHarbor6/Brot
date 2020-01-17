@@ -129,7 +129,7 @@
                                     BackgroundColor="#f0f4ff"
                                     BorderColor="Black"
                                     HorizontalOptions="Fill">
-                                    <Grid>
+                                    <Grid HeightRequest="50">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
                                             <ColumnDefinition Width="*" />
@@ -140,7 +140,14 @@
                                             CommandParameter="True"
                                             Style="{StaticResource btnStyle}"
                                             Text="Publicaciones">
+
                                             <Button.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding UserProfile.UserProfile.isVendor}"
+                                                    TargetType="Button"
+                                                    Value="False">
+                                                    <Setter Property="WidthRequest" Value="0" />
+                                                </DataTrigger>
                                                 <DataTrigger
                                                     Binding="{Binding VerPostPropios}"
                                                     TargetType="Button"
@@ -164,6 +171,13 @@
                                             Style="{StaticResource btnStyle}"
                                             Text="Guardados">
                                             <Button.Triggers>
+                                                <DataTrigger
+                                                    Binding="{Binding UserProfile.UserProfile.isVendor}"
+                                                    TargetType="Button"
+                                                    Value="False">
+                                                    <Setter Property="Grid.Column" Value="0" />
+                                                    <Setter Property="Grid.ColumnSpan" Value="2" />
+                                                </DataTrigger>
                                                 <DataTrigger
                                                     Binding="{Binding VerPostPropios}"
                                                     TargetType="Button"

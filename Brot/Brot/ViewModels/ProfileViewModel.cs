@@ -76,7 +76,7 @@ namespace Brot.ViewModels
 
         public ProfileViewModel()
         {
-            VerPostPropios = true;
+            VerPostPropios = Singleton.Instance.User.isVendor;
             CargarDatos();
         }
         public async void CargarDatos()
