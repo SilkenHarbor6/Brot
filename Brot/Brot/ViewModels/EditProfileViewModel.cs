@@ -1,9 +1,13 @@
-﻿using Brot.Models.ResponseApi;
+﻿using Brot.Models;
+using Brot.Models.ResponseApi;
 using Brot.Patterns;
 using Brot.Services;
+using DLL;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace Brot.ViewModels
@@ -25,7 +29,17 @@ namespace Brot.ViewModels
             set => SetProperty(ref _isvendor, value);
         }
         private string imgName;
-
+        public string pic
+        {
+            get
+            {
+                return imgName;
+            }
+            set
+            {
+                imgName = value;OnPropertyChanged("pic");
+            }
+        }
 
         public EditProfileViewModel()
         {
@@ -52,13 +66,34 @@ namespace Brot.ViewModels
 
                 IsVendor = UserProfile.UserProfile.isVendor;
             }
-
+            pic = profiledata.UserProfile.img;
         }
 
 
         private Command _UpdateProfileCommand;
         public Command UpdateProfileCommand { get => _UpdateProfileCommand ?? (_UpdateProfileCommand = new Command(UpdateProfileMethod)); }
+        public ICommand changePicture
+        {
+            get
+            {
+                return new Xamarin.Forms.Command(cp);
+            }
+        }
+        private async void cp()
+        {
+            string name = await Singleton.Instance.ChangePic();
+            Task.Delay(1000);
+            Singleton.Instance.User.img = name;
+            pic = constantes.urlImages + name;
+            Singleton.Instance.LocalJson.SaveData(Singleton.Instance.User);
+            var resp = await RestClient.Put<userModel>("users/photo", Singleton.Instance.User.id_user, Singleton.Instance.User);
+            if (!resp)
+            {
+                await Singleton.Instance.Dialogs.Message("Error", "No se ha podido actualizar la imagen");
+                return;
+            }
 
+        }
         private async void UpdateProfileMethod(object obj)
         {
             IsRefreshing = true;

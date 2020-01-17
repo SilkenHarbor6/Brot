@@ -21,7 +21,7 @@
                        Margin="0,10,0,5"
                        Aspect="AspectFit"
                        HeightRequest="150"
-                       Source="{Binding UserProfile.UserProfile.img}"
+                       Source="{Binding pic}"
                        WidthRequest="150">
                     <forms:CachedImage.Transformations>
                         <fftransformations:RoundedTransformation Radius="500" />
@@ -36,6 +36,7 @@
                     FontSize="Caption"  
                     HorizontalOptions="Center"
                     Text="Change profile photo"
+                    Command="{Binding changePicture}"
                     TextColor="#031540" />
 
                 <Label Text="Username" TextColor="#031540" FontSize="Small"/>

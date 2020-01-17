@@ -91,9 +91,9 @@ namespace Brot.Patterns
 
             this.User = this._LocalJson.ReadData();
         }
-        public void ChangePic()
+        public async Task<string> ChangePic()
         {
-            img.ChangePicture();
+            return await img.ChangePicture();
         }
         #endregion
     }

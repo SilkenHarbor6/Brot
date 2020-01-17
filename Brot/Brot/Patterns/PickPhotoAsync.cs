@@ -9,6 +9,7 @@ using System.IO;
 using System.Linq;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace Brot.Patterns
@@ -21,7 +22,7 @@ namespace Brot.Patterns
         FileStream fs;
         public static String name;
         public static ImageSource path;
-        public async void ChangePicture()
+        public async Task<string> ChangePicture()
         {
             await CrossMedia.Current.Initialize();
             PermissionStatus status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
@@ -32,12 +33,12 @@ namespace Brot.Patterns
             if (!CrossMedia.Current.IsPickPhotoSupported)
             {
                 await Application.Current.MainPage.DisplayAlert("Error", "No es posible elegir una foto", "Aceptar");
-                return;
+                return null;
             }
             _mediaFile = await CrossMedia.Current.PickPhotoAsync();
             if (_mediaFile == null)
             {
-                return;
+                return null;
             }
             FileInfo fi = new FileInfo(_mediaFile.Path);
             //name = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Singleton.Instance.User.username);
@@ -67,7 +68,9 @@ namespace Brot.Patterns
                     return _mediaFile.GetStream();
                 });
                 UploadImage();
+                return name;
             }
+            return null;
         }
         private async void UploadImage()
         {
