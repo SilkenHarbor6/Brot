@@ -15,7 +15,10 @@
     mc:Ignorable="d">
     <StackLayout>
         <StackLayout Padding="15" Orientation="Vertical">
-            <StackLayout Margin="0,5" Orientation="Horizontal" HorizontalOptions="Fill">
+            <StackLayout
+                Margin="0,5"
+                HorizontalOptions="Fill"
+                Orientation="Horizontal">
                 <Rounded:CircleImage Aspect="AspectFit" Source="{Binding UsuarioCreator.img}">
                     <Rounded:CircleImage.WidthRequest>
                         <OnPlatform x:TypeArguments="x:Double">
@@ -51,16 +54,17 @@
                         Text="{Binding publicacion.fecha_creacion}"
                         TextColor="#acb0bb" />
                 </StackLayout>
-                <ImageButton Source="Threedots.png"
-                             BackgroundColor="Transparent"
-                             Command="{Binding UsuarioCreator.BtnProfileNameClicked}"
-                             HeightRequest="45"
-                             HorizontalOptions="EndAndExpand"/>
+                <ImageButton
+                    BackgroundColor="Transparent"
+                    Command="{Binding OpcionesCommand}"
+                    HeightRequest="45"
+                    HorizontalOptions="EndAndExpand"
+                    Source="Threedots.png" />
             </StackLayout>
 
             <Label
                 FontAttributes="Bold"
-                FontSize="Small"
+                FontSize="Subtitle"
                 Text="{Binding publicacion.descripcion}"
                 TextColor="#6e717a" />
         </StackLayout>
@@ -94,24 +98,23 @@
                     <TapGestureRecognizer Command="{Binding BtnLikesPeopleCommand}" />
                 </Label.GestureRecognizers>
             </Label>
-            
+
             <!--<ImageButton Source="comment.png"
                                                     HeightRequest="30"
                                                     WidthRequest="30"
                                                     BackgroundColor="Transparent"/>-->
-            
-            
+
+
             <Label
                 HorizontalOptions="EndAndExpand"
                 Text="{Binding cantComentarios, StringFormat='{0} Comments   '}"
                 TextColor="Black"
                 VerticalOptions="Center" />
-            
+
             <ImageButton
                 BackgroundColor="Transparent"
                 Command="{Binding BtnSavePostCommand}"
-                Source="{Binding IsSavedPost, Converter={StaticResource BoolToStringSavedPostImage}}"
-                />
+                Source="{Binding IsSavedPost, Converter={StaticResource BoolToStringSavedPostImage}}" />
         </StackLayout>
     </StackLayout>
 

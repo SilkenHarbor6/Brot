@@ -21,7 +21,7 @@ namespace Brot.ViewModels
             set => SetProperty(ref _Usuario, value);
         }
 
-        private string _UsuarioNombreMostrar="Usuario";
+        private string _UsuarioNombreMostrar = "Usuario";
         public string UsuarioNombreMostrar
         {
             set => SetProperty(ref _UsuarioNombreMostrar, value);
@@ -67,7 +67,7 @@ namespace Brot.ViewModels
             IsRefreshing = true;
             ResponseUserProfile profiledata = new ResponseUserProfile();
 
-                profiledata = await RestAPI.userprofile(Singleton.Instance.User.id_user);
+            profiledata = await RestAPI.userprofile(Singleton.Instance.User.id_user);
 
             if (profiledata != null)
             {

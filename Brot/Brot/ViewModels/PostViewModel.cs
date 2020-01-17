@@ -15,6 +15,8 @@ namespace Brot.ViewModels
 
     public class PostViewModel : BaseViewModel
     {
+        #region Propiedades
+
         private ObservableCollection<ResponseComentarios> _comentariosData;
         private ResponsePublicacion _Post;
         public ObservableCollection<ResponseComentarios> ComentariosData
@@ -29,6 +31,20 @@ namespace Brot.ViewModels
                 }
             }
         }
+        private bool _isActivityActive;
+        public bool isActivityActive
+        {
+            get { return _isActivityActive; }
+            set
+            {
+                if (_isActivityActive != value)
+                {
+                    _isActivityActive = value;
+                    OnPropertyChanged("isActivityActive");
+                }
+            }
+        }
+
         public ResponsePublicacion Post
         {
             get { return _Post; }
@@ -58,16 +74,10 @@ namespace Brot.ViewModels
         private bool _footerVisible;
         public bool FooterVisible
         {
-            get { return _footerVisible; }
-            set
-            {
-                if (_footerVisible != value)
-                {
-                    _footerVisible = value;
-                    OnPropertyChanged("FooterVisible");
-                }
-            }
+            get => _footerVisible;
+            set => SetProperty(ref _footerVisible, value);
         }
+        #endregion
 
         public PostViewModel(ResponsePublicacionFeed postFeed)
         {
@@ -77,17 +87,38 @@ namespace Brot.ViewModels
             //Esto lo hago para que ya tenga los datos del Feed mientras están cargando los demás datos como comentarios
             Post.publicacion = postFeed;
             Post.comentarios = new List<ResponseComentarios>();
+            if (postFeed.cantComentarios>0)
+            {
+                FooterVisible = false;
+            }
+            else
+            {
+                FooterVisible = true;
+            }
             CargarDatos();
             isActivityActive = false;
             IsRefreshing = false;
         }
 
+
+        #region Commands
+
+        public ICommand RefreshCommand
+        {
+            get
+            {
+                return new Xamarin.Forms.Command(() =>
+          {
+              IsRefreshing = true;
+              CargarDatos();
+              IsRefreshing = false;
+
+          });
+            }
+        }
+
         private async void CargarDatos()
         {
-            if (IsRefreshing)
-                return;
-
-            IsRefreshing = true;
             try
             {
 
@@ -136,10 +167,13 @@ namespace Brot.ViewModels
             {
                 Debug.Print($"Error en postViewmodel  --{e.Message}");
             }
-            finally
-            {
-                IsRefreshing = false;
-            }
+        }
+
+
+        private Xamarin.Forms.Command _ComentarCommand;
+        public Xamarin.Forms.Command ComentarCommand
+        {
+            get => _ComentarCommand ?? (_ComentarCommand = new Xamarin.Forms.Command(comentar));
         }
         private async void comentar()
         {
@@ -160,31 +194,12 @@ namespace Brot.ViewModels
             isActivityActive = false;
         }
 
-        public ICommand ComentarCommand
-        {
-            get { return new Xamarin.Forms.Command(comentar); }
-        }
 
 
 
-        public ICommand RefreshCommand
-        {
-            get { return new Xamarin.Forms.Command(CargarDatos); }
-        }
 
-        private bool _isActivityActive;
-        public bool isActivityActive
-        {
-            get { return _isActivityActive; }
-            set
-            {
-                if (_isActivityActive != value)
-                {
-                    _isActivityActive = value;
-                    OnPropertyChanged("isActivityActive");
-                }
-            }
-        }
+
+        #endregion
 
 
 

@@ -246,7 +246,7 @@ namespace BrotAPI_Final.Controllers.API
 
 
             List<ResponseComentarios> comentariosPost = db.comentarios
-                .Where(c=>c.id_post==idPost)
+                .Where(c=>c.id_post==idPost && c.isDeleted == false && c.users.isDeleted == false)
                 .Include(o => o.users)
                 .Include(o => o.like_comentario)
                         .Select(c =>

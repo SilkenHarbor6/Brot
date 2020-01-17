@@ -39,6 +39,19 @@
         private int _cantLikes;
 
 
+        #region Opciones Command
+        private Xamarin.Forms.Command _OpcionesCommand;
+        public Xamarin.Forms.Command OpcionesCommand { get => _OpcionesCommand ??= new Xamarin.Forms.Command(OpcionesMethod); }
+
+        private async void OpcionesMethod(object obj)
+        {
+            //TODO Hacer funcionalidad
+            string respuesta = await App.Current.MainPage.DisplayActionSheet("Titulo", "Atras", "Destruccion",
+                new string[] { "Ir al perfil", "Guardar publicacion", "Editar" });
+
+            await App.Current.MainPage.DisplayAlert("Seleccionado", respuesta, "Ok");
+        }
+        #endregion
 
 
         #region Save Post
@@ -57,7 +70,7 @@
             {
                 //Se quita el objeto
                 IsSavedPost = !IsSavedPost;
-                var x = await RestAPI.Put<publicacion_guardadasModel>(0,postsavedObject, "publicacion_guardada");
+                var x = await RestAPI.Put<publicacion_guardadasModel>(0, postsavedObject, "publicacion_guardada");
             }
             else
             {
@@ -79,7 +92,7 @@
                 id_post = publicacion.id_post,
                 id_user = Singleton.Instance.User.id_user
             };
-            
+
             if ((bool)IsLiked)
             {
                 //Se quita el like
@@ -103,7 +116,7 @@
         public Command BtnLikesPeopleCommand => _BtnLikesPeopleCommand ??= new Command(async () => await LikesPeopleMethod());
         private async Task LikesPeopleMethod()
         {
-            if (cantLikes>0)
+            if (cantLikes > 0)
             {
                 await App.Current.MainPage.Navigation.PushAsync(new Views.LikesPeoplePage(publicacion.id_post, ViewModels.likeType.publicacion));
             }

@@ -70,7 +70,7 @@ namespace Brot.Services
                 IsSuccess = false,
                 Message = "No es posible conectarse a internet"
             };
-            
+
         }
         public static async Task<Response> Post<T>(string controller, T item)
         {
@@ -110,7 +110,7 @@ namespace Brot.Services
                 IsSuccess = false,
                 Message = "No es posible conectarse a internet"
             };
-            
+
         }
         public static async Task<bool> Delete<T>(String controller, int id)
         {
@@ -118,7 +118,7 @@ namespace Brot.Services
             {
                 try
                 {
-                    HttpResponseMessage response = await cliente.DeleteAsync(url + controller +"/"+ id.ToString());
+                    HttpResponseMessage response = await cliente.DeleteAsync(url + controller + "/" + id.ToString());
                     if (!response.IsSuccessStatusCode)
                     {
                         return false;
@@ -131,9 +131,9 @@ namespace Brot.Services
                 }
             }
             return false;
-            
+
         }
-        public static async Task<bool> Put<T>(String controller, int id, T item)
+        public static async Task<bool> Put<T>(String controller, object id, T item)
         {
             if (isConnectedToInterned())
             {
@@ -141,7 +141,7 @@ namespace Brot.Services
                 {
                     var json = JsonConvert.SerializeObject(item);
                     var content = new StringContent(json, Encoding.UTF8, "application/json");
-                    HttpResponseMessage response = await cliente.PutAsync(url + controller + "/"+id, content);
+                    HttpResponseMessage response = await cliente.PutAsync(url + controller + "/" + id.ToString(), content);
                     if (!response.IsSuccessStatusCode)
                     {
                         return false;

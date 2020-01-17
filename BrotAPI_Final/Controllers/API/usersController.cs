@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Data.Entity.Infrastructure;
+using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
@@ -609,7 +610,7 @@ namespace BrotAPI_Final.Controllers.API
         public HttpResponseMessage Put(int id, users item)
         {
             var data = r.GetById(id);
-            if (data == null)
+            if (data == null || id != item.id_user)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe en la base de datos sobre el user a actualizar");
             }
@@ -618,6 +619,42 @@ namespace BrotAPI_Final.Controllers.API
                 return Request.CreateResponse(HttpStatusCode.OK, $"Datos modificados para el user {id}");
             }
             return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No fue posible actualizar el user, id: {id}");
+        }
+
+
+        [HttpPut]
+        [Route("pass/{oldPassWord}")]
+        public HttpResponseMessage ChangePassWord(string oldPassWord, users itemNew)
+        {
+
+            var data = r.GetById(itemNew.id_user);
+            if (data == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe en la base de datos sobre el user a actualizar");
+            }
+            try
+            {
+                if (data.pass == oldPassWord)
+                {
+
+                    data.pass = itemNew.pass;
+                    using (var db = new SomeeDBBrotEntities())
+                    {
+                        db.Entry(data).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, $"Contraseña cambiada");
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotModified, $"Contraseña incorrecta");
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No fue posible actualizar la contraseña");
         }
         #endregion
 

@@ -31,32 +31,38 @@ namespace Brot.ViewModels
 
         public BrotTenViewModel()
         {
-            
+
             cargarUsers();
             //Task.Run(async () => await  cargarUsers());
         }
 
         //SOLO PRUBEA
         //BORRAR CUANDO FUNCIONE EL API 
+
+        private Xamarin.Forms.Command _RefreshComman;
+        public Xamarin.Forms.Command RefreshCommand
+        {
+            get => _RefreshComman ?? (_RefreshComman = new Xamarin.Forms.Command(cargarUsers));
+        }
         public async void cargarUsers()
         {
             IsRefreshing = true;
 
             var resultBrotTEN = await RestAPI.getBrotTen();
             this.lBrotTen = new ObservableCollection<ResponseUsuariosFiltro>();
-            for (int i = 0; i < resultBrotTEN.Count; i++) 
+            for (int i = 0; i < resultBrotTEN.Count; i++)
             {
-                resultBrotTEN[i].userData.img = resultBrotTEN[i].userData.img!= null
+                resultBrotTEN[i].userData.img = resultBrotTEN[i].userData.img != null
                     ? DLL.constantes.urlImages + resultBrotTEN[i].userData.img
                     : DLL.constantes.ProfileImageError;
             }
 
             lBrotTen = new ObservableCollection<ResponseUsuariosFiltro>(resultBrotTEN);
             await Task.Delay(200);
-            IsRefreshing =false;
+            IsRefreshing = false;
 
         }
 
-        public System.Windows.Input.ICommand RefreshCommand { get { return new Xamarin.Forms.Command(cargarUsers); } }
+
     }
 }
