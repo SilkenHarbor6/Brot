@@ -5,6 +5,7 @@ namespace Brot.ViewModels
     using Brot.Services;
     using Brot.Views;
     using Models;
+    using System.Collections.Generic;
     using System.Windows.Input;
     using Xamarin.Forms;
 
@@ -111,8 +112,19 @@ namespace Brot.ViewModels
                 //if (this.Remember)
                     Singleton.Instance.LocalJson.SaveData((userModel) result.Result);
 
+                // TODO Toast de login
                 //Toast.MakeText(Android.App.Application.Context, $"Bienvenido {Singleton.Instance.User.username}", ToastLength.Short).Show();
-                Application.Current.MainPage = new NavigationPage(new Master());
+                Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Successful Login", new System.Collections.Generic.Dictionary<string, string>()
+                {
+                    {"User_ID",Singleton.Instance.User.id_user.ToString() },
+                    {"Usuario",Singleton.Instance.User.nombre }
+                });
+
+                //TODO Activar push
+                //Microsoft.AppCenter.push
+
+                
+                Application.Current.MainPage = new NavigationPage(new MainTabbed());
             }
             else
             {

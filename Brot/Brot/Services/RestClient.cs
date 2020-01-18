@@ -2,9 +2,11 @@
 
 namespace Brot.Services
 {
+    using Microsoft.AppCenter.Crashes;
     using Models;
     using Newtonsoft.Json;
     using System;
+    using System.Collections.Generic;
     using System.Collections.ObjectModel;
     using System.Net.Http;
     using System.Text;
@@ -58,6 +60,10 @@ namespace Brot.Services
                 }
                 catch (Exception e)
                 {
+                    Crashes.TrackError(e, new Dictionary<string, string>()
+                    {
+                        {"RestClient", "GetAll" }
+                    });
                     return new Response
                     {
                         IsSuccess = false,
@@ -98,6 +104,10 @@ namespace Brot.Services
                 }
                 catch (Exception ex)
                 {
+                    Crashes.TrackError(ex, new Dictionary<string, string>()
+                    {
+                        {"RestClient", "Post" }
+                    });
                     return new Response()
                     {
                         IsSuccess = false,
@@ -125,8 +135,12 @@ namespace Brot.Services
                     }
                     return true;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Crashes.TrackError(e, new Dictionary<string, string>()
+                    {
+                        {"RestClient", "Delete" }
+                    });
                     return false;
                 }
             }
@@ -148,8 +162,12 @@ namespace Brot.Services
                     }
                     return true;
                 }
-                catch (Exception)
+                catch (Exception e)
                 {
+                    Crashes.TrackError(e, new Dictionary<string, string>()
+                    {
+                        {"RestClient", "Put" }
+                    });
                     return false;
                 }
             }
@@ -181,6 +199,10 @@ namespace Brot.Services
                 }
                 catch (Exception ex)
                 {
+                    Crashes.TrackError(ex, new Dictionary<string, string>()
+                    {
+                        {"RestClient", "Post4Reg" }
+                    });
                     return new Response()
                     {
                         IsSuccess = false,
@@ -222,6 +244,10 @@ namespace Brot.Services
                 }
                 catch (Exception e)
                 {
+                    Crashes.TrackError(e, new Dictionary<string, string>()
+                    {
+                        {"RestClient", "GetAll_S" }
+                    });
                     return new Response
                     {
                         IsSuccess = false,

@@ -37,6 +37,11 @@
         public Command BtnProfileNameClicked => _BtnProfileNameClicked ??= new Command(async () => await BtnProfileMethod());
         private async System.Threading.Tasks.Task BtnProfileMethod()
         {
+            Microsoft.AppCenter.Analytics.Analytics.TrackEvent("Visita Perfil",
+                new System.Collections.Generic.Dictionary<string, string>() { 
+                    { "Negocio", this.nombre },
+                });
+
             await App.Current.MainPage.Navigation.PushAsync(new Views.SellerProfile(this));
         }
 

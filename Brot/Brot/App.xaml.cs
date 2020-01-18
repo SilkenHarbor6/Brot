@@ -31,6 +31,7 @@
 
                 if (Singleton.Instance.LocalJson.IsUserLogged())
                 {
+                    //TODO Activar PUSH
                     MainPage = new NavigationPage(new MainTabbed());
                 }
                 else
@@ -47,11 +48,16 @@
         }
 
 
-        protected override void OnStart()
+        protected async override void OnStart()
         {
             Microsoft.AppCenter.AppCenter.Start("android=ce90d30b-e395-4d05-be5b-a1461a3bec8e;" +
                   "ios=0caa730c-a7e0-45b2-82bb-302f376b133d",
                   typeof(Microsoft.AppCenter.Analytics.Analytics), typeof(Microsoft.AppCenter.Crashes.Crashes));
+
+            if (await Microsoft.AppCenter.Analytics.Analytics.IsEnabledAsync())
+            {
+                await Microsoft.AppCenter.Analytics.Analytics.SetEnabledAsync(true);
+            }
         }
 
         protected override void OnSleep()
