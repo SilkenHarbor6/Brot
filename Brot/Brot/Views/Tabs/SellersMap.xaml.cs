@@ -27,15 +27,9 @@
         {
 
             InitializeComponent();
-            Mapa.MoveToRegion(
-                MapSpan.FromCenterAndRadius(
-                    new Position(
-                        13.994778,
-                        -89.556642
-                        ),
-                    Distance.FromMeters(2500)
-                    )
-                );
+
+            MoveToSantaAna();
+
             //Mapa.MapStyle = MapStyle.FromJson(new XamarinMapStyle().Text);
             BindingContext = this.ViewModel = new SellersMapViewModel(ref Mapa);
             XamarinMapStyle Style = new XamarinMapStyle();
@@ -54,10 +48,28 @@
             //this.ViewModel.InitPinsCommand.Execute(null);
         }
 
+        private void MoveToSantaAna()
+        {
+            Mapa.MoveToRegion(
+                MapSpan.FromCenterAndRadius(
+                    new Position(
+                        13.994778,
+                        -89.556642
+                        ),
+                    Distance.FromMeters(2500)
+                    )
+                );
+        }
+
         private void Mapa_PinClicked(object sender, PinClickedEventArgs e)
         {
             var pin = e.Pin;
             ViewModel.pinClicked.Execute(Convert.ToInt32(pin.Address));
+        }
+
+        private void Button_Clicked(object sender, EventArgs e)
+        {
+            MoveToSantaAna();
         }
     }
 }

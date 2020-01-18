@@ -40,7 +40,7 @@
                         Margin="10"
                         BorderColor="#031540"
                         BorderThickness="2"
-                        CornerRadius="10"
+                        CornerRadius="30"
                         Placeholder="Type your lastname"
                         PlaceholderColor="Gray"
                         Text="{Binding Apellido}"

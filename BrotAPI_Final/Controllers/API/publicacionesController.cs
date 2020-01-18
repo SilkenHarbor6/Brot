@@ -6,12 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
 
 namespace BrotAPI_Final.Controllers.API
 {
@@ -286,7 +284,8 @@ namespace BrotAPI_Final.Controllers.API
                                            ylon = c.users.ylon
                                        }
                                    }
-                                ).ToList();
+                                ).OrderByDescending(f => f.comentario.fecha_creacion)
+                                .ToList();
 
             publicacion.publicacion = publicacionContent;
             publicacion.comentarios = comentariosPost;
@@ -301,77 +300,16 @@ namespace BrotAPI_Final.Controllers.API
         }
 
 
-
-        //[Route("all/{idUser}")]
-        //public HttpResponseMessage GetpublicacionesALL(int idUser)//id del usuario
-        //{
-
-        //    var lpublicaciones = db.publicaciones
-        //        .Include(o => o.users)
-        //        .Include(o => o.like_post)
-        //        .Include(o => o.comentarios)
-        //        .Select(b =>
-        //             new ResponsePublicacionFeed()
-        //             {
-        //                 publicacion = new publicacionesModel
-        //                 {
-        //                     descripcion = b.descripcion,
-        //                     fecha_actualizacion = b.fecha_actualizacion,
-        //                     fecha_creacion = b.fecha_creacion,
-        //                     id_post = b.id_post,
-        //                     id_user = b.id_user,
-        //                     img = b.img,
-        //                     isImg = b.isImg,
-        //                     isDeleted = b.isDeleted
-        //                 },
-        //                 UsuarioCreator = new DLL.Models.userModel()
-        //                 {
-        //                     apellido = b.users.apellido,
-        //                     descripcion = b.users.descripcion,
-        //                     email = b.users.email,
-        //                     id_user = b.users.id_user,
-        //                     isVendor = b.users.isVendor,
-        //                     nombre = b.users.nombre,
-        //                     pass = "Password",
-        //                     puntaje = b.users.puntaje,
-        //                     username = b.users.username,
-        //                     img = b.users.img,
-        //                     puesto_name = b.users.puesto_name,
-        //                     isActive = b.users.isActive,
-        //                     dui = b.users.dui,
-        //                     isDeleted = b.users.isDeleted,
-        //                     num_telefono = b.users.num_telefono,
-        //                     xlat = b.users.xlat,
-        //                     ylon = b.users.ylon
-
-        //                 },
-        //                 cantComentarios = b.comentarios.Where(c => c.users.isDeleted == false && c.isDeleted == false).ToList().Count,
-        //                 cantLikes = b.like_post.Where(l => l.users.isDeleted == false).ToList().Count,
-        //                 IsLiked = b.like_post.FirstOrDefault(l => l.users.id_user == idUser) == default(like_post) ? false : true,
-        //                 IsSavedPost = b.publicacion_guardada.FirstOrDefault(p=>p.id_user==idUser) ==default(publicacion_guardada) ?false:true
-
-
-        //             }).ToList();
-
-
-        //    if (lpublicaciones == null || lpublicaciones.Count == 0)
-        //    {
-        //        return Request.CreateResponse(HttpStatusCode.NoContent, "No hay publicaciones");
-        //    }
-        //    return Request.CreateResponse(HttpStatusCode.OK, lpublicaciones);
-
-        //}
-
-
         #region DELETE - POST - PUT 
-
-
 
         /// <summary>
         /// Optiene un id y ese es pasado al repositorio para ver si puede eliminar el objeto en la base de datos
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// 
+        [HttpDelete]
+        [Route("{id}")]
         public HttpResponseMessage Delete(int id)
         {
             var item = r.GetById(id);
@@ -393,6 +331,8 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
+        /// 
+        [HttpPost]
         public HttpResponseMessage Post(publicaciones item)
         {
             item.isDeleted = false;

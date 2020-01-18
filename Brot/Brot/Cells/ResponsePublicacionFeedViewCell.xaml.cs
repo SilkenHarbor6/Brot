@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
+using System.Diagnostics;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -15,6 +11,13 @@ namespace Brot.Cells
         public ResponsePublicacionFeedViewCell()
         {
             InitializeComponent();
+        }
+
+        private void CachedImage_Error(object sender, FFImageLoading.Forms.CachedImageEvents.ErrorEventArgs e)
+        {
+            Debug.Print(sender.ToString());
+            Debug.Print(e.Exception.Message);
+            Debug.Print(e.Exception.InnerException.Message);
         }
     }
 }

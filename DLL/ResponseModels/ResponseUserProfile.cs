@@ -10,7 +10,7 @@ namespace DLL.ResponseModels
         public int cantSeguidos { get; set; }
         public bool isFollowed { get; set; }
         public List<ResponsePublicacionFeed> publicacionesUser {get;set;}
-        public List<ResponsePublicacionGuardada> publicacionesGuardadas {get;set; }
+        public List<ResponsePublicacionFeed> publicacionesGuardadas {get;set; }
 
     }
 }

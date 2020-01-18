@@ -93,6 +93,7 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
+        [HttpPost]
         public HttpResponseMessage Post(like_comentario item)
         {
             if (item == null)

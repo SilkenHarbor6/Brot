@@ -2,16 +2,13 @@
 using BrotAPI_Final.Repository;
 using DLL.ResponseModels;
 using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
 
 namespace BrotAPI_Final.Controllers.API
 {
@@ -35,18 +32,11 @@ namespace BrotAPI_Final.Controllers.API
                     .Include(p => p.publicaciones)
                     .Include(p => p.publicaciones.like_post)
                     .Where(p => p.id_user == idUser)
+                    .OrderByDescending(f=>f.fecha)
                     .Select(
                         p =>
-                            new ResponsePublicacionGuardada
+                            new ResponsePublicacionFeed
                             {
-                                publicacionGuardada = new DLL.Models.publicacion_guardadasModel
-                                {
-                                    fecha = p.fecha,
-                                    id_post = p.id_post,
-                                    id_user = p.id_user,
-                                    //Primary Key
-                                    id_publicacion_guardada = p.id_publicacion_guardada
-                                },
 
                                 publicacion = new DLL.Models.publicacionesModel
                                 {
@@ -86,7 +76,7 @@ namespace BrotAPI_Final.Controllers.API
                                 IsSavedPost = true
                             }
 
-                    ).ToList();
+                    ).OrderByDescending(f => f.publicacion.fecha_creacion).ToList();
                 return Request.CreateResponse(HttpStatusCode.OK, publicacionesGuardadas);
             }
         }
@@ -103,6 +93,7 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
+        [HttpPost]
         public HttpResponseMessage Post(publicacion_guardada item)
         {
             if (item == null)

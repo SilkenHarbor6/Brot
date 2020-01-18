@@ -22,6 +22,7 @@ namespace BrotAPI_Final.Controllers.API
 
         #region Gets
         [Route("api/comentarios/{idComentario}")]
+        [HttpGet]
         public HttpResponseMessage Getbyid(int idComentario)
         {
             using (var db = new SomeeDBBrotEntities())
@@ -104,6 +105,7 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
+        [HttpPost]
         public HttpResponseMessage Post(comentarios item)
         {
             if (item == null)

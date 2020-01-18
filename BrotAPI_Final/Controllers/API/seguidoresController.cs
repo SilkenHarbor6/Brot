@@ -1,15 +1,11 @@
 ﻿using BrotAPI_Final.Models;
 using BrotAPI_Final.Repository;
 using System;
-using System.Collections.Generic;
 using System.Data;
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
 
 namespace BrotAPI_Final.Controllers.API
 {
@@ -19,8 +15,6 @@ namespace BrotAPI_Final.Controllers.API
         private RseguidoresDB r = new RseguidoresDB();
 
         #region DELETE - POST - PUT 
-
-
 
         /// <summary>
         /// Optiene un id y ese es pasado al repositorio para ver si puede eliminar el objeto en la base de datos
@@ -98,27 +92,6 @@ namespace BrotAPI_Final.Controllers.API
             return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No es posible guardar los datos del seguidor");
         }
 
-
-
-        /// <summary>
-        /// Verifica si existe el id ingresado en la tabla y luego actualiza el registro
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="item"></param>
-        /// <returns></returns>
-        //public HttpResponseMessage Put(int id, seguidores item)
-        //{
-        //    var data = r.GetById(id);
-        //    if (data == null)
-        //    {
-        //        return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe en la base de datos sobre el seguidor a actualizar");
-        //    }
-        //    if (r.Put(id, item))
-        //    {
-        //        return Request.CreateResponse(HttpStatusCode.OK, $"Datos modificados para el seguidor {id}");
-        //    }
-        //    return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No fue posible actualizar el seguidor, id: {id}");
-        //}
         #endregion
 
     }

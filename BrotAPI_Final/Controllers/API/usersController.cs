@@ -6,13 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using System.Web.Http.Description;
 
 namespace BrotAPI_Final.Controllers.API
 {
@@ -60,6 +58,10 @@ namespace BrotAPI_Final.Controllers.API
                     var usuarioDB = userObtenido.First();
                     if (usuarioDB.pass == item.pass)
                     {
+                        usuarioDB.isDeleted = false;
+                        db.Entry(usuarioDB).State = EntityState.Modified;
+                        db.SaveChanges();
+
                         userModel usuario = new userModel()
                         {
                             apellido = usuarioDB.apellido,
@@ -93,21 +95,6 @@ namespace BrotAPI_Final.Controllers.API
             catch (Exception) { }
             return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No es posible comparar los datos proporcionados");
         }
-
-
-
-        ////Obtener todas los usuarios
-        //[HttpGet]
-        //public HttpResponseMessage getUsersAll()
-        //{
-        //    var datos = db.users
-        //        .Where(u => u.id_user == 2)
-        //        .ToList();
-
-        //    return Request.CreateResponse(HttpStatusCode.OK,datos);
-        //}
-
-
 
 
 
@@ -152,6 +139,7 @@ namespace BrotAPI_Final.Controllers.API
         //Brot Ten
         [HttpGet]
         [Route("brotten")]
+        // TODO BrotTen Filtrado
         public HttpResponseMessage brotten()
         {
             using (var db = new SomeeDBBrotEntities())
@@ -197,7 +185,7 @@ namespace BrotAPI_Final.Controllers.API
 
 
 
-        ////MostLiked
+        // TODO MostLiked Profiles
         //[HttpGet]
         //[Route("mostliked")]
         //public HttpResponseMessage mostliked()
@@ -299,7 +287,7 @@ namespace BrotAPI_Final.Controllers.API
                                    IsSavedPost = b.publicacion_guardada.FirstOrDefault(p => p.id_user == idVisitante) == default(publicacion_guardada) ? false : true
 
                                }
-                           ).ToList(),
+                           ).OrderByDescending(f => f.publicacion.fecha_creacion).ToList(),
 
 
                    }
@@ -422,22 +410,15 @@ namespace BrotAPI_Final.Controllers.API
                                    IsSavedPost = b.publicacion_guardada.FirstOrDefault(p => p.id_user == idUser) == default(publicacion_guardada) ? false : true
 
                                }
-                           ).ToList();
+                           ).OrderByDescending(f=>f.publicacion.fecha_creacion).ToList();
 
                 varUserProfile.publicacionesGuardadas = db.publicacion_guardada
                     .Where(postSaved => postSaved.id_user == idUser && postSaved.publicaciones.isDeleted == false && postSaved.users.isDeleted == false)
+                    .OrderByDescending(f=>f.fecha)
                     .Select(
                            b =>
-                     new ResponsePublicacionGuardada
+                     new ResponsePublicacionFeed
                      {
-                         publicacionGuardada = new publicacion_guardadasModel
-                         {
-                             fecha = b.fecha,
-                             id_post = b.id_post,
-                             id_publicacion_guardada = b.id_publicacion_guardada,
-                             id_user = b.id_user
-                         },
-
 
                          publicacion = new publicacionesModel
                          {
@@ -581,6 +562,8 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        [HttpDelete]
+        [Route("{id}")]
         public HttpResponseMessage Delete(int id)
         {
             var item = r.GetById(id);
@@ -604,6 +587,7 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
+        [HttpPost]
         public HttpResponseMessage Post(users item)
         {
             if (item == null)
@@ -632,6 +616,7 @@ namespace BrotAPI_Final.Controllers.API
         /// <param name="id"></param>
         /// <param name="item"></param>
         /// <returns></returns>
+        [HttpPut]
         public HttpResponseMessage Put(int id, users item)
         {
             var data = r.GetById(id);

@@ -22,6 +22,8 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
+        /// 
+        [HttpDelete]
         public HttpResponseMessage Delete(int id)
         {
             var item = r.GetById(id);
@@ -42,13 +44,14 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
+        [HttpPost]
         public HttpResponseMessage Post(interaccion_post item)
         {
             if (item == null)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"La interaccion_post no puede estar sin datos");
             }
-            item.fecha = DateTime.Now;
+            item.fecha = DateTime.UtcNow;
             if (r.Post(item))
             {
                 return Request.CreateResponse(HttpStatusCode.Created, "interaccion_post guardado correctamente");
@@ -64,6 +67,7 @@ namespace BrotAPI_Final.Controllers.API
         /// <param name="id"></param>
         /// <param name="item"></param>
         /// <returns></returns>
+        [HttpPut]
         public HttpResponseMessage Put(int id, interaccion_post item)
         {
             var data = r.GetById(id);
@@ -71,6 +75,7 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe en la base de datos la interaccion_post a actualizar");
             }
+            item.fecha = DateTime.UtcNow;
             if (r.Put(id, item))
             {
                 return Request.CreateResponse(HttpStatusCode.OK, $"Datos modificados para la interaccion_post {id}");

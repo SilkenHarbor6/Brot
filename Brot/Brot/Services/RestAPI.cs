@@ -96,7 +96,7 @@ namespace Brot.Services
 
 
         //[Route("api/publicacion_guardada/{idUser}")]
-        public static async Task<List<ResponsePublicacionGuardada>> GetPublicacionesGuardadas(int idUser)//id del usuario
+        public static async Task<List<ResponsePublicacionFeed>> GetPublicacionesGuardadas(int idUser)//id del usuario
         {
             if (isConnectedToInterned())
             {
@@ -107,7 +107,7 @@ namespace Brot.Services
                     if (response.IsSuccessStatusCode)
                     {
                         string json = await response.Content.ReadAsStringAsync();
-                        return Newtonsoft.Json.JsonConvert.DeserializeObject<List<ResponsePublicacionGuardada>>(json);
+                        return Newtonsoft.Json.JsonConvert.DeserializeObject<List<ResponsePublicacionFeed>>(json);
                     }
                 }
             }

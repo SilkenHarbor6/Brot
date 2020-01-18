@@ -8,7 +8,7 @@ using System.Windows.Input;
 
 namespace Brot.ViewModels
 {
-    class ChngPViewModel:BaseViewModel
+    class ChngPViewModel : BaseViewModel
     {
         private String op;
         private String np;
@@ -21,7 +21,7 @@ namespace Brot.ViewModels
             }
             set
             {
-                op = value;OnPropertyChanged("oldPass");
+                op = value; OnPropertyChanged("oldPass");
             }
         }
         public String newPass
@@ -32,7 +32,7 @@ namespace Brot.ViewModels
             }
             set
             {
-                np = value;OnPropertyChanged("newPass"); Singleton.passw = value;
+                np = value; OnPropertyChanged("newPass"); Singleton.passw = value;
             }
         }
         public String repeatedPass
@@ -43,7 +43,7 @@ namespace Brot.ViewModels
             }
             set
             {
-                rp = value;OnPropertyChanged("repeatedPass");
+                rp = value; OnPropertyChanged("repeatedPass");
             }
         }
         public ICommand passwordCommand
@@ -56,20 +56,26 @@ namespace Brot.ViewModels
 
         private async void chnPass()
         {
-            if (np!=rp)
+            IsRefreshing = true;
+
+            if (np != rp)
             {
                 await App.Current.MainPage.DisplayAlert("Error", "Las claves no coinciden", "Aceptar");
+                IsRefreshing = false;
+                return;
             }
             userModel u = new userModel();
-            u.id_user= Singleton.Instance.User.id_user;
+            u.id_user = Singleton.Instance.User.id_user;
             u.pass = np;
             var resp = await RestClient.Put<userModel>("users/pass", op, u);
             if (!resp)
             {
                 await App.Current.MainPage.DisplayAlert("Error", "La clave antigua es incorrecta, por favor revisela", "Aceptar");
+                IsRefreshing = false;
                 return;
             }
             await App.Current.MainPage.DisplayAlert("", "La clave ha sido cambiada exitosamente", "Aceptar");
+            IsRefreshing = false;
             await App.Current.MainPage.Navigation.PopAsync();
         }
     }

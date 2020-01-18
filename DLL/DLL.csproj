@@ -58,7 +58,6 @@
     <Compile Include="ResponseModels\ResponseLikes.cs" />
     <Compile Include="ResponseModels\ResponsePublicacion.cs" />
     <Compile Include="ResponseModels\ResponsePublicacionFeed.cs" />
-    <Compile Include="ResponseModels\ResponsePublicacionGuardada.cs" />
     <Compile Include="ResponseModels\ResponseSeguidores.cs" />
     <Compile Include="ResponseModels\ResponseUserProfile.cs" />
     <Compile Include="ResponseModels\ResponseUsuariosFiltro.cs" />

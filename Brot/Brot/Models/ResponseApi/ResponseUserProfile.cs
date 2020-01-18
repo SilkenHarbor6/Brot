@@ -28,7 +28,7 @@
             set => SetProperty(ref _isFollowed, value);
         }
         public List<ResponsePublicacionFeed> publicacionesUser { get; set; }
-        public List<ResponsePublicacionGuardada> publicacionesGuardadas { get; set; }
+        public List<ResponsePublicacionFeed> publicacionesGuardadas { get; set; }
 
 
 

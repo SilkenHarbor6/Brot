@@ -71,12 +71,20 @@
 
 
         <ffimage:CachedImage
-            Aspect="AspectFill"
-            HeightRequest="250"
+            Aspect="AspectFit"
             HorizontalOptions="Fill"
             IsVisible="{Binding publicacion.isImg}"
-            LoadingPlaceholder="loading2.gif"
+            LoadingPlaceholder="loading.png"
+            Error="CachedImage_Error"
+            CacheDuration="20"
+            RetryDelay="600"
+            RetryCount="6"
+            BitmapOptimizations="True"
+            DownsampleToViewSize="True"
             Source="{Binding publicacion.img}" />
+
+        <!-- TODO ERROR PLACEHOLDER IMAGE -->
+        <!--LoadingPlaceholder="loading2.gif"-->
 
         <StackLayout
             Margin="10,0,10,5"

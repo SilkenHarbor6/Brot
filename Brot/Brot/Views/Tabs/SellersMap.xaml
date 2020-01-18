@@ -3,6 +3,7 @@
     x:Class="Brot.Views.Tabs.SellersMap"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:RoundedImage="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
     xmlns:beha="clr-namespace:Prism.Behaviors"
     xmlns:cv="clr-namespace:Brot"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
@@ -13,13 +14,16 @@
     mc:Ignorable="d">
 
     <ContentPage.Content>
-        <StackLayout
-            BackgroundColor="#ffffff"
-            Orientation="Vertical"
-            VerticalOptions="FillAndExpand">
+        <Grid HorizontalOptions="Fill" VerticalOptions="Fill">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
             <maps:Map
                 x:Name="Mapa"
+                Grid.RowSpan="2"
                 HorizontalOptions="Fill"
                 IsShowingUser="False"
                 ItemsSource="{Binding places}"
@@ -38,6 +42,19 @@
                 </maps:Map.ItemTemplate>
             </maps:Map>
 
+            <Button
+                Grid.Row="1"
+                Margin="10"
+                Clicked="Button_Clicked"
+                CornerRadius="25"
+                HeightRequest="50"
+                HorizontalOptions="Start"
+                Text="SANTA ANA"
+                VerticalOptions="Start"
+                WidthRequest="50" />
+
+
+
             <!--<StackLayout VerticalOptions="FillAndExpand">
                 <Maps:Map VerticalOptions="FillAndExpand"
                           x:Name="MyMap">
@@ -52,6 +69,6 @@
                     </Maps:Map.Behaviors>
                 </Maps:Map>
             </StackLayout>-->
-        </StackLayout>
+        </Grid>
     </ContentPage.Content>
 </ContentPage>
