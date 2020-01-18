@@ -2,6 +2,28 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" android:versionCode="1" android:versionName="1.0" package="com.companyname.brot" android:installLocation="auto">
 	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="28" />
 	<application android:label="Brot.Android" android:usesCleartextTraffic="true">
+    //Push AppCenter App Center
+    <receiver
+        android:name="com.google.firebase.iid.FirebaseInstanceIdInternalReceiver"
+        android:exported="false" />
+    <receiver
+        android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+        android:exported="true"
+        android:permission="com.google.android.c2dm.permission.SEND">
+        <intent-filter>
+            <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            <action android:name="com.google.android.c2dm.intent.REGISTRATION" />
+            <category android:name="${applicationId}" />
+        </intent-filter>
+    </receiver>
+    //Push Design
+    <!-- Set default notification icon and color. -->
+    <meta-data
+        android:name="com.google.firebase.messaging.default_notification_icon"
+        android:resource="@drawable/brot" />
+    <meta-data
+        android:name="com.google.firebase.messaging.default_notification_color"
+        android:resource="@color/appdarkcolor" />
     //Google maps
     <uses-library android:name="org.apache.http.legacy" android:required="false" /><meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyB259mHIIfmjR4GXDYgSANkinRw8iBuTFw" />
     //Xamarin.Plugin.Media

@@ -120,10 +120,11 @@ namespace Brot.ViewModels
                     {"Usuario",Singleton.Instance.User.nombre }
                 });
 
-                //TODO Activar push
-                //Microsoft.AppCenter.push
+                Microsoft.AppCenter.AppCenter.Start("android=ce90d30b-e395-4d05-be5b-a1461a3bec8e;" +
+                         "ios=0caa730c-a7e0-45b2-82bb-302f376b133d",
+                          typeof(Microsoft.AppCenter.Push.Push));
 
-                
+
                 Application.Current.MainPage = new NavigationPage(new MainTabbed());
             }
             else

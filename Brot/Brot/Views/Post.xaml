@@ -10,6 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:patterns="clr-namespace:Brot.Patterns"
     Title="{Binding Title}"
+    BackgroundColor="White"
     mc:Ignorable="d">
     <ContentPage.Resources>
         <ResourceDictionary />

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "77107619176",
+    "firebase_url": "https://brotn3cds.firebaseio.com",
+    "project_id": "brotn3cds",
+    "storage_bucket": "brotn3cds.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77107619176:android:85046985f33130a66a62dd",
+        "android_client_info": {
+          "package_name": "com.companyname.brot"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "77107619176-6lub5q2b8grio9anml8cj1a1tbk4262o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBwDycmxUBvTxH0Ua2jCapOE20QE3E9x3U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "77107619176-6lub5q2b8grio9anml8cj1a1tbk4262o.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

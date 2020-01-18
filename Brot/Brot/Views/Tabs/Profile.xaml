@@ -13,9 +13,7 @@
     mc:Ignorable="d">
 
     <ContentPage.Resources>
-        <ResourceDictionary>
-            
-        </ResourceDictionary>
+        <ResourceDictionary />
     </ContentPage.Resources>
 
 
@@ -38,7 +36,7 @@
                             <StackLayout>
                                 <StackLayout
                                     Padding="8"
-                                    BackgroundColor="Transparent"
+                                    BackgroundColor="White"
                                     Spacing="-6">
                                     <ffimage:CachedImage
                                         Margin="0,15,0,0"

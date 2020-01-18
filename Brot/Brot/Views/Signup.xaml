@@ -8,6 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:tigger="clr-namespace:Brot.Tigger"
     Title="Sign Up"
+    BackgroundColor="White"
     mc:Ignorable="d">
 
     <ContentPage.Content>
