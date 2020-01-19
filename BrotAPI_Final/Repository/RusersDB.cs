@@ -131,5 +131,18 @@ namespace BrotAPI_Final.Repository
             }
         }
 
+        public users EmailExist(string email)
+        {
+            using (var db = new SomeeDBBrotEntities())
+            {
+                try
+                {
+                    db.Configuration.ProxyCreationEnabled = false;
+                    var res = db.users.Find(email);
+                    return res;
+                }
+                catch (Exception) { return null; }
+            }
+        }
     }
 }
