@@ -5,6 +5,7 @@ namespace Brot.ViewModels
     using Brot.Services;
     using Brot.Views;
     using Models;
+    using System;
     using System.Collections.Generic;
     using System.Windows.Input;
     using Xamarin.Forms;
@@ -72,6 +73,14 @@ namespace Brot.ViewModels
             }
         }
 
+        public ICommand ResetPass
+        {
+            get
+            {
+                return new Xamarin.Forms.Command(RecoveryPass);
+            }
+        }
+
         public ICommand LoginCommand
         {
             get
@@ -83,6 +92,11 @@ namespace Brot.ViewModels
         #endregion
 
         #region Methods
+
+        private void RecoveryPass(object obj)
+        {
+            Application.Current.MainPage.Navigation.PushAsync(new EmailVerify());
+        }
 
         private void RegisterUser()
         {
