@@ -155,8 +155,11 @@ namespace Brot.ViewModels
         }
         private void Signout()
         {
+            IsRefreshing = true;
             Singleton.Instance.LocalJson.SignOut();
-            App.Current.MainPage = new NavigationPage(new Login());
+            var newPage = new NavigationPage(new Login());
+            App.Current.MainPage = newPage;
+            Microsoft.AppCenter.Push.Push.SetEnabledAsync(false);
         }
 
 

@@ -1,18 +1,25 @@
 ﻿namespace Brot
 {
     using Brot.Patterns;
+    using Microsoft.AppCenter;
+    using Microsoft.AppCenter.Analytics;
+    using Microsoft.AppCenter.Crashes;
+    using Microsoft.AppCenter.Push;
     using Plugin.Permissions;
     using Plugin.Permissions.Abstractions;
     using System;
     using System.Diagnostics;
+    using System.Threading.Tasks;
     using Views;
     using Xamarin.Forms;
     using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
     public partial class App : Xamarin.Forms.Application
     {
+        private bool wasAppCenterKeysSent { get; set; }
         public App()
         {
+            wasAppCenterKeysSent = false;
             Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
 
             InitializeComponent();
@@ -28,76 +35,126 @@
 
             try
             {
+                // Avoid duplicate event registration:
+                if (!AppCenter.Configured)
+                {
+                    Push.PushNotificationReceived += Push_PushNotificationReceived;
+                }
+
                 if (Singleton.Instance.LocalJson.IsUserLogged())
                 {
-                    Microsoft.AppCenter.AppCenter.SetUserId(Singleton.Instance.User.id_user.ToString());
-
-                    // Avoid duplicate event registration:
-                    if (!Microsoft.AppCenter.AppCenter.Configured)
-                    {
-                        Microsoft.AppCenter.Push.Push.PushNotificationReceived += (sender, e) =>
-                        {
-                            // Add the notification message and title to the message
-                            var summary = $"Push notification received:" +
-                                                $"\n\tNotification title: {e.Title}" +
-                                                $"\n\tMessage: {e.Message}";
-
-                            // If there is custom data associated with the notification,
-                            // print the entries
-                            if (e.CustomData != null)
-                            {
-                                summary += "\n\tCustom data:\n";
-                                foreach (var key in e.CustomData.Keys)
-                                {
-                                    summary += $"\t\t{key} : {e.CustomData[key]}\n";
-                                }
-                            }
-
-                            // Send the notification summary to debug output
-                            App.Current.MainPage.DisplayAlert("Push", summary, "Ok");
-                            System.Diagnostics.Debug.WriteLine(summary);
-                        };
-                    }
-
-                    // AppCenter.start after
-                    Microsoft.AppCenter.AppCenter.Start("android=ce90d30b-e395-4d05-be5b-a1461a3bec8e;" +
-                          "ios=0caa730c-a7e0-45b2-82bb-302f376b133d",
-                           typeof(Microsoft.AppCenter.Push.Push));
                     //Main Page!
                     MainPage = new NavigationPage(new MainTabbed());
+
+                    AppCenter.Start("android=ce90d30b-e395-4d05-be5b-a1461a3bec8e;" +
+                          "ios=0caa730c-a7e0-45b2-82bb-302f376b133d",
+                           typeof(Push), typeof(Analytics), typeof(Crashes));
+                    wasAppCenterKeysSent = true;
+                    await Push.SetEnabledAsync(true);
                 }
                 else
                 {
                     MainPage = new NavigationPage(new Login());
+                    ActivarAnalyticsConKEYS();
                 }
             }
             catch (Exception ex)
             {
                 Debug.Print(ex.Message);
-                Microsoft.AppCenter.Crashes.Crashes.TrackError(ex, new System.Collections.Generic.Dictionary<string, string>() {
+
+                //Capturo el error y lo mando a AppCenter antes que el app muera!!
+                if (!wasAppCenterKeysSent)
+                {
+                    ActivarAnalyticsConKEYS();
+                }
+
+                Crashes.TrackError(ex, new System.Collections.Generic.Dictionary<string, string>() {
                     {"AppStart", "Falló" }
                 });
+
+
                 MainPage = new NavigationPage(new Login());
             }
            ((NavigationPage)Xamarin.Forms.Application.Current.MainPage).BarBackgroundColor = Color.FromHex("#031540");
-
-            var idInstalled02 = await Microsoft.AppCenter.AppCenter.GetInstallIdAsync();
-            //https://stackoverflow.com/questions/56982641/how-to-implement-appcenter-push-api
-            //TODO Make it work!
         }
 
 
-        protected async override void OnStart()
+        protected override void OnStart()
         {
-            Microsoft.AppCenter.AppCenter.Start("android=ce90d30b-e395-4d05-be5b-a1461a3bec8e;" +
-                  "ios=0caa730c-a7e0-45b2-82bb-302f376b133d",
-                  typeof(Microsoft.AppCenter.Analytics.Analytics), typeof(Microsoft.AppCenter.Crashes.Crashes));
 
-            if (await Microsoft.AppCenter.Analytics.Analytics.IsEnabledAsync())
+            if (!wasAppCenterKeysSent)
             {
-                await Microsoft.AppCenter.Analytics.Analytics.SetEnabledAsync(true);
+                ActivarAnalyticsConKEYS();
+            }
+
+            GuardarDispositivoQueEntroAppCenter();
+        }
+
+        //https://stackoverflow.com/questions/56982641/how-to-implement-appcenter-push-api
+        //TODO Make it work! Usano Usuarios personalizados o bien un Auth de Azure 
+        public async void GuardarDispositivoQueEntroAppCenter()
+        {
+            var idInstalled02 = await AppCenter.GetInstallIdAsync();
+            Analytics.TrackEvent("Device Name", new System.Collections.Generic.Dictionary<string, string>()
+                    {
+                        { "Device",idInstalled02.Value.ToString() }
+                    });
+        }
+
+        public async void ActivarAnalyticsConKEYS()
+        {
+            AppCenter.Start("android=ce90d30b-e395-4d05-be5b-a1461a3bec8e;" +
+                  "ios=0caa730c-a7e0-45b2-82bb-302f376b133d",
+                  typeof(Analytics), typeof(Crashes));
+
+            wasAppCenterKeysSent = true;
+            await Analytics.SetEnabledAsync(true);
+            await Crashes.SetEnabledAsync(true);
+        }
+
+        public async void ActivarAnalytics()
+        {
+            AppCenter.Start(typeof(Analytics), typeof(Crashes));
+            await Analytics.SetEnabledAsync(true);
+            await Crashes.SetEnabledAsync(true);
+        }
+
+        public void Push_PushNotificationReceived(object sender, PushNotificationReceivedEventArgs e)
+        {
+            //TODO hace metodo que redirija a las pages que me interesa con los datos pertinentes de los constructores xd
+            //TODO Push on Server Side
+            //MainPage.Navigation.InsertPageBefore
+
+            try
+            {
+                // Add the notification message and title to the message
+                var summary = $"Push notification received:" +
+                                    $"\n\tNotification title: {e.Title}" +
+                                    $"\n\tMessage: {e.Message}";
+
+                // If there is custom data associated with the notification,
+                // print the entries
+                if (e.CustomData != null)
+                {
+                    summary += "\n\tCustom data:\n";
+                    foreach (var key in e.CustomData.Keys)
+                    {
+                        summary += $"\t\t{key} : {e.CustomData[key]}\n";
+                    }
+                }
+
+                // Send the notification summary to debug output
+                App.Current.MainPage.DisplayAlert("Push", summary, "Ok");
+            }
+            catch (Exception ex)
+            {
+
+                Crashes.TrackError(ex, new System.Collections.Generic.Dictionary<string, string>() {
+                    {"Push Notification","Error interpretandola" }
+                });
             }
         }
+
 
         protected override void OnSleep()
         {

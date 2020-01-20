@@ -4,7 +4,9 @@ namespace Brot.ViewModels
     using Brot.Patterns;
     using Brot.Services;
     using Brot.Views;
+    using Microsoft.AppCenter.Push;
     using Models;
+    using System;
     using System.Collections.Generic;
     using System.Windows.Input;
     using Xamarin.Forms;
@@ -120,12 +122,13 @@ namespace Brot.ViewModels
                     {"Usuario",Singleton.Instance.User.nombre }
                 });
 
-                Microsoft.AppCenter.AppCenter.Start("android=ce90d30b-e395-4d05-be5b-a1461a3bec8e;" +
-                         "ios=0caa730c-a7e0-45b2-82bb-302f376b133d",
-                          typeof(Microsoft.AppCenter.Push.Push));
+                ///Habilito Push Notifications
+                Microsoft.AppCenter.AppCenter.Start(typeof(Push));
+                await Push.SetEnabledAsync(true);
+                    
 
-
-                Application.Current.MainPage = new NavigationPage(new MainTabbed());
+                var pagecreada = new NavigationPage(new MainTabbed());
+                Application.Current.MainPage = pagecreada;
             }
             else
             {
@@ -134,6 +137,7 @@ namespace Brot.ViewModels
             IsRefreshing = false;
 
         }
+
 
         #endregion
     }
