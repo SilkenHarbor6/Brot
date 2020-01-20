@@ -10,6 +10,7 @@
     using Xamarin.Essentials;
     using Microsoft.AppCenter.Crashes;
     using System.Collections.Generic;
+    using Brot.Services;
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SellersMap : ContentPage
@@ -79,8 +80,7 @@
             catch (FeatureNotEnabledException fneEx)
             {
                 // Handle not enabled on device exception
-
-                //TODO activar ubicacion
+                DependencyService.Get<IGPSService>().turnOnGps();
                 Crashes.TrackError(fneEx, new Dictionary<string, string>() { { "Mapa", "FeatureNotEnabledException" } });
             }
             catch (PermissionException pEx)
