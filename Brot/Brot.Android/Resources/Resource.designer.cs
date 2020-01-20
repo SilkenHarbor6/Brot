@@ -9510,31 +9510,34 @@ namespace Brot.Droid
 			public const int RefreshICON = 2131165547;
 			
 			// aapt resource value: 0x7F07016C
-			public const int roundedbg = 2131165548;
+			public const int reload = 2131165548;
 			
 			// aapt resource value: 0x7F07016D
-			public const int roundedbgdark = 2131165549;
+			public const int roundedbg = 2131165549;
 			
 			// aapt resource value: 0x7F07016E
-			public const int save = 2131165550;
+			public const int roundedbgdark = 2131165550;
 			
 			// aapt resource value: 0x7F07016F
-			public const int SavedPost = 2131165551;
+			public const int save = 2131165551;
 			
 			// aapt resource value: 0x7F070170
-			public const int SavedPostNOT = 2131165552;
+			public const int SavedPost = 2131165552;
 			
 			// aapt resource value: 0x7F070171
-			public const int Threedots = 2131165553;
+			public const int SavedPostNOT = 2131165553;
 			
 			// aapt resource value: 0x7F070172
-			public const int tooltip_frame_dark = 2131165554;
+			public const int Threedots = 2131165554;
 			
 			// aapt resource value: 0x7F070173
-			public const int tooltip_frame_light = 2131165555;
+			public const int tooltip_frame_dark = 2131165555;
 			
 			// aapt resource value: 0x7F070174
-			public const int user_placeholder = 2131165556;
+			public const int tooltip_frame_light = 2131165556;
+			
+			// aapt resource value: 0x7F070175
+			public const int user_placeholder = 2131165557;
 			
 			static Drawable()
 			{
