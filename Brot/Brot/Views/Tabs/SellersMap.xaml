@@ -25,7 +25,7 @@
                 x:Name="Mapa"
                 Grid.RowSpan="2"
                 HorizontalOptions="Fill"
-                IsShowingUser="False"
+                IsShowingUser="True"
                 ItemsSource="{Binding places}"
                 MapType="Street"
                 PinClicked="Mapa_PinClicked"
