@@ -1,23 +1,16 @@
 ﻿namespace Brot.Views.Tabs
 {
-    using ViewModels;
     using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    using System.Threading.Tasks;
-
+    using ViewModels;
     using Xamarin.Forms;
+    using Xamarin.Forms.GoogleMaps;
     //using Xamarin.Forms.GoogleMaps;
     using Xamarin.Forms.Xaml;
     using XamarinStyles;
-    using Xamarin.Forms.GoogleMaps;
-    using Plugin.Permissions;
-    using Plugin.Permissions.Abstractions;
+    using Xamarin.Essentials;
+    using Microsoft.AppCenter.Crashes;
+    using System.Collections.Generic;
     using Brot.Services;
-    using Brot.Models;
-    using Brot.Patterns;
-    using System.Collections.ObjectModel;
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class SellersMap : ContentPage
@@ -35,7 +28,7 @@
             XamarinMapStyle Style = new XamarinMapStyle();
             this.Mapa.MapStyle = MapStyle.FromJson(Style.Text);
 
-            //this.MyMap.MoveToRegion(
+            //this.Mapa.MoveToRegion(
             //    MapSpan.FromCenterAndRadius(
             //        new Position(
             //            13.994778,
@@ -48,17 +41,59 @@
             //this.ViewModel.InitPinsCommand.Execute(null);
         }
 
-        private void MoveToSantaAna()
+        private async void MoveToSantaAna()
         {
-            Mapa.MoveToRegion(
-                MapSpan.FromCenterAndRadius(
+            try
+            {
+                var location = await Geolocation.GetLocationAsync();
+
+                if (location != null)
+                {
+                    Mapa.MoveToRegion(
+                    MapSpan.FromCenterAndRadius(
                     new Position(
-                        13.994778,
-                        -89.556642
+                        location.Latitude,
+                        location.Longitude
                         ),
-                    Distance.FromMeters(2500)
+                    Distance.FromMeters(1000)
                     )
                 );
+                }
+                else
+                {
+                    this.Mapa.MoveToRegion(
+                        MapSpan.FromCenterAndRadius(
+                            new Position(
+                                13.994778,
+                                -89.556642
+                                ),
+                            Distance.FromMeters(2500)
+                            )
+                        );
+                }
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                // Handle not supported on device exception
+                Crashes.TrackError(fnsEx, new Dictionary<string, string>() { { "Mapa","FeatureNotSupportedException" } });
+            }
+            catch (FeatureNotEnabledException fneEx)
+            {
+                // Handle not enabled on device exception
+                DependencyService.Get<IGPSService>().turnOnGps();
+                Crashes.TrackError(fneEx, new Dictionary<string, string>() { { "Mapa", "FeatureNotEnabledException" } });
+            }
+            catch (PermissionException pEx)
+            {
+                // Handle permission exception
+                Crashes.TrackError(pEx, new Dictionary<string, string>() { { "Mapa", "PermissionException" } });
+            }
+            catch (Exception ex)
+            {
+                // Unable to get location
+                Crashes.TrackError(ex, new Dictionary<string, string>() { { "Mapa", "Exception" } });
+            }
+
         }
 
         private void Mapa_PinClicked(object sender, PinClickedEventArgs e)

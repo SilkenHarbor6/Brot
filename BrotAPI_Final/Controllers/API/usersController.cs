@@ -10,6 +10,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Mail;
 using System.Web.Http;
 
 namespace BrotAPI_Final.Controllers.API
@@ -606,6 +607,45 @@ namespace BrotAPI_Final.Controllers.API
                 return Request.CreateResponse(HttpStatusCode.Created, "user guardado correctamente");
             }
             return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No es posible guardar los datos del user");
+        }
+
+        [HttpPost]
+        [Route("verify")]
+        public HttpResponseMessage VerifyEmail(users item)
+        {
+            var res = r.EmailExist(item.email);
+            if (res == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"El email no esta registrado");
+            }
+            else
+            {
+                Random rand = new Random();
+                int codigo = rand.Next(1000, 9999);
+                MailMessage mail = new MailMessage();
+                mail.To.Add(new MailAddress(item.email));
+                mail.From = new MailAddress("noreply@brot.com");
+                mail.Subject = "Password recovery";
+                mail.Body = "Hola " + res.nombre + "Este es tu codigo de seguridad: <b>" + codigo + "</b>";
+                mail.IsBodyHtml = true;
+
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.UseDefaultCredentials = false;
+                smtp.EnableSsl = true;
+                smtp.Credentials = new NetworkCredential("bayronmartinez9911@gmail.com", "pruebas123B");
+                try
+                {
+                    smtp.Send(mail);
+                    mail.Dispose();
+                    return Request.CreateResponse(HttpStatusCode.OK, "Enviado!");
+                }
+                catch (Exception ex)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Error " + ex.Message);
+                }
+            }
         }
 
 

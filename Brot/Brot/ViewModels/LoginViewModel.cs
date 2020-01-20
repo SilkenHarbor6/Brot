@@ -74,6 +74,14 @@ namespace Brot.ViewModels
             }
         }
 
+        public ICommand ResetPass
+        {
+            get
+            {
+                return new Xamarin.Forms.Command(RecoveryPass);
+            }
+        }
+
         public ICommand LoginCommand
         {
             get
@@ -85,6 +93,11 @@ namespace Brot.ViewModels
         #endregion
 
         #region Methods
+
+        private void RecoveryPass(object obj)
+        {
+            Application.Current.MainPage.Navigation.PushAsync(new EmailVerify());
+        }
 
         private void RegisterUser()
         {

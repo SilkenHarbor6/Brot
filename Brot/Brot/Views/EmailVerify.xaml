@@ -1,0 +1,74 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+			 xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+			 mc:Ignorable="d"
+			 xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
+			 Title="Recuperar contraseña"
+             BackgroundColor="White"
+			 x:Class="Brot.Views.EmailVerify">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <StackLayout IsVisible="{Binding EmailVerify}" VerticalOptions="CenterAndExpand">
+                <Label Text="Buscaremos tu cuenta"
+				   FontSize="Large"
+				   TextColor="#031540"
+				   HorizontalOptions="CenterAndExpand" />
+                <Label Text="Ingresa tu email para enviarte un codigo de verificación"
+				   FontSize="Small"
+				   HorizontalTextAlignment="Center"
+				   TextColor="Gray"
+				   HorizontalOptions="Center" />
+                <Rounded:RoundedBorderEntry
+						Margin="0,10"
+						BorderColor="#031540"
+						BorderThickness="2"
+						CornerRadius="0"
+						Placeholder="Email"
+						PlaceholderColor="Gray"
+						Text="{Binding Email}"
+						TextColor="#031540" />
+                <Button
+						BackgroundColor="#031540"
+						Command="{Binding Send}"
+						IsEnabled="{Binding IsEnabled}"
+						Text="Enviar"
+						TextColor="#fff"
+						VerticalOptions="Center"
+						CornerRadius="5"
+					    Margin="20,10,20,10"/>
+            </StackLayout>
+            <StackLayout IsVisible="{Binding SendCode}" VerticalOptions="CenterAndExpand">
+                <Label Text="Codigo enviado"
+				   FontSize="Large"
+				   TextColor="#031540"
+				   HorizontalOptions="CenterAndExpand" />
+                <Label Text="Ingresa el codio que se ha enviado a tu correo"
+				   FontSize="Small"
+				   HorizontalTextAlignment="Center"
+				   TextColor="Gray"
+				   HorizontalOptions="Center" />
+                <Rounded:RoundedBorderEntry
+						Margin="20,10,20,5"
+						BorderColor="#031540"
+						BorderThickness="2"
+						CornerRadius="0"
+						Keyboard="Numeric"
+						Placeholder="Ingresa el codigo"
+						PlaceholderColor="Gray"
+						Text="{Binding Code}"
+						TextColor="#031540" />
+                <Button
+							BackgroundColor="#031540"
+							Command="{Binding Verify}"
+							IsEnabled="{Binding IsEnabled}"
+							Text="Verificar"
+							TextColor="#fff"
+							VerticalOptions="Center"
+							CornerRadius="5"
+						 Margin="20,10,20,10"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

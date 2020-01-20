@@ -14,18 +14,11 @@
     mc:Ignorable="d">
 
     <ContentPage.Content>
-        <Grid HorizontalOptions="Fill" VerticalOptions="Fill">
-
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
             <maps:Map
                 x:Name="Mapa"
                 Grid.RowSpan="2"
                 HorizontalOptions="Fill"
-                IsShowingUser="False"
+                IsShowingUser="True"
                 ItemsSource="{Binding places}"
                 MapType="Street"
                 PinClicked="Mapa_PinClicked"
@@ -41,34 +34,5 @@
                     </DataTemplate>
                 </maps:Map.ItemTemplate>
             </maps:Map>
-
-            <Button
-                Grid.Row="1"
-                Margin="10"
-                Clicked="Button_Clicked"
-                CornerRadius="25"
-                HeightRequest="50"
-                HorizontalOptions="Start"
-                Text="SANTA ANA"
-                VerticalOptions="Start"
-                WidthRequest="50" />
-
-
-
-            <!--<StackLayout VerticalOptions="FillAndExpand">
-                <Maps:Map VerticalOptions="FillAndExpand"
-                          x:Name="MyMap">
-                    <Maps:Map.Behaviors>
-                        <MapBinding:BindingPinsBehavior Value="{Binding Pins}"/>
-                        <beha:EventToCommandBehavior EventName="PinClicked"
-                                      Command="{Binding pinClicked}"
-                                      />
-            -->
-            <!--<MapBinding:MapClickedToCommandBehavior Command="{Binding MapClicked}"/>-->
-            <!--
-                    </Maps:Map.Behaviors>
-                </Maps:Map>
-            </StackLayout>-->
-        </Grid>
     </ContentPage.Content>
 </ContentPage>

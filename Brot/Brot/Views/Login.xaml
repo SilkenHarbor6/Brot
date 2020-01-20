@@ -114,6 +114,15 @@
                             Text="Register"
                             TextColor="#fff"
                             VerticalOptions="Center" />
+
+                        <Label Text="¿Olvidaste tu contraseña?"
+                               HorizontalOptions="CenterAndExpand"
+                               FontSize="Medium"
+                               TextColor="#031540">
+                            <Label.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding ResetPass}"/>
+                            </Label.GestureRecognizers>
+                        </Label>
                     </StackLayout>
                 </StackLayout>
             </StackLayout>
