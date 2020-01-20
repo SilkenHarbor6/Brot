@@ -13,10 +13,10 @@ namespace BrotAPI_Final.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class SomeeDBBrotEntities : DbContext
+    public partial class DBContextModel : DbContext
     {
-        public SomeeDBBrotEntities()
-            : base("name=KeySomeeDBBrotEntities")
+        public DBContextModel()
+            : base("name=BorrarDBBrotEntities")
         {
         }
     
@@ -25,6 +25,7 @@ namespace BrotAPI_Final.Models
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<categoria> categoria { get; set; }
         public virtual DbSet<comentarios> comentarios { get; set; }
         public virtual DbSet<interaccion_post> interaccion_post { get; set; }
         public virtual DbSet<like_comentario> like_comentario { get; set; }
@@ -33,9 +34,8 @@ namespace BrotAPI_Final.Models
         public virtual DbSet<publicaciones> publicaciones { get; set; }
         public virtual DbSet<seguidores> seguidores { get; set; }
         public virtual DbSet<users> users { get; set; }
+        public virtual DbSet<usuario_categoria> usuario_categoria { get; set; }
         public virtual DbSet<visita_busqueda> visita_busqueda { get; set; }
         public virtual DbSet<visita_pefil_post> visita_pefil_post { get; set; }
-        public virtual DbSet<categoria> categoria { get; set; }
-        public virtual DbSet<usuario_categoria> usuario_categoria { get; set; }
     }
 }

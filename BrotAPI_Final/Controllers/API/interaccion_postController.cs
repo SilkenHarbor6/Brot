@@ -9,7 +9,7 @@ namespace BrotAPI_Final.Controllers.API
 {
     public class interaccion_postController : ApiController
     {
-        private SomeeDBBrotEntities db = new SomeeDBBrotEntities();
+        private DBContextModel db = new DBContextModel();
 
 
         #region DELETE - POST - PUT 

@@ -9,7 +9,7 @@ namespace BrotAPI_Final.Controllers.API
 {
     public class visita_pefil_postController : ApiController
     {
-        private SomeeDBBrotEntities db = new SomeeDBBrotEntities();
+        private DBContextModel db = new DBContextModel();
         private Rvisita_pefil_postDB r = new Rvisita_pefil_postDB();
 
 

@@ -8,7 +8,7 @@ namespace BrotAPI_Final.Repository
 {
     public class RCategoria : ICategoria
     {
-        private SomeeDBBrotEntities db = new SomeeDBBrotEntities();
+        private DBContextModel db = new DBContextModel();
         public categoria ActualizarCategoria(categoria item)
         {
             var obj = db.categoria.Find(item.id_categoria);

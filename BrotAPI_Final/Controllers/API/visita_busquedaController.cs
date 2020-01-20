@@ -9,7 +9,7 @@ namespace BrotAPI_Final.Controllers.API
 {
     public class visita_busquedaController : ApiController
     {
-        private SomeeDBBrotEntities db = new SomeeDBBrotEntities();
+        private DBContextModel db = new DBContextModel();
         private Rvisita_busquedaDB r = new Rvisita_busquedaDB();
 
 

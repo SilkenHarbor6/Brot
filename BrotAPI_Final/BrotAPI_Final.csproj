@@ -162,6 +162,7 @@
     <Compile Include="Areas\HelpPage\SampleGeneration\SampleDirection.cs" />
     <Compile Include="Areas\HelpPage\SampleGeneration\TextSample.cs" />
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
+    <Compile Include="Controllers\API\AppCenterPush.cs" />
     <Compile Include="Controllers\API\comentariosController.cs" />
     <Compile Include="Controllers\API\interaccion_postController.cs" />
     <Compile Include="Controllers\API\like_comentarioController.cs" />
@@ -180,55 +181,55 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\categoria.cs">
-      <DependentUpon>SomeeDBModels.tt</DependentUpon>
+      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\comentarios.cs">
-      <DependentUpon>SomeeDBModels.tt</DependentUpon>
+      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\interaccion_post.cs">
-      <DependentUpon>SomeeDBModels.tt</DependentUpon>
+      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\like_comentario.cs">
-      <DependentUpon>SomeeDBModels.tt</DependentUpon>
+      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\like_post.cs">
-      <DependentUpon>SomeeDBModels.tt</DependentUpon>
+      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelDBWithPush.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDBWithPush.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelDBWithPush.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ModelDBWithPush.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ModelDBWithPush.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\publicaciones.cs">
-      <DependentUpon>SomeeDBModels.tt</DependentUpon>
+      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\publicacion_guardada.cs">
-      <DependentUpon>SomeeDBModels.tt</DependentUpon>
+      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\seguidores.cs">
-      <DependentUpon>SomeeDBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SomeeDBModels.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SomeeDBModels.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SomeeDBModels.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SomeeDBModels.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\SomeeDBModels.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SomeeDBModels.edmx</DependentUpon>
+      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\users.cs">
-      <DependentUpon>SomeeDBModels.tt</DependentUpon>
+      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\usuario_categoria.cs">
-      <DependentUpon>SomeeDBModels.tt</DependentUpon>
+      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\visita_busqueda.cs">
-      <DependentUpon>SomeeDBModels.tt</DependentUpon>
+      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\visita_pefil_post.cs">
-      <DependentUpon>SomeeDBModels.tt</DependentUpon>
+      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ICategoria.cs" />
@@ -254,17 +255,17 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\SomeeDBModels.Context.tt">
+    <Content Include="Models\ModelDBWithPush.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SomeeDBModels.edmx</DependentUpon>
-      <LastGenOutput>SomeeDBModels.Context.cs</LastGenOutput>
+      <DependentUpon>ModelDBWithPush.edmx</DependentUpon>
+      <LastGenOutput>ModelDBWithPush.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ModelDBWithPush.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ModelDBWithPush.edmx</DependentUpon>
+      <LastGenOutput>ModelDBWithPush.cs</LastGenOutput>
     </Content>
     <Content Include="Models\SomeeDBModels.edmx.sql" />
-    <Content Include="Models\SomeeDBModels.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>SomeeDBModels.edmx</DependentUpon>
-      <LastGenOutput>SomeeDBModels.cs</LastGenOutput>
-    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -286,12 +287,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\SomeeDBModels.edmx">
+    <EntityDeploy Include="Models\ModelDBWithPush.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>SomeeDBModels.Designer.cs</LastGenOutput>
+      <LastGenOutput>ModelDBWithPush.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\SomeeDBModels.edmx.diagram">
-      <DependentUpon>SomeeDBModels.edmx</DependentUpon>
+    <Content Include="Models\ModelDBWithPush.edmx.diagram">
+      <DependentUpon>ModelDBWithPush.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\brotmainapi - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
@@ -320,7 +321,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\NewFolder1\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

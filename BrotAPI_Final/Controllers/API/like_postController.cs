@@ -14,7 +14,7 @@ namespace BrotAPI_Final.Controllers.API
     public class like_postController : ApiController
     {
 
-        private SomeeDBBrotEntities db = new SomeeDBBrotEntities();
+        private DBContextModel db = new DBContextModel();
         private Rlike_postDB r = new Rlike_postDB();
 
 
@@ -32,7 +32,7 @@ namespace BrotAPI_Final.Controllers.API
                 return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No existe dicha publicación");
             }
 
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 var usuarios = db.like_post
                     .Include(p => p.users)

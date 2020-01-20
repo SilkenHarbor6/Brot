@@ -13,7 +13,7 @@ namespace BrotAPI_Final.Repository
         /// <returns></returns>
         public like_comentario GetById(int id)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 try
                 {
@@ -35,7 +35,7 @@ namespace BrotAPI_Final.Repository
         /// <returns></returns>
         public bool Post(like_comentario item)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 try
@@ -62,7 +62,7 @@ namespace BrotAPI_Final.Repository
         /// <returns></returns>
         public bool Put(int id, like_comentario item)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 like_comentario dbitem = db.like_comentario.Find(id);
@@ -99,7 +99,7 @@ namespace BrotAPI_Final.Repository
         /// <returns></returns>
         public bool Delete(int id)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 try
