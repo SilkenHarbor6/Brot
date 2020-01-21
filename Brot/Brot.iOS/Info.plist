@@ -28,8 +28,6 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>MinimumOSVersion</key>
-	<string>8.0</string>
 	<key>CFBundleDisplayName</key>
 	<string>Brot</string>
 	<key>CFBundleIdentifier</key>
@@ -41,14 +39,14 @@
 	<key>CFBundleName</key>
 	<string>Brot</string>
 	<key>CFBundleURLTypes</key>
-  <array>
-      <dict>
-          <key>CFBundleURLSchemes</key>
-          <array>
-              <string>appcenter-0caa730c-a7e0-45b2-82bb-302f376b133d</string>
-          </array>
-      </dict>
-  </array>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>appcenter-0caa730c-a7e0-45b2-82bb-302f376b133d</string>
+			</array>
+		</dict>
+	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>NSAppTransportSecurity</key>
@@ -87,5 +85,7 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>MinimumOSVersion</key>
+	<string>9.0</string>
 </dict>
 </plist>
