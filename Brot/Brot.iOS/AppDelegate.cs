@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using Xamarin.Forms.GoogleMaps.iOS;
 
 namespace Brot.iOS
 {
@@ -33,7 +34,11 @@ namespace Brot.iOS
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
             //Initializaing Popup
             Rg.Plugins.Popup.Popup.Init();
-            Xamarin.FormsGoogleMaps.Init("AIzaSyB259mHIIfmjR4GXDYgSANkinRw8iBuTFw");
+            var platformConfig = new PlatformConfig
+            {
+                ImageFactory = new CachingImageFactory()
+            };
+            Xamarin.FormsGoogleMaps.Init("AIzaSyB259mHIIfmjR4GXDYgSANkinRw8iBuTFw",platformConfig);
             
             LoadApplication(new App());
 

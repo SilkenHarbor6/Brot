@@ -81,7 +81,8 @@
             RetryCount="6"
             BitmapOptimizations="True"
             DownsampleToViewSize="True"
-            Source="{Binding publicacion.img}" />
+            
+            Source="{Binding publicacion.img}"/>
 
         <!-- TODO ERROR PLACEHOLDER IMAGE -->
         <!--LoadingPlaceholder="loading2.gif"-->
