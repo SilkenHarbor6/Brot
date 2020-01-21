@@ -31,7 +31,7 @@
 						TextColor="#031540" />
                 <Button
 						BackgroundColor="#031540"
-						Command="{Binding Send}"
+						Command="{Binding Verify}"
 						IsEnabled="{Binding IsEnabled}"
 						Text="Enviar"
 						TextColor="#fff"
@@ -61,7 +61,7 @@
 						TextColor="#031540" />
                 <Button
 							BackgroundColor="#031540"
-							Command="{Binding Verify}"
+							Command="{Binding Send}"
 							IsEnabled="{Binding IsEnabled}"
 							Text="Verificar"
 							TextColor="#fff"
