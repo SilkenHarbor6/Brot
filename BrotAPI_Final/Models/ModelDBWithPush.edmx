@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BorrarDBBrotModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BorrarDBBrotModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="categoria">
           <Key>
             <PropertyRef Name="id_categoria" />
@@ -12,6 +12,13 @@
           <Property Name="id_categoria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombre" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="img" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="codigos">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="id_user" Type="int" />
         </EntityType>
         <EntityType Name="comentarios">
           <Key>
@@ -378,6 +385,7 @@
         </Association>
         <EntityContainer Name="BorrarDBBrotModelStoreContainer">
           <EntitySet Name="categoria" EntityType="Self.categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="codigos" EntityType="Self.codigos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="comentarios" EntityType="Self.comentarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="interaccion_post" EntityType="Self.interaccion_post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="like_comentario" EntityType="Self.like_comentario" Schema="dbo" store:Type="Tables" />
@@ -470,8 +478,7 @@
             <End Role="visita_pefil_post" EntitySet="visita_pefil_post" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BorrarDBBrotModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -979,7 +986,15 @@
             <End Role="users" EntitySet="users" />
             <End Role="visita_pefil_post" EntitySet="visita_pefil_post" />
           </AssociationSet>
+          <EntitySet Name="codigos" EntityType="BorrarDBBrotModel.codigos" />
         </EntityContainer>
+        <EntityType Name="codigos">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="id_user" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1126,6 +1141,14 @@
                 <ScalarProperty Name="id_userquevisito" ColumnName="id_userquevisito" />
                 <ScalarProperty Name="id_perfilvisitado" ColumnName="id_perfilvisitado" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codigos">
+            <EntityTypeMapping TypeName="BorrarDBBrotModel.codigos">
+              <MappingFragment StoreEntitySet="codigos">
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

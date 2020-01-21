@@ -37,6 +37,7 @@
         <AssociationConnector Association="BorrarDBBrotModel.FK_visita_busqueda_users" ManuallyRouted="false" />
         <AssociationConnector Association="BorrarDBBrotModel.FK_visita_busqueda_users1" ManuallyRouted="false" />
         <AssociationConnector Association="BorrarDBBrotModel.FK_visita_pefil_post_users" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="BorrarDBBrotModel.codigos" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
