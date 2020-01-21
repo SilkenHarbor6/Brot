@@ -7,6 +7,7 @@
     using System;
     using Brot.Patterns;
     using Brot.Services;
+    using System.Collections.Generic;
 
     public class ResponseComentarios : ObservableObject
     {
@@ -35,16 +36,23 @@
         private async void OpcionesMethod(object obj)
         {
             string respuesta = String.Empty;
+            List<string> opciones = new List<string>();
+            opciones.Add("Dar Like");
+
+
             if (Singleton.Instance.User.id_user == comentario.id_user) //Su propio comentario
             {
-                respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "",
-                new string[] { "Editar", "Eliminar", "Dar Like" });
+                opciones.Add("Editar");
+                opciones.Add("Eliminar");
             }
-            else
+
+            if (Singleton.Instance.User.id_user ==Singleton.Instance.id_UserCreator_post
+                && Singleton.Instance.id_UserCreator_post  != comentario.id_user)
             {
-                respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "",
-                new string[] { "Dar Like" });
+                opciones.Add("Eliminar");
             }
+            respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "Atras", opciones.ToArray());
+
             switch (respuesta)
             {
                 case "Editar":
@@ -54,6 +62,8 @@
                 case "Eliminar":
                     var resultDelete = await RestClient.Delete<comentariosModel>(DLL.constantes.comentariost, comentario.id_comentario);
                     await App.Current.MainPage.Navigation.PopAsync();
+                    await App.Current.MainPage.Navigation.PushAsync(new Views.Post(new ViewModels.PostViewModel(comentario.id_post), 
+                                        Singleton.Instance.id_UserCreator_post));
                     break;
                 case "Dar Like":
                     BtnLikedMethod("Like");

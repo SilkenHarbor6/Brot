@@ -10,6 +10,12 @@
 	<string>Esta aplicacion necesita acceso al microfono</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Esta aplicacion necesita acceso a la galeria de fotos</string>
+  <key>NSLocationAlwaysUsageDescription</key>
+  <string>Can we use your location at all times?</string>
+  <key>NSLocationWhenInUseUsageDescription</key>
+  <string>Can we use your location when your application is being used?</string>
+  <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+  <string>Can we use your location at all times?</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
@@ -29,11 +35,11 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>8.0</string>
+	<string>9.0</string>
 	<key>CFBundleDisplayName</key>
 	<string>Brot</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.companyname.Brot</string>
+	<string>com.companyname.brot</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
 	<key>UILaunchStoryboardName</key>
@@ -41,14 +47,14 @@
 	<key>CFBundleName</key>
 	<string>Brot</string>
 	<key>CFBundleURLTypes</key>
-  <array>
-      <dict>
-          <key>CFBundleURLSchemes</key>
-          <array>
-              <string>appcenter-0caa730c-a7e0-45b2-82bb-302f376b133d</string>
-          </array>
-      </dict>
-  </array>
+	<array>
+		<dict>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>appcenter-0caa730c-a7e0-45b2-82bb-302f376b133d</string>
+			</array>
+		</dict>
+	</array>
 	<key>XSAppIconAssets</key>
 	<string>Assets.xcassets/AppIcon.appiconset</string>
 	<key>NSAppTransportSecurity</key>

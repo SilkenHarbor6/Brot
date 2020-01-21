@@ -35,6 +35,8 @@ namespace Brot.Patterns
             }
         }
 
+        public int id_UserCreator_post { get; set; }
+
         public userModel User
         {
             set

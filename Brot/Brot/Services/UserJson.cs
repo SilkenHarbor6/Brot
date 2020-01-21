@@ -10,6 +10,8 @@ namespace Brot.Services
     using System.IO;
     using System.Text;
     using System.Threading.Tasks;
+    using Microsoft.AppCenter.Crashes;
+
     public class UserJson
     {
         private readonly string _Path;
@@ -37,13 +39,22 @@ namespace Brot.Services
             }
         }
         public userModel ReadData()
-        {            
-            using (var file = File.Open(this._FilePath, FileMode.Open, FileAccess.Read))
-
-            using (var strm = new StreamReader(file))
+        {
+            try
             {
-                return Newtonsoft.Json.JsonConvert.DeserializeObject<userModel>(strm.ReadToEnd());
+                using (var file = File.Open(this._FilePath, FileMode.Open, FileAccess.Read))
+                using (var strm = new StreamReader(file))
+                {
+                    //TODO Aqui muere en iOS!!
+                    return Newtonsoft.Json.JsonConvert.DeserializeObject<userModel>(strm.ReadToEnd());
+                }
             }
+            catch (Exception ex)
+            {
+                Crashes.TrackError(ex, new Dictionary<string, string>() { { "Json", "ReadData" } });
+                return new userModel();
+            }
+
         }
 
         public bool IsUserLogged()
@@ -59,12 +70,14 @@ namespace Brot.Services
             }
             catch (Exception ex)
             {
-                await Singleton.Instance.Dialogs.Message("Error al borrar user.json", ex.Message);
+                await Singleton.Instance.Dialogs.Message("Error al cerrar sesión, vuelve a intentarlo", ex.Message);
+                Crashes.TrackError(ex, new Dictionary<string, string>() { { "Json", "Signout" } });
             }
         }
 
         public async Task<bool> validarUsuarioinDB()
         {
+            //TODO Implementar validarUsuarioinDB para iniciar sesión!!!! NICE
             try
             {
                 userModel data = this.ReadData();
@@ -77,9 +90,10 @@ namespace Brot.Services
                 this.SaveData(result);
                 return true;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 this.SignOut();
+                Crashes.TrackError(ex, new Dictionary<string, string>() { { "Json", "validarUsuarioinDB" } });
             }
             return false;
         }

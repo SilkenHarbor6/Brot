@@ -8,35 +8,27 @@
     xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
     xmlns:ffsvgimage="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:patterns="clr-namespace:Brot.Patterns"
     Margin="0,0,0,15"
     Padding="0"
     BorderColor="Black"
     mc:Ignorable="d">
-    <StackLayout>
-        <StackLayout Padding="15" Orientation="Vertical">
+    <StackLayout VerticalOptions="Fill">
+        <StackLayout
+            Padding="15"
+            Orientation="Vertical"
+            VerticalOptions="Fill">
             <StackLayout
                 Margin="0,5"
                 HorizontalOptions="Fill"
                 Orientation="Horizontal">
-                <Rounded:CircleImage Aspect="AspectFit" Source="{Binding UsuarioCreator.img}">
-                    <Rounded:CircleImage.WidthRequest>
-                        <OnPlatform x:TypeArguments="x:Double">
-                            <On Platform="Android, iOS">60</On>
-                        </OnPlatform>
-                    </Rounded:CircleImage.WidthRequest>
-
-                    <Rounded:CircleImage.HeightRequest>
-                        <OnPlatform x:TypeArguments="x:Double">
-                            <On Platform="Android, iOS">60</On>
-                        </OnPlatform>
-                    </Rounded:CircleImage.HeightRequest>
-
-
+                <Rounded:CircleImage
+                    Aspect="AspectFit"
+                    HeightRequest="60"
+                    Source="{Binding UsuarioCreator.img}"
+                    WidthRequest="60">
                     <Rounded:CircleImage.GestureRecognizers>
                         <TapGestureRecognizer Command="{Binding UsuarioCreator.BtnProfileNameClicked}" />
                     </Rounded:CircleImage.GestureRecognizers>
-
                 </Rounded:CircleImage>
 
                 <StackLayout Orientation="Vertical">
@@ -71,27 +63,26 @@
 
 
         <ffimage:CachedImage
-            Aspect="AspectFit"
+            Aspect="AspectFill"
+            BitmapOptimizations="True"
+            CacheDuration="20"
+            ErrorPlaceholder="BrotSplash.png"
             HorizontalOptions="Fill"
             IsVisible="{Binding publicacion.isImg}"
             LoadingPlaceholder="loading.png"
-            Error="CachedImage_Error"
-            CacheDuration="20"
-            RetryDelay="600"
             RetryCount="6"
-            BitmapOptimizations="True"
-            DownsampleToViewSize="True"
-            Source="{Binding publicacion.img}" />
+            RetryDelay="600"
+            Source="{Binding publicacion.img}"
+            VerticalOptions="Fill" />
 
-        <!-- TODO ERROR PLACEHOLDER IMAGE -->
-        <!--LoadingPlaceholder="loading2.gif"-->
+        <!--  TODO ERROR PLACEHOLDER IMAGE  -->
+        <!--  LoadingPlaceholder="loading2.gif"  -->
 
         <StackLayout
-            Margin="10,0,10,5"
-            Padding="5"
             HorizontalOptions="Fill"
             Orientation="Horizontal"
-            Spacing="12">
+            Spacing="12"
+            VerticalOptions="Fill">
             <ImageButton
                 BackgroundColor="Transparent"
                 Command="{Binding BtnLikedClicked}"

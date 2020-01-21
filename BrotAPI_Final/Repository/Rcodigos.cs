@@ -7,7 +7,7 @@ using System.Web;
 
 namespace BrotAPI_Final.Repository
 {
-public class RCodigos
+    public class RCodigos
     {
         public bool Post(codigos item)
         {
@@ -54,7 +54,7 @@ public class RCodigos
                 }
                 db.codigos.Remove(obj);
                 db.SaveChanges();
-                return true; 
+                return true;
             }
         }
     }

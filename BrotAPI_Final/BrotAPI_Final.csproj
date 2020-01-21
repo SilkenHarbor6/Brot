@@ -183,6 +183,7 @@
     <Compile Include="Models\categoria.cs">
       <DependentUpon>ModelDBWithPush.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\codigos.cs" />
     <Compile Include="Models\comentarios.cs">
       <DependentUpon>ModelDBWithPush.tt</DependentUpon>
     </Compile>
@@ -235,6 +236,7 @@
     <Compile Include="Repository\ICategoria.cs" />
     <Compile Include="Repository\IRepositoryDB.cs" />
     <Compile Include="Repository\RCategoria.cs" />
+    <Compile Include="Repository\Rcodigos.cs" />
     <Compile Include="Repository\RcomentariosDB.cs" />
     <Compile Include="Repository\Rinteraccion_postDB.cs" />
     <Compile Include="Repository\Rlike_comentarioDB.cs" />

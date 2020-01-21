@@ -1,29 +1,21 @@
 ﻿namespace Brot.Views
 {
-    using Models.ResponseApi;
     using System.ComponentModel;
     using ViewModels;
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
-    
+
     [XamlCompilation(XamlCompilationOptions.Compile)]
     [DesignTimeVisible(true)]
     public partial class Post : ContentPage
     {
-        private PostViewModel ViewModel;
 
-        public Post(PostViewModel viewModel)
+        public Post(PostViewModel viewModel, int id_User)
         {
             InitializeComponent();
 
-            BindingContext = this.ViewModel = viewModel;
-        }
-
-        public Post(int idPost)
-        {
-            InitializeComponent();
-
-            BindingContext = ViewModel = new PostViewModel(idPost);
+            Brot.Patterns.Singleton.Instance.id_UserCreator_post = id_User;
+            BindingContext = viewModel;
         }
 
         protected override void OnAppearing()
@@ -36,7 +28,7 @@
             if (e.SelectedItem == null)
                 return;
 
-            ((Brot.Models.ResponseApi.ResponseComentarios)e.SelectedItem).usuario.BtnProfileNameClicked.Execute(null);
+            ((Models.ResponseApi.ResponseComentarios)e.SelectedItem).usuario.BtnProfileNameClicked.Execute(null);
             ((ListView)sender).SelectedItem = null;
         }
     }

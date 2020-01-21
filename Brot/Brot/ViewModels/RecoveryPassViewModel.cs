@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
+using Brot.Patterns;
 
 namespace Brot.ViewModels
 {
@@ -42,7 +43,9 @@ namespace Brot.ViewModels
             userModel u = new userModel();
             u.id_user = Singleton.Instance.User.id_user;
             u.pass = np;
-            var resp = await RestClient.Put<userModel>("users/pass", op, u);
+
+            //TODO Byron Corregir esto! Para que cambie bien la contraseña
+            var resp = await RestClient.Put<userModel>("users/pass", u.id_user, u);
             if (!resp)
             {
                 await App.Current.MainPage.DisplayAlert("Error", "La clave antigua es incorrecta, por favor revisela", "Aceptar");

@@ -43,7 +43,7 @@ namespace Brot.ViewModels
             {
                 if (value != null)
                 {
-                    App.Current.MainPage.Navigation.PushAsync(new Post(new PostViewModel(value)));
+                    App.Current.MainPage.Navigation.PushAsync(new Post(new PostViewModel(value), value.publicacion.id_user));
                     SetProperty(ref _selectedItemLista, null);
                 }
             }
@@ -133,8 +133,8 @@ namespace Brot.ViewModels
             Response resp = await RestClient.Post<publicacionesModel>("publicaciones", niu);
             if (!resp.IsSuccess)
             {
-                IsRefreshing = true;
                 await App.Current.MainPage.DisplayAlert("Error", resp.Message, "Aceptar");
+                IsRefreshing = false;
                 return;
             }
 
@@ -160,14 +160,6 @@ namespace Brot.ViewModels
             var datosNuevos= new List<ResponsePublicacionFeed>();
             foreach (var post in (ObservableCollection<ResponsePublicacionFeed>)result.Result)
             {
-                if (string.IsNullOrEmpty(post.publicacion.img))
-                {
-                    post.publicacion.img = DLL.constantes.ProfileImageError;
-                }
-                else
-                {
-                    post.publicacion.img = DLL.constantes.urlImages + post.publicacion.img;
-                }
 
                 if (string.IsNullOrEmpty(post.UsuarioCreator.img))
                 {
@@ -176,7 +168,6 @@ namespace Brot.ViewModels
                 else
                 {
                     post.UsuarioCreator.img = DLL.constantes.urlImages + post.UsuarioCreator.img;
-
                 }
                 datosNuevos.Add(post);
             }

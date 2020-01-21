@@ -31,7 +31,7 @@ namespace Brot.ViewModels
 
             if (resultSuccess)
             {
-                var newPage = new Views.Post(new PostViewModel(userM));
+                var newPage = new Views.Post(new PostViewModel(userM),Patterns.Singleton.Instance.id_UserCreator_post);
                 await App.Current.MainPage.Navigation.PopAsync();
                 await App.Current.MainPage.Navigation.PopAsync();
                 await App.Current.MainPage.Navigation.PushAsync(newPage);

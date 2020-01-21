@@ -21,11 +21,13 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
+
+
             <maps:Map
                 x:Name="Mapa"
                 Grid.RowSpan="2"
                 HorizontalOptions="Fill"
-                IsShowingUser="True"
+                IsShowingUser="False"
                 ItemsSource="{Binding places}"
                 MapType="Street"
                 PinClicked="Mapa_PinClicked"
@@ -45,12 +47,12 @@
             <ImageButton
                 Grid.Row="1"
                 Margin="10"
+                BackgroundColor="Transparent"
                 Clicked="Button_Clicked"
                 CornerRadius="25"
                 HeightRequest="50"
                 HorizontalOptions="Start"
                 Source="reload.png"
-                BackgroundColor="Transparent"
                 VerticalOptions="Start"
                 WidthRequest="50" />
 

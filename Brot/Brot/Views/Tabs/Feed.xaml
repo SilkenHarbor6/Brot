@@ -70,19 +70,19 @@
                                         Grid.Column="0"
                                         BackgroundColor="Transparent"
                                         Command="{Binding takePhoto}"
-                                        HeightRequest="32"
+                                        HeightRequest="50"
                                         HorizontalOptions="End"
                                         Source="image.png"
-                                        WidthRequest="32" />
+                                        WidthRequest="50" />
                                     <Button
                                         Grid.Row="1"
                                         Grid.Column="1"
-                                        BackgroundColor="{StaticResource buttonLoginRegisterBg}"
+                                        BackgroundColor="{StaticResource MainDarkColor}"
                                         Command="{Binding PostSomething}"
                                         CornerRadius="10"
                                         FontAttributes="Bold"
                                         Text="Publicar"
-                                        TextColor="{StaticResource buttonLoginRegisterText}"
+                                        TextColor="White"
                                         WidthRequest="75" />
                                 </Grid>
                             </Frame>

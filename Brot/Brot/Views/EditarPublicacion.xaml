@@ -3,26 +3,129 @@
     x:Class="Brot.Views.EditarPublicacion"
     xmlns="http://xamarin.com/schemas/2014/forms"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:Rounded="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin"
     xmlns:celdas="clr-namespace:Brot.Cells"
     xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:ffimage="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:ffsvgimage="clr-namespace:FFImageLoading.Svg.Forms;assembly=FFImageLoading.Svg.Forms"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     BackgroundColor="White"
     mc:Ignorable="d">
     <ContentPage.Content>
-        <ScrollView>
+        <ScrollView VerticalOptions="FillAndExpand">
             <StackLayout>
+
                 <Label Text="Ingrese la nueva descripción" />
                 <Editor
-                    Margin="10"
+                    Margin="0"
+                    AutoSize="TextChanges"
                     HorizontalOptions="Fill"
+                    IsSpellCheckEnabled="True"
                     Text="{Binding userM.publicacion.descripcion}" />
+
+                <ActivityIndicator IsRunning="{Binding IsRefreshing}">
+                    <ActivityIndicator.Triggers>
+                        <DataTrigger
+                            Binding="{Binding IsRefreshing}"
+                            TargetType="ActivityIndicator"
+                            Value="False">
+                            <Setter Property="HeightRequest" Value="0" />
+                        </DataTrigger>
+                        <DataTrigger
+                            Binding="{Binding IsRefreshing}"
+                            TargetType="ActivityIndicator"
+                            Value="True">
+                            <Setter Property="HeightRequest" Value="40" />
+                        </DataTrigger>
+
+                    </ActivityIndicator.Triggers>
+                </ActivityIndicator>
+
+                <Frame
+                    Margin="0,0,0,15"
+                    Padding="0"
+                    BindingContext="{Binding userM}"
+                    BorderColor="Black">
+                    <StackLayout>
+                        <StackLayout Padding="15" Orientation="Vertical">
+                            <StackLayout
+                                Margin="0,5"
+                                HorizontalOptions="Fill"
+                                Orientation="Horizontal">
+                                <Rounded:CircleImage
+                                    Aspect="AspectFit"
+                                    HeightRequest="60"
+                                    Source="{Binding UsuarioCreator.img}"
+                                    WidthRequest="60" />
+
+                                <StackLayout Orientation="Vertical">
+                                    <Label
+                                        FontSize="Medium"
+                                        Text="{Binding UsuarioCreator.username, StringFormat='@{0}'}"
+                                        TextColor="#252d3a" />
+
+                                    <Label
+                                        FontSize="Micro"
+                                        Text="{Binding publicacion.fecha_creacion}"
+                                        TextColor="#acb0bb" />
+                                </StackLayout>
+                                <ImageButton
+                                    BackgroundColor="Transparent"
+                                    HeightRequest="45"
+                                    HorizontalOptions="EndAndExpand"
+                                    Source="Threedots.png" />
+                            </StackLayout>
+
+                            <Label
+                                FontAttributes="Bold"
+                                FontSize="Subtitle"
+                                Text="{Binding publicacion.descripcion}"
+                                TextColor="#6e717a" />
+                        </StackLayout>
+
+                        <ffimage:CachedImage
+                            Aspect="AspectFit"
+                            BitmapOptimizations="True"
+                            CacheDuration="20"
+                            DownsampleToViewSize="True"
+                            HorizontalOptions="Fill"
+                            IsVisible="{Binding publicacion.isImg}"
+                            LoadingPlaceholder="loading.png"
+                            RetryCount="6"
+                            RetryDelay="600"
+                            Source="{Binding publicacion.img}" />
+
+                        <StackLayout
+                            Margin="10,0,10,5"
+                            Padding="5"
+                            HorizontalOptions="Fill"
+                            Orientation="Horizontal"
+                            Spacing="12">
+                            <ImageButton
+                                BackgroundColor="Transparent"
+                                HeightRequest="32"
+                                Source="{Binding IsLiked, Converter={StaticResource BoolToStringConverter}}"
+                                WidthRequest="32" />
+                            <Label
+                                Text="{Binding cantLikes, StringFormat='{0} Brots'}"
+                                TextColor="Black"
+                                VerticalOptions="Center" />
+
+                            <Label
+                                HorizontalOptions="EndAndExpand"
+                                Text="{Binding cantComentarios, StringFormat='{0} Comments   '}"
+                                TextColor="Black"
+                                VerticalOptions="Center" />
+
+                            <ImageButton BackgroundColor="Transparent" Source="{Binding IsSavedPost, Converter={StaticResource BoolToStringSavedPostImage}}" />
+                        </StackLayout>
+                    </StackLayout>
+                </Frame>
+
                 <Button
                     Command="{Binding ActualizarCommand}"
                     Style="{StaticResource btnStyle}"
                     Text="Actualizar" />
-                <ActivityIndicator IsRunning="{Binding IsRefreshing}" />
-                <celdas:ResponsePublicacionFeedViewCell BindingContext="{Binding userM}" />
-
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

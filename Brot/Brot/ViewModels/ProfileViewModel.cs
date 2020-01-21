@@ -45,7 +45,7 @@ namespace Brot.ViewModels
             {
                 if (value != null)
                 {
-                    App.Current.MainPage.Navigation.PushAsync(new Post(new PostViewModel(value)));
+                    App.Current.MainPage.Navigation.PushAsync(new Post(new PostViewModel(value),value.publicacion.id_user));
                     SetProperty(ref _publicacionesThis, null);
                 }
             }

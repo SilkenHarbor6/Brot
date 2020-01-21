@@ -18,10 +18,10 @@
     NavigationPage.HasNavigationBar="False"
     mc:Ignorable="d">
 
-    <TabbedPage.Children>
+    <!--<TabbedPage.Children>
         <Pages:Feed />
         <Pages:SellersMap />
         <Pages:BrotTen />
         <Pages:Profile />
-    </TabbedPage.Children>
+    </TabbedPage.Children>-->
 </TabbedPage>

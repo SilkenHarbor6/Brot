@@ -42,6 +42,8 @@
                         CornerRadius="0"
                         Placeholder="Type your username"
                         PlaceholderColor="Gray"
+                        ReturnType="Next"
+                        TabIndex="1"
                         Text="{Binding Username}"
                         TextColor="#000" />
 
@@ -53,6 +55,9 @@
                         IsPassword="True"
                         Placeholder="Type your password"
                         PlaceholderColor="Gray"
+                        ReturnCommand="{Binding LoginCommand}"
+                        ReturnType="Send"
+                        TabIndex="2"
                         Text="{Binding Password}"
                         TextColor="#000" />
 
@@ -115,12 +120,13 @@
                             TextColor="#fff"
                             VerticalOptions="Center" />
 
-                        <Label Text="¿Olvidaste tu contraseña?"
-                               HorizontalOptions="CenterAndExpand"
-                               FontSize="Medium"
-                               TextColor="#031540">
+                        <Label
+                            FontSize="Medium"
+                            HorizontalOptions="CenterAndExpand"
+                            Text="¿Olvidaste tu contraseña?"
+                            TextColor="#031540">
                             <Label.GestureRecognizers>
-                                <TapGestureRecognizer Command="{Binding ResetPass}"/>
+                                <TapGestureRecognizer Command="{Binding ResetPass}" />
                             </Label.GestureRecognizers>
                         </Label>
                     </StackLayout>

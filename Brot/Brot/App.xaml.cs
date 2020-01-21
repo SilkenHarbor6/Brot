@@ -23,6 +23,10 @@
             wasAppCenterKeysSent = false;
             Current.On<Xamarin.Forms.PlatformConfiguration.Android>().UseWindowSoftInputModeAdjust(WindowSoftInputModeAdjust.Resize);
 
+            //// Signout en iOS 
+            //var jsoner = new UserJson();
+            //jsoner.SignOut();
+
             InitializeComponent();
             perms();
             inicializar();

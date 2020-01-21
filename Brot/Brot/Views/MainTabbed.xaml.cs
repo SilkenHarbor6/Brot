@@ -4,24 +4,21 @@
 
     using Xamarin.Forms;
     using Xamarin.Forms.Xaml;
-    using Views.Tabs;
-    using Plugin.Permissions.Abstractions;
-    using Plugin.Permissions;
 
     [XamlCompilation(XamlCompilationOptions.Compile)]
     [DesignTimeVisible(false)]
     public partial class MainTabbed : TabbedPage
-    { 
+    {
         public MainTabbed()
         {
-            ask4Location();
             InitializeComponent();
-            CurrentPage = Children[0];
+            Children.Add(new Tabs.Feed());
+                Children.Add(new Tabs.SellersMap());
+            Children.Add(new Tabs.BrotTen());
+            Children.Add(new Tabs.Profile());
 
-        }
-        private async void ask4Location()
-        {
-            await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+            //CurrentPage = Children[1];
+
         }
     }
 }

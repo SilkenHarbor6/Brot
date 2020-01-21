@@ -58,6 +58,7 @@
         public async void InitPins()
         {
             places = new ObservableCollection<Pin>();
+            //TODO modificar controlador de Vendor
             var result = await RestClient.GetAll<userModel>("users/vendors/");
 
             if (!result.IsSuccess)
@@ -66,6 +67,7 @@
                 return;
             }
             //api / categoria / GMC /{ id}
+            //TODO Categoria en DB como nombres tal cual y AGREGAR .png AQU[I!!
             ObservableCollection<String> cats = new ObservableCollection<String>();
             foreach (var seller in (ObservableCollection<userModel>)result.Result)
             {
@@ -89,7 +91,7 @@
                 pin.Label = "";
                 pin.Position = new Position(Convert.ToDouble(seller.xlat), Convert.ToDouble(seller.ylon));
                 pin.Icon = BitmapDescriptorFactory.FromBundle(cats[i]);
-                pin.Address = i.ToString();
+                pin.ZIndex = i;
                 pin.Type = PinType.Place;
                 i++;
                 places.Add(pin);

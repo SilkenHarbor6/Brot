@@ -50,12 +50,12 @@
             {
                 if (Singleton.Instance.User.id_user == publicacion.id_user) //Su propio comentario
                 {
-                    respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "",
+                    respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "Atras",
                     new string[] { "Editar", "Eliminar", "Dar Like", "Download Media" });
                 }
                 else
                 {
-                    respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "",
+                    respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "Atras",
                     new string[] { "Dar Like", "Guardar", "Download Media" });
                 }
             }
@@ -63,12 +63,12 @@
             {
                 if (Singleton.Instance.User.id_user == publicacion.id_user) //Su propio comentario
                 {
-                    respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "",
+                    respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "Atras",
                     new string[] { "Editar", "Eliminar", "Dar Like" });
                 }
                 else
                 {
-                    respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "",
+                    respuesta = await App.Current.MainPage.DisplayActionSheet("Opciones de comentario", "Atras", "Atras`",
                     new string[] { "Dar Like", "Guardar" });
                 }
             }
