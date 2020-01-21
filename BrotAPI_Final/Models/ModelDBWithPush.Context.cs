@@ -13,9 +13,9 @@ namespace BrotAPI_Final.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BorrarDBBrotEntities : DbContext
+    public partial class DBContextModel : DbContext
     {
-        public BorrarDBBrotEntities()
+        public DBContextModel()
             : base("name=BorrarDBBrotEntities")
         {
         }
