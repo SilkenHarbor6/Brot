@@ -4,6 +4,7 @@ using System.Linq;
 
 using Foundation;
 using UIKit;
+using Xamarin.Forms.GoogleMaps.iOS;
 
 namespace Brot.iOS
 {
@@ -23,7 +24,7 @@ namespace Brot.iOS
         public override bool FinishedLaunching(UIApplication app, NSDictionary options)
         {
             global::Xamarin.Forms.Forms.Init();
-            Xamarin.FormsGoogleMaps.Init("AIzaSyBqWwikXczmFdMviShsKbvKp8p6C_wHhBc");
+
 
             //Nugets!! Brot
 
@@ -33,13 +34,15 @@ namespace Brot.iOS
             FFImageLoading.Forms.Platform.CachedImageRenderer.Init();
             //Initializaing Popup
             Rg.Plugins.Popup.Popup.Init();
-            Xamarin.FormsGoogleMaps.Init("AIzaSyBqWwikXczmFdMviShsKbvKp8p6C_wHhBc");
-
+            var platformConfig = new PlatformConfig
+            {
+                ImageFactory = new CachingImageFactory()
+            };
+            Xamarin.FormsGoogleMaps.Init("",platformConfig);
+            
             LoadApplication(new App());
 
             return base.FinishedLaunching(app, options);
         }
-
-
     }
 }
