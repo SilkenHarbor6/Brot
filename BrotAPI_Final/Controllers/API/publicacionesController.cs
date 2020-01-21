@@ -16,7 +16,7 @@ namespace BrotAPI_Final.Controllers.API
     [RoutePrefix("api/publicaciones")]
     public class publicacionesController : ApiController
     {
-        private SomeeDBBrotEntities db = new SomeeDBBrotEntities();
+        private DBContextModel db = new DBContextModel();
         private RpublicacionesDB r = new RpublicacionesDB();
 
 
@@ -333,7 +333,7 @@ namespace BrotAPI_Final.Controllers.API
         /// <returns></returns>
         /// 
         [HttpPost]
-        public HttpResponseMessage Post(publicaciones item)
+        public async System.Threading.Tasks.Task<HttpResponseMessage> Post(publicaciones item)
         {
             item.isDeleted = false;
             if (item == null)
@@ -361,6 +361,30 @@ namespace BrotAPI_Final.Controllers.API
             //Intenta el post
             if (r.Post(item))
             {
+
+                //TODO PUSH for comment
+                using (var db = new DBContextModel())
+                {
+                    var seguidoresUsuario = db.users.SingleOrDefault(u => u.id_user == item.id_user)
+                        .seguidores1.ToList();
+                    var receiptInstallID = new Dictionary<string, string>();
+
+                    foreach (var seguidor in seguidoresUsuario)
+                    {
+                        try
+                        {
+                            receiptInstallID.Add(seguidor.users.Phone_OS, seguidor.users.Device_id);
+                        }
+                        catch (Exception) { /**No todos los usuarios tienen telefono asociado **/}
+                    }
+
+                    AppCenterPush appCenterPush = new AppCenterPush(receiptInstallID);
+                    users CommenterPost = db.users.SingleOrDefault(u => u.id_user == item.id_user);
+                    await appCenterPush.Notify($"{seguidoresUsuario[0].users1.nombre} hizo una nueva publicación", item.descripcion,
+                        new Dictionary<string, string>() { { "publicacionNueva_ID_USER", item.id_user.ToString() } }
+                        );
+
+                }
                 return Request.CreateResponse(HttpStatusCode.Created, item);
             }
 

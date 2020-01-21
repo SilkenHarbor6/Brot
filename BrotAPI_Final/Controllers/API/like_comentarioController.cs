@@ -12,7 +12,7 @@ namespace BrotAPI_Final.Controllers.API
 {
     public class like_comentarioController : ApiController
     {
-        private readonly SomeeDBBrotEntities db = new SomeeDBBrotEntities();
+        private readonly DBContextModel db = new DBContextModel();
         private Rlike_comentarioDB r = new Rlike_comentarioDB();
 
         public HttpResponseMessage GetLikesbyIDComentario(int id)
@@ -21,7 +21,7 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe tal comentario, id: {id}");
             }
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 var usuarios = db.like_comentario
                     .Include(p => p.users)

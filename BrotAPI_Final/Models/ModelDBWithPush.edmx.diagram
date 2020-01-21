@@ -4,17 +4,20 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="b6a51d102193434580356afd4e183f65" Name="Diagram1" ZoomLevel="76">
-        <EntityTypeShape EntityType="BorrarDBBrotModel.comentarios" Width="1.5" PointX="5.25" PointY="15.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BorrarDBBrotModel.interaccion_post" Width="1.5" PointX="8.25" PointY="16" IsExpanded="true" />
-        <EntityTypeShape EntityType="BorrarDBBrotModel.like_comentario" Width="1.5" PointX="7.5" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BorrarDBBrotModel.like_post" Width="1.5" PointX="5.25" PointY="20.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BorrarDBBrotModel.publicacion_guardada" Width="1.5" PointX="5.25" PointY="12.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="BorrarDBBrotModel.publicaciones" Width="1.5" PointX="3" PointY="20.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BorrarDBBrotModel.seguidores" Width="1.5" PointX="3" PointY="25.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="BorrarDBBrotModel.users" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="BorrarDBBrotModel.visita_busqueda" Width="1.5" PointX="3" PointY="28.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="BorrarDBBrotModel.visita_pefil_post" Width="1.5" PointX="8.25" PointY="20" IsExpanded="true" />
+      <Diagram DiagramId="9f52dfb170d74bf6aa62d1da855756cd" Name="Diagram1">
+        <EntityTypeShape EntityType="BorrarDBBrotModel.categoria" Width="1.5" PointX="0.75" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDBBrotModel.comentarios" Width="1.5" PointX="5.25" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDBBrotModel.interaccion_post" Width="1.5" PointX="8.25" PointY="17.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDBBrotModel.like_comentario" Width="1.5" PointX="7.5" PointY="14.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDBBrotModel.like_post" Width="1.5" PointX="5.25" PointY="21.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDBBrotModel.publicacion_guardada" Width="1.5" PointX="5.25" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDBBrotModel.publicaciones" Width="1.5" PointX="3" PointY="22.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDBBrotModel.seguidores" Width="1.5" PointX="3" PointY="27" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDBBrotModel.users" Width="1.5" PointX="0.75" PointY="11.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDBBrotModel.usuario_categoria" Width="1.5" PointX="3" PointY="13.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDBBrotModel.visita_busqueda" Width="1.5" PointX="3" PointY="33" IsExpanded="true" />
+        <EntityTypeShape EntityType="BorrarDBBrotModel.visita_pefil_post" Width="1.5" PointX="8.25" PointY="21.5" IsExpanded="true" />
+        <AssociationConnector Association="BorrarDBBrotModel.FK__usuario_c__id_ca__5FB337D6" ManuallyRouted="false" />
         <AssociationConnector Association="BorrarDBBrotModel.fk_comentarios_post" ManuallyRouted="false" />
         <AssociationConnector Association="BorrarDBBrotModel.FK_comentarios_users" ManuallyRouted="false" />
         <AssociationConnector Association="BorrarDBBrotModel.fk_like_comentario" ManuallyRouted="false" />
@@ -30,13 +33,11 @@
         <AssociationConnector Association="BorrarDBBrotModel.FK_visita_pefil_post_publicaciones" ManuallyRouted="false" />
         <AssociationConnector Association="BorrarDBBrotModel.fk_seguidores_user" ManuallyRouted="false" />
         <AssociationConnector Association="BorrarDBBrotModel.FK_seguidores_users" ManuallyRouted="false" />
+        <AssociationConnector Association="BorrarDBBrotModel.FK__usuario_c__id_us__5EBF139D" ManuallyRouted="false" />
         <AssociationConnector Association="BorrarDBBrotModel.FK_visita_busqueda_users" ManuallyRouted="false" />
         <AssociationConnector Association="BorrarDBBrotModel.FK_visita_busqueda_users1" ManuallyRouted="false" />
         <AssociationConnector Association="BorrarDBBrotModel.FK_visita_pefil_post_users" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="BorrarDBBrotModel.categoria" Width="1.5" PointX="0.75" PointY="6.375" />
-        <EntityTypeShape EntityType="BorrarDBBrotModel.usuario_categoria" Width="1.5" PointX="3" PointY="12.125" />
-        <AssociationConnector Association="BorrarDBBrotModel.FK__usuario_c__id_ca__5FB337D6" />
-        <AssociationConnector Association="BorrarDBBrotModel.FK__usuario_c__id_us__5EBF139D" />
+        <EntityTypeShape EntityType="BorrarDBBrotModel.codigos" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

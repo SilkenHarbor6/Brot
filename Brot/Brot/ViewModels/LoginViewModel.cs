@@ -114,11 +114,18 @@ namespace Brot.ViewModels
                 return;
             }
 
-            var result = await RestClient.Post<userModel>("users/login", new userModel()
+            //Registrar telefono en base de datos
+            var usuario = new userModel()
             {
                 username = this.Username,
                 pass = this.Password
-            });
+            };
+            var idInstalled02 = await Microsoft.AppCenter.AppCenter.GetInstallIdAsync();
+            usuario.Device_id = idInstalled02.Value.ToString();
+            usuario.Phone_OS = Device.RuntimePlatform == Device.iOS ? "iOS" : "Android";
+            var result = await RestClient.Post<userModel>("users/login", usuario);
+
+
 
             if (result.IsSuccess)
             {
@@ -136,6 +143,7 @@ namespace Brot.ViewModels
                 });
 
                 ///Habilito Push Notifications
+                ///
                 Microsoft.AppCenter.AppCenter.Start(typeof(Push));
                 await Push.SetEnabledAsync(true);
                     

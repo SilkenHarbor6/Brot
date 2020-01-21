@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
+             xmlns:tigger="clr-namespace:Brot.Tigger"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="Brot.Views.RecoveryPass">
+    <ContentPage.Content>
+        <StackLayout Padding="10">
+            <Label Text="Ingresa tu nueva contraseña" TextColor="#031540" FontSize="Header"/>
+            <Label Text="Asegurate de crear una contraseña segura y de no olvidarla" TextColor="Gray" FontSize="Small"/>
+            <Rounded:RoundedBorderEntry
+                Margin="10"
+                BorderColor="#031540"
+                BorderThickness="2"
+                CornerRadius="10"
+                IsPassword="True"
+                Placeholder="Type your password"
+                PlaceholderColor="Gray"
+                Text="{Binding newPass}"
+                TextColor="#000" />
+            <Rounded:RoundedBorderEntry
+                Margin="10"
+                BorderColor="#031540"
+                BorderThickness="2"
+                CornerRadius="10"
+                IsPassword="True"
+                Placeholder="Repeat your password"
+                PlaceholderColor="Gray"
+                Text="{Binding repeatedPass}"
+                TextColor="#000">
+                <Rounded:RoundedBorderEntry.Triggers>
+                    <EventTrigger Event="TextChanged">
+                        <tigger:PasswordTrigger />
+                    </EventTrigger>
+                </Rounded:RoundedBorderEntry.Triggers>
+            </Rounded:RoundedBorderEntry>
+            <Button
+                BackgroundColor="Transparent"
+                BorderColor="#031540"
+                BorderWidth="1"
+                Command="{Binding passwordCommand}"
+                CornerRadius="3"
+                FontSize="Small"
+                HorizontalOptions="Fill"
+                IsEnabled="{Binding IsNotBusy}"
+                Text="Cambiar clave"
+                TextColor="#031540" />
+            <ActivityIndicator IsRunning="{Binding IsRefreshing}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

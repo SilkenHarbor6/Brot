@@ -14,14 +14,14 @@ namespace BrotAPI_Final.Repository
         /// <returns></returns>
         public users GetById(int id)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 try
                 {
                     db.Configuration.ProxyCreationEnabled = false;
                     return db.users.Find(id);
                 }
-                catch (Exception) { return null; }
+                catch (Exception ex) { Debug.Print(ex.Message); return null; }
             }
         }
 
@@ -33,7 +33,7 @@ namespace BrotAPI_Final.Repository
         /// <returns></returns>
         public bool Post(users item)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 try
                 {
@@ -61,7 +61,7 @@ namespace BrotAPI_Final.Repository
         /// <returns></returns>
         public bool Put(int id, users item)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 users dbitem = db.users.Find(id);
@@ -110,7 +110,7 @@ namespace BrotAPI_Final.Repository
         /// <returns></returns>
         public bool Delete(int id)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 db.Configuration.ProxyCreationEnabled = false;
                 try
@@ -133,7 +133,7 @@ namespace BrotAPI_Final.Repository
 
         public users EmailExist(string email)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 try
                 {

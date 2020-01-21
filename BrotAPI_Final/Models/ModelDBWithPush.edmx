@@ -13,6 +13,13 @@
           <Property Name="nombre" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="img" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
+        <EntityType Name="codigos">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="id_user" Type="int" />
+        </EntityType>
         <EntityType Name="comentarios">
           <Key>
             <PropertyRef Name="id_comentario" />
@@ -105,6 +112,8 @@
           <Property Name="num_telefono" Type="varchar" MaxLength="15" />
           <Property Name="img" Type="varchar" MaxLength="100" />
           <Property Name="isDeleted" Type="bit" />
+          <Property Name="Device_id" Type="varchar" MaxLength="50" />
+          <Property Name="Phone_OS" Type="varchar" MaxLength="8" />
         </EntityType>
         <EntityType Name="usuario_categoria">
           <Key>
@@ -376,6 +385,7 @@
         </Association>
         <EntityContainer Name="BorrarDBBrotModelStoreContainer">
           <EntitySet Name="categoria" EntityType="Self.categoria" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="codigos" EntityType="Self.codigos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="comentarios" EntityType="Self.comentarios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="interaccion_post" EntityType="Self.interaccion_post" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="like_comentario" EntityType="Self.like_comentario" Schema="dbo" store:Type="Tables" />
@@ -472,6 +482,15 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BorrarDBBrotModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="categoria">
+          <Key>
+            <PropertyRef Name="id_categoria" />
+          </Key>
+          <Property Name="id_categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="img" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="usuario_categoria" Relationship="Self.FK__usuario_c__id_ca__5FB337D6" FromRole="categoria" ToRole="usuario_categoria" />
+        </EntityType>
         <EntityType Name="comentarios">
           <Key>
             <PropertyRef Name="id_comentario" />
@@ -584,6 +603,8 @@
           <Property Name="num_telefono" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="img" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="isDeleted" Type="Boolean" />
+          <Property Name="Device_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Phone_OS" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="comentarios" Relationship="Self.FK_comentarios_users" FromRole="users" ToRole="comentarios" />
           <NavigationProperty Name="interaccion_post" Relationship="Self.FK_interaccion_post_users" FromRole="users" ToRole="interaccion_post" />
           <NavigationProperty Name="interaccion_post1" Relationship="Self.FK_interaccion_post_users1" FromRole="users" ToRole="interaccion_post" />
@@ -593,10 +614,21 @@
           <NavigationProperty Name="publicaciones" Relationship="Self.FK_post_user_creator" FromRole="users" ToRole="publicaciones" />
           <NavigationProperty Name="seguidores" Relationship="Self.fk_seguidores_user" FromRole="users" ToRole="seguidores" />
           <NavigationProperty Name="seguidores1" Relationship="Self.FK_seguidores_users" FromRole="users" ToRole="seguidores" />
+          <NavigationProperty Name="usuario_categoria" Relationship="Self.FK__usuario_c__id_us__5EBF139D" FromRole="users" ToRole="usuario_categoria" />
           <NavigationProperty Name="visita_busqueda" Relationship="Self.FK_visita_busqueda_users" FromRole="users" ToRole="visita_busqueda" />
           <NavigationProperty Name="visita_busqueda1" Relationship="Self.FK_visita_busqueda_users1" FromRole="users" ToRole="visita_busqueda" />
           <NavigationProperty Name="visita_pefil_post" Relationship="Self.FK_visita_pefil_post_users" FromRole="users" ToRole="visita_pefil_post" />
-          <NavigationProperty Name="usuario_categoria" Relationship="BorrarDBBrotModel.FK__usuario_c__id_us__5EBF139D" FromRole="users" ToRole="usuario_categoria" />
+        </EntityType>
+        <EntityType Name="usuario_categoria">
+          <Key>
+            <PropertyRef Name="id_usuario_categoria" />
+          </Key>
+          <Property Name="id_usuario_categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="id_usuario" Type="Int32" Nullable="false" />
+          <Property Name="id_categoria" Type="Int32" Nullable="false" />
+          <Property Name="isPrimary" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="categoria" Relationship="Self.FK__usuario_c__id_ca__5FB337D6" FromRole="usuario_categoria" ToRole="categoria" />
+          <NavigationProperty Name="users" Relationship="Self.FK__usuario_c__id_us__5EBF139D" FromRole="usuario_categoria" ToRole="users" />
         </EntityType>
         <EntityType Name="visita_busqueda">
           <Key>
@@ -621,6 +653,18 @@
           <NavigationProperty Name="publicaciones" Relationship="Self.FK_visita_pefil_post_publicaciones" FromRole="visita_pefil_post" ToRole="publicaciones" />
           <NavigationProperty Name="users" Relationship="Self.FK_visita_pefil_post_users" FromRole="visita_pefil_post" ToRole="users" />
         </EntityType>
+        <Association Name="FK__usuario_c__id_ca__5FB337D6">
+          <End Role="categoria" Type="Self.categoria" Multiplicity="1" />
+          <End Role="usuario_categoria" Type="Self.usuario_categoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="id_categoria" />
+            </Principal>
+            <Dependent Role="usuario_categoria">
+              <PropertyRef Name="id_categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="fk_comentarios_post">
           <End Role="publicaciones" Type="Self.publicaciones" Multiplicity="1" />
           <End Role="comentarios" Type="Self.comentarios" Multiplicity="*" />
@@ -801,6 +845,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__usuario_c__id_us__5EBF139D">
+          <End Role="users" Type="Self.users" Multiplicity="1" />
+          <End Role="usuario_categoria" Type="Self.usuario_categoria" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="usuario_categoria">
+              <PropertyRef Name="id_usuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_visita_busqueda_users">
           <End Role="users" Type="Self.users" Multiplicity="1" />
           <End Role="visita_busqueda" Type="Self.visita_busqueda" Multiplicity="*" />
@@ -837,7 +893,8 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BorrarDBBrotEntitiesCorrected" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="BorrarDBBrotEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="categoria" EntityType="Self.categoria" />
           <EntitySet Name="comentarios" EntityType="Self.comentarios" />
           <EntitySet Name="interaccion_post" EntityType="Self.interaccion_post" />
           <EntitySet Name="like_comentario" EntityType="Self.like_comentario" />
@@ -846,8 +903,13 @@
           <EntitySet Name="publicaciones" EntityType="Self.publicaciones" />
           <EntitySet Name="seguidores" EntityType="Self.seguidores" />
           <EntitySet Name="users" EntityType="Self.users" />
+          <EntitySet Name="usuario_categoria" EntityType="Self.usuario_categoria" />
           <EntitySet Name="visita_busqueda" EntityType="Self.visita_busqueda" />
           <EntitySet Name="visita_pefil_post" EntityType="Self.visita_pefil_post" />
+          <AssociationSet Name="FK__usuario_c__id_ca__5FB337D6" Association="Self.FK__usuario_c__id_ca__5FB337D6">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="usuario_categoria" EntitySet="usuario_categoria" />
+          </AssociationSet>
           <AssociationSet Name="fk_comentarios_post" Association="Self.fk_comentarios_post">
             <End Role="publicaciones" EntitySet="publicaciones" />
             <End Role="comentarios" EntitySet="comentarios" />
@@ -908,6 +970,10 @@
             <End Role="users" EntitySet="users" />
             <End Role="seguidores" EntitySet="seguidores" />
           </AssociationSet>
+          <AssociationSet Name="FK__usuario_c__id_us__5EBF139D" Association="Self.FK__usuario_c__id_us__5EBF139D">
+            <End Role="users" EntitySet="users" />
+            <End Role="usuario_categoria" EntitySet="usuario_categoria" />
+          </AssociationSet>
           <AssociationSet Name="FK_visita_busqueda_users" Association="Self.FK_visita_busqueda_users">
             <End Role="users" EntitySet="users" />
             <End Role="visita_busqueda" EntitySet="visita_busqueda" />
@@ -920,210 +986,175 @@
             <End Role="users" EntitySet="users" />
             <End Role="visita_pefil_post" EntitySet="visita_pefil_post" />
           </AssociationSet>
-          <EntitySet Name="categoria" EntityType="BorrarDBBrotModel.categoria" />
-          <EntitySet Name="usuario_categoria" EntityType="BorrarDBBrotModel.usuario_categoria" />
-          <AssociationSet Name="FK__usuario_c__id_ca__5FB337D6" Association="BorrarDBBrotModel.FK__usuario_c__id_ca__5FB337D6">
-            <End Role="categoria" EntitySet="categoria" />
-            <End Role="usuario_categoria" EntitySet="usuario_categoria" />
-          </AssociationSet>
-          <AssociationSet Name="FK__usuario_c__id_us__5EBF139D" Association="BorrarDBBrotModel.FK__usuario_c__id_us__5EBF139D">
-            <End Role="users" EntitySet="users" />
-            <End Role="usuario_categoria" EntitySet="usuario_categoria" />
-          </AssociationSet>
+          <EntitySet Name="codigos" EntityType="BorrarDBBrotModel.codigos" />
         </EntityContainer>
-        <EntityType Name="categoria">
+        <EntityType Name="codigos">
           <Key>
-            <PropertyRef Name="id_categoria" />
+            <PropertyRef Name="codigo" />
           </Key>
-          <Property Name="id_categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="img" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="usuario_categoria" Relationship="BorrarDBBrotModel.FK__usuario_c__id_ca__5FB337D6" FromRole="categoria" ToRole="usuario_categoria" />
+          <Property Name="codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="id_user" Type="Int32" />
         </EntityType>
-        <EntityType Name="usuario_categoria">
-          <Key>
-            <PropertyRef Name="id_usuario_categoria" />
-          </Key>
-          <Property Name="id_usuario_categoria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="id_usuario" Type="Int32" Nullable="false" />
-          <Property Name="id_categoria" Type="Int32" Nullable="false" />
-          <Property Name="isPrimary" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="categoria" Relationship="BorrarDBBrotModel.FK__usuario_c__id_ca__5FB337D6" FromRole="usuario_categoria" ToRole="categoria" />
-          <NavigationProperty Name="users" Relationship="BorrarDBBrotModel.FK__usuario_c__id_us__5EBF139D" FromRole="usuario_categoria" ToRole="users" />
-        </EntityType>
-        <Association Name="FK__usuario_c__id_ca__5FB337D6">
-          <End Type="BorrarDBBrotModel.categoria" Role="categoria" Multiplicity="1" />
-          <End Type="BorrarDBBrotModel.usuario_categoria" Role="usuario_categoria" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="categoria">
-              <PropertyRef Name="id_categoria" />
-            </Principal>
-            <Dependent Role="usuario_categoria">
-              <PropertyRef Name="id_categoria" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK__usuario_c__id_us__5EBF139D">
-          <End Type="BorrarDBBrotModel.users" Role="users" Multiplicity="1" />
-          <End Type="BorrarDBBrotModel.usuario_categoria" Role="usuario_categoria" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="users">
-              <PropertyRef Name="id_user" />
-            </Principal>
-            <Dependent Role="usuario_categoria">
-              <PropertyRef Name="id_usuario" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
-    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="BorrarDBBrotModelStoreContainer" CdmEntityContainer="BorrarDBBrotEntitiesCorrected">
-    <EntitySetMapping Name="comentarios">
-      <EntityTypeMapping TypeName="IsTypeOf(BorrarDBBrotModel.comentarios)">
-        <MappingFragment StoreEntitySet="comentarios">
-          <ScalarProperty Name="id_comentario" ColumnName="id_comentario" />
-          <ScalarProperty Name="id_user" ColumnName="id_user" />
-          <ScalarProperty Name="id_post" ColumnName="id_post" />
-          <ScalarProperty Name="contenido" ColumnName="contenido" />
-          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="interaccion_post">
-      <EntityTypeMapping TypeName="IsTypeOf(BorrarDBBrotModel.interaccion_post)">
-        <MappingFragment StoreEntitySet="interaccion_post">
-          <ScalarProperty Name="id_interaccion_post" ColumnName="id_interaccion_post" />
-          <ScalarProperty Name="id_post" ColumnName="id_post" />
-          <ScalarProperty Name="id_userqueinteractuo" ColumnName="id_userqueinteractuo" />
-          <ScalarProperty Name="id_perfilvisitado" ColumnName="id_perfilvisitado" />
-          <ScalarProperty Name="fecha" ColumnName="fecha" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="like_comentario">
-      <EntityTypeMapping TypeName="IsTypeOf(BorrarDBBrotModel.like_comentario)">
-        <MappingFragment StoreEntitySet="like_comentario">
-          <ScalarProperty Name="id_like_comentario" ColumnName="id_like_comentario" />
-          <ScalarProperty Name="id_user" ColumnName="id_user" />
-          <ScalarProperty Name="id_comentario" ColumnName="id_comentario" />
-          <ScalarProperty Name="fecha" ColumnName="fecha" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="like_post">
-      <EntityTypeMapping TypeName="IsTypeOf(BorrarDBBrotModel.like_post)">
-        <MappingFragment StoreEntitySet="like_post">
-          <ScalarProperty Name="id" ColumnName="id" />
-          <ScalarProperty Name="id_user" ColumnName="id_user" />
-          <ScalarProperty Name="id_post" ColumnName="id_post" />
-          <ScalarProperty Name="fecha" ColumnName="fecha" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="publicacion_guardada">
-      <EntityTypeMapping TypeName="IsTypeOf(BorrarDBBrotModel.publicacion_guardada)">
-        <MappingFragment StoreEntitySet="publicacion_guardada">
-          <ScalarProperty Name="id_publicacion_guardada" ColumnName="id_publicacion_guardada" />
-          <ScalarProperty Name="id_user" ColumnName="id_user" />
-          <ScalarProperty Name="id_post" ColumnName="id_post" />
-          <ScalarProperty Name="fecha" ColumnName="fecha" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="publicaciones">
-      <EntityTypeMapping TypeName="IsTypeOf(BorrarDBBrotModel.publicaciones)">
-        <MappingFragment StoreEntitySet="publicaciones">
-          <ScalarProperty Name="id_post" ColumnName="id_post" />
-          <ScalarProperty Name="id_user" ColumnName="id_user" />
-          <ScalarProperty Name="img" ColumnName="img" />
-          <ScalarProperty Name="isImg" ColumnName="isImg" />
-          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
-          <ScalarProperty Name="fecha_actualizacion" ColumnName="fecha_actualizacion" />
-          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="seguidores">
-      <EntityTypeMapping TypeName="IsTypeOf(BorrarDBBrotModel.seguidores)">
-        <MappingFragment StoreEntitySet="seguidores">
-          <ScalarProperty Name="id_seguidores" ColumnName="id_seguidores" />
-          <ScalarProperty Name="seguidor_id" ColumnName="seguidor_id" />
-          <ScalarProperty Name="id_seguido" ColumnName="id_seguido" />
-          <ScalarProperty Name="accepted" ColumnName="accepted" />
-          <ScalarProperty Name="fecha" ColumnName="fecha" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="users">
-      <EntityTypeMapping TypeName="IsTypeOf(BorrarDBBrotModel.users)">
-        <MappingFragment StoreEntitySet="users">
-          <ScalarProperty Name="id_user" ColumnName="id_user" />
-          <ScalarProperty Name="username" ColumnName="username" />
-          <ScalarProperty Name="puesto_name" ColumnName="puesto_name" />
-          <ScalarProperty Name="nombre" ColumnName="nombre" />
-          <ScalarProperty Name="apellido" ColumnName="apellido" />
-          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
-          <ScalarProperty Name="pass" ColumnName="pass" />
-          <ScalarProperty Name="isVendor" ColumnName="isVendor" />
-          <ScalarProperty Name="puntaje" ColumnName="puntaje" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="xlat" ColumnName="xlat" />
-          <ScalarProperty Name="ylon" ColumnName="ylon" />
-          <ScalarProperty Name="isActive" ColumnName="isActive" />
-          <ScalarProperty Name="dui" ColumnName="dui" />
-          <ScalarProperty Name="num_telefono" ColumnName="num_telefono" />
-          <ScalarProperty Name="img" ColumnName="img" />
-          <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="visita_busqueda">
-      <EntityTypeMapping TypeName="IsTypeOf(BorrarDBBrotModel.visita_busqueda)">
-        <MappingFragment StoreEntitySet="visita_busqueda">
-          <ScalarProperty Name="id_visita_busqueda" ColumnName="id_visita_busqueda" />
-          <ScalarProperty Name="id_userquebusco" ColumnName="id_userquebusco" />
-          <ScalarProperty Name="id_perfilvisitado" ColumnName="id_perfilvisitado" />
-          <ScalarProperty Name="fecha" ColumnName="fecha" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="visita_pefil_post">
-      <EntityTypeMapping TypeName="IsTypeOf(BorrarDBBrotModel.visita_pefil_post)">
-        <MappingFragment StoreEntitySet="visita_pefil_post">
-          <ScalarProperty Name="id_visita_pefil_post" ColumnName="id_visita_pefil_post" />
-          <ScalarProperty Name="id_post" ColumnName="id_post" />
-          <ScalarProperty Name="id_userquevisito" ColumnName="id_userquevisito" />
-          <ScalarProperty Name="id_perfilvisitado" ColumnName="id_perfilvisitado" />
-          <ScalarProperty Name="fecha" ColumnName="fecha" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="BorrarDBBrotModelStoreContainer" CdmEntityContainer="BorrarDBBrotEntities">
           <EntitySetMapping Name="categoria">
             <EntityTypeMapping TypeName="BorrarDBBrotModel.categoria">
               <MappingFragment StoreEntitySet="categoria">
-                <ScalarProperty Name="img" ColumnName="img" />
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="img" ColumnName="img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="comentarios">
+            <EntityTypeMapping TypeName="BorrarDBBrotModel.comentarios">
+              <MappingFragment StoreEntitySet="comentarios">
+                <ScalarProperty Name="id_comentario" ColumnName="id_comentario" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="id_post" ColumnName="id_post" />
+                <ScalarProperty Name="contenido" ColumnName="contenido" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="interaccion_post">
+            <EntityTypeMapping TypeName="BorrarDBBrotModel.interaccion_post">
+              <MappingFragment StoreEntitySet="interaccion_post">
+                <ScalarProperty Name="id_interaccion_post" ColumnName="id_interaccion_post" />
+                <ScalarProperty Name="id_post" ColumnName="id_post" />
+                <ScalarProperty Name="id_userqueinteractuo" ColumnName="id_userqueinteractuo" />
+                <ScalarProperty Name="id_perfilvisitado" ColumnName="id_perfilvisitado" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="like_comentario">
+            <EntityTypeMapping TypeName="BorrarDBBrotModel.like_comentario">
+              <MappingFragment StoreEntitySet="like_comentario">
+                <ScalarProperty Name="id_like_comentario" ColumnName="id_like_comentario" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="id_comentario" ColumnName="id_comentario" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="like_post">
+            <EntityTypeMapping TypeName="BorrarDBBrotModel.like_post">
+              <MappingFragment StoreEntitySet="like_post">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="id_post" ColumnName="id_post" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="publicacion_guardada">
+            <EntityTypeMapping TypeName="BorrarDBBrotModel.publicacion_guardada">
+              <MappingFragment StoreEntitySet="publicacion_guardada">
+                <ScalarProperty Name="id_publicacion_guardada" ColumnName="id_publicacion_guardada" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="id_post" ColumnName="id_post" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="publicaciones">
+            <EntityTypeMapping TypeName="BorrarDBBrotModel.publicaciones">
+              <MappingFragment StoreEntitySet="publicaciones">
+                <ScalarProperty Name="id_post" ColumnName="id_post" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="isImg" ColumnName="isImg" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+                <ScalarProperty Name="fecha_actualizacion" ColumnName="fecha_actualizacion" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="seguidores">
+            <EntityTypeMapping TypeName="BorrarDBBrotModel.seguidores">
+              <MappingFragment StoreEntitySet="seguidores">
+                <ScalarProperty Name="id_seguidores" ColumnName="id_seguidores" />
+                <ScalarProperty Name="seguidor_id" ColumnName="seguidor_id" />
+                <ScalarProperty Name="id_seguido" ColumnName="id_seguido" />
+                <ScalarProperty Name="accepted" ColumnName="accepted" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="users">
+            <EntityTypeMapping TypeName="BorrarDBBrotModel.users">
+              <MappingFragment StoreEntitySet="users">
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="puesto_name" ColumnName="puesto_name" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellido" ColumnName="apellido" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="pass" ColumnName="pass" />
+                <ScalarProperty Name="isVendor" ColumnName="isVendor" />
+                <ScalarProperty Name="puntaje" ColumnName="puntaje" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="xlat" ColumnName="xlat" />
+                <ScalarProperty Name="ylon" ColumnName="ylon" />
+                <ScalarProperty Name="isActive" ColumnName="isActive" />
+                <ScalarProperty Name="dui" ColumnName="dui" />
+                <ScalarProperty Name="num_telefono" ColumnName="num_telefono" />
+                <ScalarProperty Name="img" ColumnName="img" />
+                <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
+                <ScalarProperty Name="Device_id" ColumnName="Device_id" />
+                <ScalarProperty Name="Phone_OS" ColumnName="Phone_OS" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="usuario_categoria">
             <EntityTypeMapping TypeName="BorrarDBBrotModel.usuario_categoria">
               <MappingFragment StoreEntitySet="usuario_categoria">
-                <ScalarProperty Name="isPrimary" ColumnName="isPrimary" />
-                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
-                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
                 <ScalarProperty Name="id_usuario_categoria" ColumnName="id_usuario_categoria" />
+                <ScalarProperty Name="id_usuario" ColumnName="id_usuario" />
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
+                <ScalarProperty Name="isPrimary" ColumnName="isPrimary" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-  </EntityContainerMapping>
-</Mapping></edmx:Mappings>
+          <EntitySetMapping Name="visita_busqueda">
+            <EntityTypeMapping TypeName="BorrarDBBrotModel.visita_busqueda">
+              <MappingFragment StoreEntitySet="visita_busqueda">
+                <ScalarProperty Name="id_visita_busqueda" ColumnName="id_visita_busqueda" />
+                <ScalarProperty Name="id_userquebusco" ColumnName="id_userquebusco" />
+                <ScalarProperty Name="id_perfilvisitado" ColumnName="id_perfilvisitado" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="visita_pefil_post">
+            <EntityTypeMapping TypeName="BorrarDBBrotModel.visita_pefil_post">
+              <MappingFragment StoreEntitySet="visita_pefil_post">
+                <ScalarProperty Name="id_visita_pefil_post" ColumnName="id_visita_pefil_post" />
+                <ScalarProperty Name="id_post" ColumnName="id_post" />
+                <ScalarProperty Name="id_userquevisito" ColumnName="id_userquevisito" />
+                <ScalarProperty Name="id_perfilvisitado" ColumnName="id_perfilvisitado" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codigos">
+            <EntityTypeMapping TypeName="BorrarDBBrotModel.codigos">
+              <MappingFragment StoreEntitySet="codigos">
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
   </edmx:Runtime>
   <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
   <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
@@ -1137,8 +1168,8 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="False" />
-        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

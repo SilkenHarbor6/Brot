@@ -14,7 +14,7 @@ namespace BrotAPI_Final.Controllers.API
 {
     public class publicacion_guardadaController : ApiController
     {
-        private SomeeDBBrotEntities db = new SomeeDBBrotEntities();
+        private DBContextModel db = new DBContextModel();
 
 
 
@@ -25,7 +25,7 @@ namespace BrotAPI_Final.Controllers.API
         [Route("api/publicacion_guardada/{idUser}")]
         public HttpResponseMessage GetPostsSaved(int idUser)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 var publicacionesGuardadas = db.publicacion_guardada
                     .Include(p => p.users)

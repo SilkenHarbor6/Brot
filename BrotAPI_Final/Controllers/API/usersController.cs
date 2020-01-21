@@ -19,6 +19,7 @@ namespace BrotAPI_Final.Controllers.API
     public class usersController : ApiController
     {
         private RusersDB r = new RusersDB();
+        private RCodigos v = new RCodigos();
 
         #region Gets
 
@@ -26,7 +27,7 @@ namespace BrotAPI_Final.Controllers.API
         [Route("UsernameDisponible/{username}")]
         public HttpResponseMessage validandoUsername(string username)
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 var datos = db.users.Where(u => u.username == username).ToList();
                 if (datos.Count > 0)
@@ -49,7 +50,7 @@ namespace BrotAPI_Final.Controllers.API
             }
             try
             {
-                using (var db = new SomeeDBBrotEntities())
+                using (var db = new DBContextModel())
                 {
                     var userObtenido = db.users.Where(u => u.username == item.username || u.email == item.username).ToList();
                     if (userObtenido.Count <= 0)
@@ -60,6 +61,9 @@ namespace BrotAPI_Final.Controllers.API
                     if (usuarioDB.pass == item.pass)
                     {
                         usuarioDB.isDeleted = false;
+                        usuarioDB.Device_id = item.Device_id;
+                        usuarioDB.Phone_OS = item.Phone_OS;
+
                         db.Entry(usuarioDB).State = EntityState.Modified;
                         db.SaveChanges();
 
@@ -104,7 +108,7 @@ namespace BrotAPI_Final.Controllers.API
         [Route("vendors")]
         public HttpResponseMessage vendors()
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 var vendedores = db.users
                     .Where(u => u.isVendor)
@@ -143,7 +147,7 @@ namespace BrotAPI_Final.Controllers.API
         // TODO BrotTen Filtrado
         public HttpResponseMessage brotten()
         {
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 var varUserProfile = db.users
                .Include(s => s.seguidores)
@@ -221,7 +225,7 @@ namespace BrotAPI_Final.Controllers.API
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe tal usuario, id: {idVisitante}");
             }
 
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 var varUserProfile = db.users
                .Include(s => s.publicaciones)
@@ -309,7 +313,7 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe tal usuario, id: {idUser}");
             }
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 var varUserProfile = db.users
                .Include(s => s.publicaciones)
@@ -476,7 +480,7 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe tal usuario, id: {idUser}");
             }
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 List<userModel> usuarios = db.seguidores.Where(o => o.id_seguido == idUser)
                    .Include(o => o.users).Select(
@@ -517,7 +521,7 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe tal usuario, id: {idUser}");
             }
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 List<userModel> usuarios = db.seguidores
                     .Include(o => o.users1)
@@ -639,11 +643,40 @@ namespace BrotAPI_Final.Controllers.API
                 {
                     smtp.Send(mail);
                     mail.Dispose();
+                    codigos code = new codigos();
+                    code.codigo = codigo.ToString();
+                    code.id_user = res.id_user;
+                    v.Post(code);
                     return Request.CreateResponse(HttpStatusCode.OK, "Enviado!");
                 }
                 catch (Exception ex)
                 {
                     return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Error " + ex.Message);
+                }
+            }
+        }
+
+        [HttpPost]
+        [Route("authcode/{code}")]
+        public HttpResponseMessage AuthCode(string code)
+        {
+            var res = v.Auth(code);
+            if (res == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Error ");
+            }
+            else
+            {
+                var pkg = new codigos();
+                pkg.id_user = res.id_user;
+                var result = v.Delete(code);
+                if (result)
+                {
+                    return Request.CreateResponse(HttpStatusCode.OK, pkg);
+                }
+                else
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Hubo un error en el proceso");
                 }
             }
         }
@@ -688,7 +721,7 @@ namespace BrotAPI_Final.Controllers.API
                 {
 
                     data.pass = itemNew.pass;
-                    using (var db = new SomeeDBBrotEntities())
+                    using (var db = new DBContextModel())
                     {
                         db.Entry(data).State = EntityState.Modified;
                         db.SaveChanges();
@@ -724,7 +757,7 @@ namespace BrotAPI_Final.Controllers.API
             {
 
                 data.img = itemNew.img;
-                using (var db = new SomeeDBBrotEntities())
+                using (var db = new DBContextModel())
                 {
                     db.Entry(data).State = EntityState.Modified;
                     db.SaveChanges();

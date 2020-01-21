@@ -28,7 +28,7 @@ namespace BrotAPI_Final.Controllers.API
 
             try
             {
-                using (var db = new Models.SomeeDBBrotEntities())
+                using (var db = new Models.DBContextModel())
                 {
 
                     var Seguidors = db.seguidores.Where(l => l.seguidor_id == item.seguidor_id && l.id_seguido == item.id_seguido).ToArray();
@@ -69,7 +69,7 @@ namespace BrotAPI_Final.Controllers.API
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No puedes seguirte a ti mismo");
             }
-            using (var db = new SomeeDBBrotEntities())
+            using (var db = new DBContextModel())
             {
                 var seguidorDatos = db.seguidores
                     .FirstOrDefault(s => s.id_seguido == item.id_seguido && s.seguidor_id == item.seguidor_id);

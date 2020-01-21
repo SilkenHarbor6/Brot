@@ -26,10 +26,12 @@
         public string num_telefono { get; set; }
         public string img { get; set; }
         public Nullable<bool> isDeleted { get; set; }
+        public string Device_id { get; set; }
+        public string Phone_OS { get; set; }
 
-     
 
-        
+
+
 
         [JsonIgnore]
         private Command _BtnProfileNameClicked;
