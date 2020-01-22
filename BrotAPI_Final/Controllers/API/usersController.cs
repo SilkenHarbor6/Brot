@@ -182,10 +182,10 @@ namespace BrotAPI_Final.Controllers.API
                            ylon = u.ylon
                        },
 
-                       Cantidad = u.seguidores.Count
+                       Cantidad = u.seguidores1.Count 
 
                    }
-               ).OrderBy(u => u.Cantidad).ToList();
+               ).OrderByDescending(u => u.Cantidad).ToList();
 
                 return Request.CreateResponse(HttpStatusCode.OK, varUserProfile);
             }

@@ -7,6 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace BrotAPI_Final.Controllers.API
@@ -109,7 +110,7 @@ namespace BrotAPI_Final.Controllers.API
         /// <param name="item"></param>
         /// <returns></returns>
         [HttpPost]
-        public HttpResponseMessage Post(like_post item)
+        public async Task<HttpResponseMessage> Post(like_post item)
         {
             if (item == null)
             {
@@ -126,6 +127,20 @@ namespace BrotAPI_Final.Controllers.API
 
                     if (r.Post(item))
                     {
+                        var diccionarioPhone_Device = new System.Collections.Generic.Dictionary<string, string>();
+
+                        var publicacion = db.publicaciones.SingleOrDefault(u => u.id_post == item.id_post);
+                        diccionarioPhone_Device.Add(publicacion.users.Phone_OS, publicacion.users.Device_id);
+                        var pushNotifier = new AppCenterPush(diccionarioPhone_Device);
+                        await pushNotifier.Notify($"A {publicacion.users.username} le gusta tu publicación",
+                            publicacion.descripcion,
+                            new System.Collections.Generic.Dictionary<string, string>() {
+                                {DLL.PushConstantes.gotoPage,DLL.PushConstantes.goto_post },
+                                {DLL.PushConstantes.id_post,publicacion.id_post.ToString() },
+                                {DLL.PushConstantes.id_user, publicacion.id_user.ToString() }
+
+                            });
+
                         return Request.CreateResponse(HttpStatusCode.Created, "like_post guardado correctamente");
                     }
                 }

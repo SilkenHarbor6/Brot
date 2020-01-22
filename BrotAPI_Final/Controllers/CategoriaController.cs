@@ -12,9 +12,10 @@ namespace BrotAPI_Final.Controllers
     public class CategoriaController : ApiController
     {
         //private SomeeDBBrotEntities db = new SomeeDBBrotEntities();
-        private ICategoria cate = new RCategoria();
+        private RCategoria cate = new RCategoria();
 
-        [Route("api/categoria/Get")]
+        [Route("api/categoria")]
+        [HttpGet]
         public HttpResponseMessage GetCategorias()
         {
             var resp = cate.GetAll();
@@ -22,9 +23,19 @@ namespace BrotAPI_Final.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No hay categorias registradas");
             }
-            return Request.CreateResponse(HttpStatusCode.OK, resp);
+
+            var categorias = resp.Select(
+                c=> new categoria
+                {
+                    id_categoria=c.id_categoria,
+                    img = c.img,
+                    nombre = c.nombre
+                }
+                ).ToList();
+            return Request.CreateResponse(HttpStatusCode.OK, categorias);
         }
-        [Route("api/categoria/Add")]
+        [Route("api/categoria")]
+        [HttpPost]
         public HttpResponseMessage AddCat(categoria item)
         {
             var resp = cate.AgregarCategoria(item);
@@ -34,10 +45,12 @@ namespace BrotAPI_Final.Controllers
             }
             return Request.CreateResponse(HttpStatusCode.OK, resp);
         }
-        [Route("api/categoria/Remove")]
-        public HttpResponseMessage RemoveCat(categoria item)
+
+        [Route("api/categoria/{id_categoria}")]
+        [HttpDelete]
+        public HttpResponseMessage RemoveCat(int id_categoria)
         {
-            var resp = cate.EliminarCategoria(item);
+            var resp = cate.EliminarCategoria(id_categoria);
             if (resp)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.Conflict, "No se ha podido eliminar el registro");
@@ -53,16 +66,6 @@ namespace BrotAPI_Final.Controllers
                 return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No se ha encontrado categorias para ese usuario");
             }
             return Request.CreateResponse(HttpStatusCode.OK, resp);
-        }
-        [Route("api/categoria/GMC/{id}")]
-        public HttpResponseMessage GetMainCategory(int id)
-        {
-            var resp = cate.GetMainCategory(id);
-            if (resp==null)
-            {
-                return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No se ha encontrado categorias para ese usuario");
-            }
-            return Request.CreateResponse(HttpStatusCode.OK, resp.img);
         }
     }
 }

@@ -235,7 +235,6 @@
       <DependentUpon>DBContextModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Repository\ICategoria.cs" />
     <Compile Include="Repository\IRepositoryDB.cs" />
     <Compile Include="Repository\RCategoria.cs" />
     <Compile Include="Repository\Rcodigos.cs" />
