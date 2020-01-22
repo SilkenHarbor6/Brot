@@ -12,9 +12,11 @@
     <ContentPage.Content>
         <StackLayout>
             <SearchBar
+                Placeholder="nombre o palabra clave"
                 SearchCommand="{Binding updateListCommand}"
                 Text="{Binding Texto}"
                 TextChanged="SearchBar_TextChanged" />
+            <Picker ItemsSource="{Binding Categorias}" SelectedIndex="{Binding sind}" HorizontalOptions="FillAndExpand" SelectedIndexChanged="Picker_SelectedIndexChanged"/>
             <ListView
                 HasUnevenRows="True"
                 IsPullToRefreshEnabled="True"

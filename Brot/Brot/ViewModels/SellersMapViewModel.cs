@@ -63,26 +63,11 @@
 
             if (!result.IsSuccess)
             {
-                await Singleton.Instance.Dialogs.Message("Error trying to get sellers", result.Message);
+                //await Singleton.Instance.Dialogs.Message("Error trying to get sellers", result.Message);
                 return;
             }
             //api / categoria / GMC /{ id}
             //TODO Categoria en DB como nombres tal cual y AGREGAR .png AQU[I!!
-            ObservableCollection<String> cats = new ObservableCollection<String>();
-            foreach (var seller in (ObservableCollection<userModel>)result.Result)
-            {
-                seller.img = constantes.urlImages+seller.img;
-                var r = await RestClient.GetAllS<string>("categoria/GMC/" + seller.id_user);
-                if (!r.IsSuccess)
-                {
-                    await Singleton.Instance.Dialogs.Message("Error", r.Message);
-                    return;
-                }
-                var c = r.Result.ToString();
-                c = c.Replace("\"", "");
-                cats.Add(c);
-                Singleton.Instance.AddStore(seller);
-            }
             int i = 0;
             foreach (var seller in (ObservableCollection<userModel>)result.Result)
             {
@@ -90,7 +75,7 @@
                 //pin.Label = $"Seller name: {seller.username} Description: {seller.descripcion}";
                 pin.Label = "";
                 pin.Position = new Position(Convert.ToDouble(seller.xlat), Convert.ToDouble(seller.ylon));
-                pin.Icon = BitmapDescriptorFactory.FromBundle(cats[i]);
+                pin.Icon = BitmapDescriptorFactory.FromBundle(seller.imgCategoria);
                 pin.ZIndex = i;
                 pin.Type = PinType.Place;
                 i++;

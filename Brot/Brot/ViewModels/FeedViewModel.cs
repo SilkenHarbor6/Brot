@@ -154,7 +154,7 @@ namespace Brot.ViewModels
 
             if (!result.IsSuccess)
             {
-                await Singleton.Instance.Dialogs.Message("There was a problem trying to get the feed", result.Message);
+                //await Singleton.Instance.Dialogs.Message("There was a problem trying to get the feed", result.Message);
                 return;
             }
             var datosNuevos= new List<ResponsePublicacionFeed>();

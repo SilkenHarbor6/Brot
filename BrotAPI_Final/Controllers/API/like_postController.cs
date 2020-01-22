@@ -128,17 +128,18 @@ namespace BrotAPI_Final.Controllers.API
                     if (r.Post(item))
                     {
                         var diccionarioPhone_Device = new System.Collections.Generic.Dictionary<string, string>();
-
+                        var usuarioQueDioLike = db.users.SingleOrDefault(u => u.id_user == item.id_user);
+                        //TODO TEST like Post
                         var publicacion = db.publicaciones.SingleOrDefault(u => u.id_post == item.id_post);
                         diccionarioPhone_Device.Add(publicacion.users.Phone_OS, publicacion.users.Device_id);
+
                         var pushNotifier = new AppCenterPush(diccionarioPhone_Device);
-                        await pushNotifier.Notify($"A {publicacion.users.username} le gusta tu publicación",
+                        await pushNotifier.Notify($"A {usuarioQueDioLike.username} le gusta tu publicación",
                             publicacion.descripcion,
                             new System.Collections.Generic.Dictionary<string, string>() {
                                 {DLL.PushConstantes.gotoPage,DLL.PushConstantes.goto_post },
                                 {DLL.PushConstantes.id_post,publicacion.id_post.ToString() },
                                 {DLL.PushConstantes.id_user, publicacion.id_user.ToString() }
-
                             });
 
                         return Request.CreateResponse(HttpStatusCode.Created, "like_post guardado correctamente");

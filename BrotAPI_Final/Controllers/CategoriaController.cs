@@ -19,27 +19,29 @@ namespace BrotAPI_Final.Controllers
         public HttpResponseMessage GetCategorias()
         {
             var resp = cate.GetAll();
-            if (resp.Count()==0)
+            if (resp.Count() == 0)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No hay categorias registradas");
             }
 
             var categorias = resp.Select(
-                c=> new categoria
+                c => new categoria
                 {
-                    id_categoria=c.id_categoria,
+                    id_categoria = c.id_categoria,
                     img = c.img,
                     nombre = c.nombre
                 }
                 ).ToList();
             return Request.CreateResponse(HttpStatusCode.OK, categorias);
         }
+
+
         [Route("api/categoria")]
         [HttpPost]
         public HttpResponseMessage AddCat(categoria item)
         {
             var resp = cate.AgregarCategoria(item);
-            if (resp==null)
+            if (resp == null)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.Conflict, "Error al agregar el item a la base de datos");
             }
@@ -61,7 +63,7 @@ namespace BrotAPI_Final.Controllers
         public HttpResponseMessage GetByCustomer(int id)
         {
             var resp = cate.GetByUser(id);
-            if (resp==null)
+            if (resp == null)
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No se ha encontrado categorias para ese usuario");
             }

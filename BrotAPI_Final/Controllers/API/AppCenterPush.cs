@@ -38,7 +38,7 @@ namespace BrotAPI_Final.Controllers.API
 
         public class Constants
         {
-            public const string Url = "https://api.appcenter.ms/v0.1/apps";
+            public const string Url = "https://appcenter.ms/api/v0.1/apps";
             public const string ApiKeyName = "X-API-Token";
 
             //Push required to use this. Go to https://docs.microsoft.com/en-us/appcenter/api-docs/index for instruction
@@ -163,6 +163,8 @@ namespace BrotAPI_Final.Controllers.API
                 //Needed to solve SSL/TLS issue when 
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Ssl3 | SecurityProtocolType.Tls | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls12;
 
+                //TODO Dividir en Bloques de 100 Push
+
                 if (receiver.IOSDevices.Any())
                 {
                     push.Target.Devices = receiver.IOSDevices;
@@ -183,7 +185,7 @@ namespace BrotAPI_Final.Controllers.API
                     string content = JsonConvert.SerializeObject(push);
 
                     HttpContent httpContent = new StringContent(content, Encoding.UTF8, "application/json");
-
+                //https://appcenter.ms/api/v0.1/apps/Coffee-Breakers/Brot/push/notifications
                     string URL = $"{Constants.Url}/{Constants.Organization}/{Constants.AppNameAndroid}/{Constants.Apis.Notification}";
 
                     var result = await httpClient.PostAsync(URL, httpContent);

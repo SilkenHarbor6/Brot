@@ -53,8 +53,8 @@ namespace Brot.Droid
 
         protected override void OnNewIntent(Android.Content.Intent intent)
         {
-            base.OnNewIntent(intent);
             Push.CheckLaunchedFromNotification(this, intent);
+            base.OnNewIntent(intent);
         }
     }
 }

@@ -14,10 +14,28 @@ namespace Brot.ViewModels
         private string text;
         private ObservableCollection<userModel> all;
         private ObservableCollection<userModel> _vendedores;
+        private ObservableCollection<string> _categorias;
+        private int _sind;
+        public int sind
+        {
+            get
+            {
+                return _sind;
+            }
+            set
+            {
+                SetProperty(ref _sind, value);UpdateList();
+            }
+        }
         public ObservableCollection<userModel> Vendedores
         {
             get => _vendedores;
             set => SetProperty(ref _vendedores, value);
+        }
+        public ObservableCollection<string> Categorias
+        {
+            get => _categorias;
+            set => SetProperty(ref _categorias, value);
         }
         public string Texto
         {
@@ -27,6 +45,12 @@ namespace Brot.ViewModels
         public SearchBrotsViewModel()
         {
             LoadDataFirstTime();
+            Categorias = new ObservableCollection<string>();
+            Categorias.Add("Todos");
+            Categorias.Add("Tortas");
+            Categorias.Add("HotDogs");
+            Categorias.Add("Cafeteria");
+            Categorias.Add("Tienda");
         }
 
         public ICommand updateListCommand
@@ -43,13 +67,16 @@ namespace Brot.ViewModels
                 return new Xamarin.Forms.Command(LoadDataFirstTime);
             }
         }
+       
+
         private async void LoadDataFirstTime()
         {
             IsRefreshing = true;
             var resp = await RestClient.GetAll<userModel>("users/vendors/");
             if (!resp.IsSuccess)
             {
-                await App.Current.MainPage.DisplayAlert("Error", "No se han podido cargar los vendedores", "Aceptar");
+                //await App.Current.MainPage.DisplayAlert("Error", "No se han podido cargar los vendedores", "Aceptar");
+                return;
             }       
             try
             {
@@ -73,11 +100,35 @@ namespace Brot.ViewModels
         {
             if (!String.IsNullOrWhiteSpace(Texto))
             {
-                var elementos = from item in all 
-                                where item.puesto_name.ToLower().Contains(Texto.ToLower()) ||
-                                item.descripcion.ToLower().Contains(Texto.ToLower()) 
-                                select item;
-                Vendedores = new ObservableCollection<userModel>(elementos.ToList());
+                if (sind!=0)
+                {
+                    var ele = from item in all
+                              where item.nombreCategoria.Equals(Categorias[sind])
+                              select item;
+
+                    var elementos = from item in ele
+                                    where item.puesto_name.ToLower().Contains(Texto.ToLower()) ||
+                                    item.descripcion.ToLower().Contains(Texto.ToLower())
+                                    select item;
+                    Vendedores = new ObservableCollection<userModel>(elementos.ToList());
+                }
+                else
+                {
+                    var elementos = from item in all
+                                    where item.puesto_name.ToLower().Contains(Texto.ToLower()) ||
+                                    item.descripcion.ToLower().Contains(Texto.ToLower())
+                                    select item;
+                    ObservableCollection<userModel> temp = 
+                    Vendedores = new ObservableCollection<userModel>(elementos.ToList());
+                }
+                
+            }
+            else if (sind!=0)
+            {
+                var ele = from item in all
+                          where item.nombreCategoria.ToLower().Equals(Categorias[sind].ToLower())
+                          select item;
+                Vendedores = new ObservableCollection<userModel>(ele.ToList());
             }
             else
             {
