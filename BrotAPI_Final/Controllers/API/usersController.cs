@@ -75,7 +75,7 @@ namespace BrotAPI_Final.Controllers.API
                             id_user = usuarioDB.id_user,
                             isVendor = usuarioDB.isVendor,
                             nombre = usuarioDB.nombre,
-                            pass = "pass",
+                            pass = usuarioDB.pass,
                             puntaje = usuarioDB.puntaje,
                             username = usuarioDB.username,
                             img = usuarioDB.img,
@@ -100,6 +100,40 @@ namespace BrotAPI_Final.Controllers.API
             catch (Exception) { }
             return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No es posible comparar los datos proporcionados");
         }
+
+        //Login
+        [HttpPost]  //Retorno el usuario completop para guardarlo en la base de datos
+        [Route("device")]
+        public HttpResponseMessage deviceRegisterAgain(users item)
+        {
+            try
+            {
+                using (var db = new DBContextModel())
+                {
+                    var userObtenido = db.users.Find(item.id_user);
+                    if (userObtenido != null)
+                    {
+                        userObtenido.Device_id = item.Device_id;
+                        userObtenido.Phone_OS = item.Phone_OS;
+
+                        db.Entry(userObtenido).State = EntityState.Modified;
+                        db.SaveChanges();
+
+                        return Request.CreateResponse(HttpStatusCode.OK, "Notificaciones Push configuradas");
+                    }
+                    else
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.NotFound, "Contraseña incorrecta");
+                    }
+
+                }
+
+            }
+            catch (Exception) { }
+            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "No es posible comparar los datos proporcionados");
+        }
+
+
 
 
 
@@ -134,7 +168,7 @@ namespace BrotAPI_Final.Controllers.API
                             ylon = u.ylon,
                             id_categoria = u.id_categoria,
                             imgCategoria = u.categoria.img,
-                            nombreCategoria =u.categoria.nombre
+                            nombreCategoria = u.categoria.nombre
                         }
                     ).ToList();
                 return Request.CreateResponse(HttpStatusCode.OK, vendedores);
@@ -182,7 +216,7 @@ namespace BrotAPI_Final.Controllers.API
                            ylon = u.ylon
                        },
 
-                       Cantidad = u.seguidores1.Count 
+                       Cantidad = u.seguidores1.Count
 
                    }
                ).OrderByDescending(u => u.Cantidad).ToList();
@@ -418,11 +452,11 @@ namespace BrotAPI_Final.Controllers.API
                                    IsSavedPost = b.publicacion_guardada.FirstOrDefault(p => p.id_user == idUser) == default(publicacion_guardada) ? false : true
 
                                }
-                           ).OrderByDescending(f=>f.publicacion.fecha_creacion).ToList();
+                           ).OrderByDescending(f => f.publicacion.fecha_creacion).ToList();
 
                 varUserProfile.publicacionesGuardadas = db.publicacion_guardada
                     .Where(postSaved => postSaved.id_user == idUser && postSaved.publicaciones.isDeleted == false && postSaved.users.isDeleted == false)
-                    .OrderByDescending(f=>f.fecha)
+                    .OrderByDescending(f => f.fecha)
                     .Select(
                            b =>
                      new ResponsePublicacionFeed
@@ -704,13 +738,13 @@ namespace BrotAPI_Final.Controllers.API
             }
             try
             {
-                    data.pass = itemNew.pass;
-                    using (var db = new DBContextModel())
-                    {
-                        db.Entry(data).State = EntityState.Modified;
-                        db.SaveChanges();
-                    }
-                    return Request.CreateResponse(HttpStatusCode.OK, $"Contraseña cambiada");
+                data.pass = itemNew.pass;
+                using (var db = new DBContextModel())
+                {
+                    db.Entry(data).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+                return Request.CreateResponse(HttpStatusCode.OK, $"Contraseña cambiada");
             }
             catch (Exception ex)
             {
@@ -719,6 +753,38 @@ namespace BrotAPI_Final.Controllers.API
             return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No fue posible actualizar la contraseña");
         }
 
+        [HttpPut]
+        [Route("logout/{id}")]
+        public HttpResponseMessage logout(int id, users item)
+        {
+            if (id == item.id_user)
+            {
+
+                var data = r.GetById(id);
+                if (data == null)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe en la base de datos sobre el usuario a actualizar");
+                }
+                try
+                {
+                    data.Phone_OS = "";
+                    data.Device_id = "";
+                    using (var db = new DBContextModel())
+                    {
+                        db.Entry(data).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, $"Sesión finalizada");
+                }
+                catch (Exception ex)
+                {
+                    Debug.Print(ex.Message);
+                }
+            }
+
+            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No fue posible actualizar la contraseña");
+
+        }
 
         /// <summary>
         /// Verifica si existe el id ingresado en la tabla y luego actualiza el registro
