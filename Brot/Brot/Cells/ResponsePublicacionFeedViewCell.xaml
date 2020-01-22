@@ -12,7 +12,7 @@
     Padding="0"
     BorderColor="Black"
     mc:Ignorable="d">
-    <StackLayout VerticalOptions="Fill">
+    <StackLayout VerticalOptions="Fill" Padding="10">
         <StackLayout
             Padding="15"
             Orientation="Vertical"
