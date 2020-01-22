@@ -41,6 +41,7 @@ namespace Brot.Patterns
                 return null;
             }
             FileInfo fi = new FileInfo(_mediaFile.Path);
+            Singleton.profilepic = ImageSource.FromStream(_mediaFile.GetStream);
             //name = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), Singleton.Instance.User.username);
             name = Singleton.Instance.User.username;
             name += DateTime.Now;

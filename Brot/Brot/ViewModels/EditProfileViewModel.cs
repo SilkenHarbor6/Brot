@@ -17,6 +17,18 @@ namespace Brot.ViewModels
     {
         ResponseUserProfile profiledata = new ResponseUserProfile();
         private ResponseUserProfile _Usuario;
+        private ImageSource img;
+        public ImageSource Img
+        {
+            get
+            {
+                return img;
+            }
+            set
+            {
+                SetProperty(ref img, value);
+            }
+        }
         public ResponseUserProfile UserProfile
         {
             get { return this._Usuario; }
@@ -67,7 +79,9 @@ namespace Brot.ViewModels
 
                 IsVendor = UserProfile.UserProfile.isVendor;
             }
-            pic = profiledata.UserProfile.img;
+            var url = new Uri(profiledata.UserProfile.img);
+            Img = ImageSource.FromUri(url);
+
         }
 
 
@@ -98,6 +112,7 @@ namespace Brot.ViewModels
             string name = await Singleton.Instance.ChangePic();
             Task.Delay(1000);
             Singleton.Instance.User.img = name;
+            Img = Singleton.profilepic;
             pic = constantes.urlImages + name;
             Singleton.Instance.LocalJson.SaveData(Singleton.Instance.User);
             var resp = await RestClient.Put<userModel>("users/photo", Singleton.Instance.User.id_user, Singleton.Instance.User);

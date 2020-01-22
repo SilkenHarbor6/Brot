@@ -8,6 +8,7 @@ namespace Brot.Patterns
     using System.Collections.ObjectModel;
     using System.Text;
     using System.Threading.Tasks;
+    using Xamarin.Forms;
 
     public class Singleton
     {
@@ -24,6 +25,7 @@ namespace Brot.Patterns
         #region MyRegion
         public static string passw = String.Empty; 
         public static bool fromProfile;
+        public static ImageSource profilepic;
         public static Singleton Instance
         {
             get
