@@ -90,7 +90,7 @@
                     break;
                 case "Download Media":
                     ds = new DownloadService();
-                    ds.StartDownload(constantes.urlImages+publicacion.img);
+                    ds.StartDownload(publicacion.img);
                     break;
                 default:
                     break;
