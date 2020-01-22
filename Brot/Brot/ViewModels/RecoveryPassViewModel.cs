@@ -1,17 +1,18 @@
 ﻿using Brot.Models;
 using Brot.Services;
+using Brot.Views;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows.Input;
-using Brot.Patterns;
 
 namespace Brot.ViewModels
 {
-   public class RecoveryPassViewModel : BaseViewModel
+    public class RecoveryPassViewModel : BaseViewModel
     {
         private String np;
         private String rp;
+        private string Id;
         public String newPass
         {
             get { return np; }
@@ -21,6 +22,10 @@ namespace Brot.ViewModels
         {
             get { return rp; }
             set { SetProperty(ref rp, value); }
+        }
+        public RecoveryPassViewModel(string ids)
+        {
+            Id = ids;
         }
         public ICommand passwordCommand
         {
@@ -40,21 +45,20 @@ namespace Brot.ViewModels
                 IsRefreshing = false;
                 return;
             }
-            userModel u = new userModel();
-            u.id_user = Singleton.Instance.User.id_user;
-            u.pass = np;
-
-            //TODO Byron Corregir esto! Para que cambie bien la contraseña
-            var resp = await RestClient.Put<userModel>("users/pass", u.id_user, u);
-            if (!resp)
+            userModel item = new userModel();
+            item.pass = np;
+            var resp = await RestClient.Put<userModel>("users/recpass", Id, item);
+            if (resp)
             {
-                await App.Current.MainPage.DisplayAlert("Error", "La clave antigua es incorrecta, por favor revisela", "Aceptar");
+                await App.Current.MainPage.DisplayAlert("", "La clave ha sido cambiada exitosamente", "Aceptar");
                 IsRefreshing = false;
-                return;
+                await App.Current.MainPage.Navigation.PushAsync(new Login());
             }
-            await App.Current.MainPage.DisplayAlert("", "La clave ha sido cambiada exitosamente", "Aceptar");
-            IsRefreshing = false;
-            await App.Current.MainPage.Navigation.PopAsync();
+            else
+            {
+                await App.Current.MainPage.DisplayAlert("Error", "Hubo un error al actualizar", "Aceptar");
+                IsRefreshing = false;
+            }
         }
     }
 }

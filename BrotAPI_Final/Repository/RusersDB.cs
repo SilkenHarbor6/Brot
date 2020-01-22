@@ -1,12 +1,12 @@
 ﻿using BrotAPI_Final.Models;
 using System;
 using System.Diagnostics;
+using System.Linq;
 
 namespace BrotAPI_Final.Repository
 {
     public class RusersDB : IRepositoryDB<users>
     {
-
         /// <summary>
         /// FILTRO DE la base de datos el objeto que tiene el mismo id que el que busco
         /// </summary>
@@ -137,11 +137,13 @@ namespace BrotAPI_Final.Repository
             {
                 try
                 {
-                    db.Configuration.ProxyCreationEnabled = false;
-                    var res = db.users.Find(email);
-                    return res;
+                    var where = db.users.SingleOrDefault(x => x.email == email);
+                    return where;
                 }
-                catch (Exception) { return null; }
+                catch (Exception ex) {
+                    var message = ex.Message;
+                    return null; 
+                }
             }
         }
     }

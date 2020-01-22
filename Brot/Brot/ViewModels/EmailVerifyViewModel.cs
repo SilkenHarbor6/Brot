@@ -14,7 +14,7 @@ namespace Brot.ViewModels
         private bool _sendcode;
         private string _email;
         private string _code;
-
+        private string Id;
         public bool EmailVerify
         {
             get { return _emailverify; }
@@ -62,9 +62,11 @@ namespace Brot.ViewModels
 
         private async void VerifyEmail(object obj)
         {
+            IsRefreshing = true;
             if (string.IsNullOrEmpty(Email))
             {
                await App.Current.MainPage.DisplayAlert("Error", "Ingresa tu correo", "Ok");
+                IsRefreshing = false;
             }
             else
             {
@@ -73,30 +75,40 @@ namespace Brot.ViewModels
                 {
                     EmailVerify = false;
                     SendCode = true;
+                    IsRefreshing = false;
+                    var result = (userModel)resp.Result;
+                    Id = Convert.ToString(result.id_user);
                 }
                 else
                 {
-                    await App.Current.MainPage.DisplayAlert("Error", resp.Message, "Ok");
+                    await App.Current.MainPage.DisplayAlert("Error", "No se pudo encontrar el email", "Ok");
+                    IsRefreshing = false;
                 }
             }  
         }
 
         private async void SenCode(object obj)
         {
+            IsRefreshing = true;
             if (string.IsNullOrEmpty(Code))
             {
                 await App.Current.MainPage.DisplayAlert("Error", "Ingresa tu codigo", "Ok");
+                IsRefreshing = false;
             }
             else
             {
-                var resp = await RestClient.Post<userModel>("users/authcode/"+ Code, null);
+                var item = new userModel();
+                item.id_user = int.Parse(Id);
+                var resp = await RestClient.Post<userModel>("users/authcode/"+ Code, item);
                 if (resp.IsSuccess)
                 {
-                    await App.Current.MainPage.Navigation.PushAsync(new RecoveryPass());
+                    await App.Current.MainPage.Navigation.PushAsync(new RecoveryPass(Id));
+                    IsRefreshing = false;
                 }
                 else
                 {
-                    await App.Current.MainPage.DisplayAlert("Error", "Ocurrió un problema", "Ok");
+                    await App.Current.MainPage.DisplayAlert("Error", "No se pudo comprobar el codigo", "Ok");
+                    IsRefreshing = false;
                 }
             }
         }

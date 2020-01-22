@@ -13,10 +13,10 @@ namespace Brot.Views
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class RecoveryPass : ContentPage
     {
-        public RecoveryPass()
+        public RecoveryPass(string id)
         {
             InitializeComponent();
-            BindingContext = new RecoveryPassViewModel();
+            BindingContext = new RecoveryPassViewModel(id);
         }
     }
 }
