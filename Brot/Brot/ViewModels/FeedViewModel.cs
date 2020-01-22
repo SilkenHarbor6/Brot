@@ -161,6 +161,8 @@ namespace Brot.ViewModels
             foreach (var post in (ObservableCollection<ResponsePublicacionFeed>)result.Result)
             {
 
+                post.publicacion.img = DLL.constantes.urlImages + post.publicacion.img;
+
                 if (string.IsNullOrEmpty(post.UsuarioCreator.img))
                 {
                     post.UsuarioCreator.img = DLL.constantes.ProfileImageError;
