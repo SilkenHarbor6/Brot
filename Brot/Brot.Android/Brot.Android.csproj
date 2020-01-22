@@ -89,6 +89,9 @@
     <PackageReference Include="Xam.Plugins.Forms.ImageCircle">
       <Version>3.0.0.5</Version>
     </PackageReference>
+    <PackageReference Include="Xam.Plugins.Notifier">
+      <Version>3.0.1</Version>
+    </PackageReference>
     <PackageReference Include="Xamarin.Build.Download">
       <Version>0.4.11</Version>
     </PackageReference>
@@ -123,6 +126,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AndroidDownloader.cs" />
     <Compile Include="GPS\GPS.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainApplication.cs" />

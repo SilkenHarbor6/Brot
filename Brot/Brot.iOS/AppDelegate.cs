@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using Foundation;
+using Plugin.LocalNotifications;
 using UIKit;
 using Xamarin.Forms.GoogleMaps.iOS;
 

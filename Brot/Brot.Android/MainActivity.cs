@@ -9,6 +9,7 @@ using Android.OS;
 using Plugin.Permissions;
 using Xamarin.Forms.GoogleMaps.Android;
 using Microsoft.AppCenter.Push;
+using Plugin.LocalNotifications;
 
 namespace Brot.Droid
 {
@@ -35,7 +36,7 @@ namespace Brot.Droid
             //Initializaing Popup
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
-
+            LocalNotificationsImplementation.NotificationIconId = Resource.Drawable.Brot500;
 
             LoadApplication(new App());
         }

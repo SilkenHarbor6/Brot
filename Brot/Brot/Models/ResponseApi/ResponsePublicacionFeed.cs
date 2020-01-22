@@ -9,6 +9,7 @@
     using System.Diagnostics;
     using Xamarin.Forms;
     using System.Threading.Tasks;
+    using DLL;
 
     public class ResponsePublicacionFeed : ObservableObject
     {
@@ -37,8 +38,7 @@
         private bool? _isliked;
         private bool? _issaved;
         private int _cantLikes;
-
-
+        private DownloadService ds;
         #region Opciones Command
         private Xamarin.Forms.Command _OpcionesCommand;
         public Xamarin.Forms.Command OpcionesCommand { get => _OpcionesCommand ??= new Xamarin.Forms.Command(OpcionesMethod); }
@@ -89,15 +89,15 @@
                     await BtnSavePostMethod("Guardar");
                     break;
                 case "Download Media":
-                    DownloadService ds = new DownloadService();
-                    ds.DownloadImage(publicacion.img);
+                    ds = new DownloadService();
+                    ds.StartDownload(constantes.urlImages+publicacion.img);
                     break;
                 default:
                     break;
             }
         }
         #endregion
-
+        
 
 
         #region Save Post

@@ -2782,6 +2782,7 @@ namespace Brot.Droid
 			global::Microsoft.AppCenter.Push.Android.Resource.Styleable.GradientColorItem = global::Brot.Droid.Resource.Styleable.GradientColorItem;
 			global::Microsoft.AppCenter.Push.Android.Resource.Styleable.GradientColorItem_android_color = global::Brot.Droid.Resource.Styleable.GradientColorItem_android_color;
 			global::Microsoft.AppCenter.Push.Android.Resource.Styleable.GradientColorItem_android_offset = global::Brot.Droid.Resource.Styleable.GradientColorItem_android_offset;
+			global::Plugin.LocalNotifications.Resource.Drawable.plugin_lc_smallicon = global::Brot.Droid.Resource.Drawable.plugin_lc_smallicon;
 			global::Xamarin.Essentials.Resource.Attribute.alpha = global::Brot.Droid.Resource.Attribute.alpha;
 			global::Xamarin.Essentials.Resource.Attribute.coordinatorLayoutStyle = global::Brot.Droid.Resource.Attribute.coordinatorLayoutStyle;
 			global::Xamarin.Essentials.Resource.Attribute.font = global::Brot.Droid.Resource.Attribute.font;
@@ -9504,40 +9505,43 @@ namespace Brot.Droid
 			public const int PinOrange = 2131165545;
 			
 			// aapt resource value: 0x7F07016A
-			public const int Profile250 = 2131165546;
+			public const int plugin_lc_smallicon = 2131165546;
 			
 			// aapt resource value: 0x7F07016B
-			public const int RefreshICON = 2131165547;
+			public const int Profile250 = 2131165547;
 			
 			// aapt resource value: 0x7F07016C
-			public const int reload = 2131165548;
+			public const int RefreshICON = 2131165548;
 			
 			// aapt resource value: 0x7F07016D
-			public const int roundedbg = 2131165549;
+			public const int reload = 2131165549;
 			
 			// aapt resource value: 0x7F07016E
-			public const int roundedbgdark = 2131165550;
+			public const int roundedbg = 2131165550;
 			
 			// aapt resource value: 0x7F07016F
-			public const int save = 2131165551;
+			public const int roundedbgdark = 2131165551;
 			
 			// aapt resource value: 0x7F070170
-			public const int SavedPost = 2131165552;
+			public const int save = 2131165552;
 			
 			// aapt resource value: 0x7F070171
-			public const int SavedPostNOT = 2131165553;
+			public const int SavedPost = 2131165553;
 			
 			// aapt resource value: 0x7F070172
-			public const int Threedots = 2131165554;
+			public const int SavedPostNOT = 2131165554;
 			
 			// aapt resource value: 0x7F070173
-			public const int tooltip_frame_dark = 2131165555;
+			public const int Threedots = 2131165555;
 			
 			// aapt resource value: 0x7F070174
-			public const int tooltip_frame_light = 2131165556;
+			public const int tooltip_frame_dark = 2131165556;
 			
 			// aapt resource value: 0x7F070175
-			public const int user_placeholder = 2131165557;
+			public const int tooltip_frame_light = 2131165557;
+			
+			// aapt resource value: 0x7F070176
+			public const int user_placeholder = 2131165558;
 			
 			static Drawable()
 			{
