@@ -25,5 +25,10 @@ namespace Brot.Views.Tabs
         {
             VM.updateListCommand.Execute(null);
         }
+
+        private void Picker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

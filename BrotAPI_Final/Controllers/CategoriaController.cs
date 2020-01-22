@@ -22,7 +22,7 @@ namespace BrotAPI_Final.Controllers
             {
                 return Request.CreateErrorResponse(HttpStatusCode.NoContent, "No hay categorias registradas");
             }
-            return Request.CreateResponse(HttpStatusCode.OK, resp);
+            return Request.CreateResponse(HttpStatusCode.OK, resp.ToList());
         }
         [Route("api/categoria/Add")]
         public HttpResponseMessage AddCat(categoria item)
