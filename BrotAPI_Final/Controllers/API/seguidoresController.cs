@@ -1,10 +1,12 @@
 ﻿using BrotAPI_Final.Models;
 using BrotAPI_Final.Repository;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace BrotAPI_Final.Controllers.API
@@ -51,7 +53,7 @@ namespace BrotAPI_Final.Controllers.API
         /// </summary>
         /// <param name="item"></param>
         /// <returns></returns>
-        public HttpResponseMessage Post(seguidores item)
+        public async Task<HttpResponseMessage> Post(seguidores item)
         {
             if (item == null)
             {
@@ -79,6 +81,25 @@ namespace BrotAPI_Final.Controllers.API
                     item.fecha = DateTime.Now;
                     if (r.Post(item))
                     {
+                        //TODO Push Seguido
+                        var usuarioSeguido = db.users.Find(item.id_seguido);
+                        var usuarioSEGUIDOR = db.users.Find(item.seguidor_id);
+                        var receiptInstallID = new Dictionary<string, string>();
+                            try
+                            {
+                                receiptInstallID.Add(usuarioSeguido.Phone_OS, usuarioSeguido.Device_id);
+                            }
+                            catch (Exception) { /**No todos los usuarios tienen telefono asociado **/}
+
+                        AppCenterPush appCenterPush = new AppCenterPush(receiptInstallID);
+                        await appCenterPush.Notify("Seguidor nuevo",
+                            $"{usuarioSEGUIDOR.username} ahora te sigue",
+                            "Ve a darle una revisada a su perfil",
+                            new Dictionary<string, string>() {
+                            {DLL.PushConstantes.gotoPage,DLL.PushConstantes.goto_profile },
+                            { DLL.PushConstantes.id_user, item.id_seguido.ToString()}
+                            });
+
                         return Request.CreateResponse(HttpStatusCode.Created, "seguidor guardado correctamente");
                     }
                 }

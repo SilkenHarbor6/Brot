@@ -368,7 +368,6 @@ namespace BrotAPI_Final.Controllers.API
                     var seguidoresUsuario = db.users.SingleOrDefault(u => u.id_user == item.id_user)
                         .seguidores1.ToList();
                     var receiptInstallID = new Dictionary<string, string>();
-
                     foreach (var seguidor in seguidoresUsuario)
                     {
                         try
@@ -380,9 +379,14 @@ namespace BrotAPI_Final.Controllers.API
 
                     AppCenterPush appCenterPush = new AppCenterPush(receiptInstallID);
                     users CommenterPost = db.users.SingleOrDefault(u => u.id_user == item.id_user);
-                    await appCenterPush.Notify($"{seguidoresUsuario[0].users1.nombre} hizo una nueva publicación", item.descripcion,
-                        new Dictionary<string, string>() { { "publicacionNueva_ID_USER", item.id_user.ToString() } }
-                        );
+                    await appCenterPush.Notify("publicaciones",
+                        $"{seguidoresUsuario[0].users1.puesto_name} hizo una nueva publicación",
+                        item.descripcion,
+                        new Dictionary<string, string>() {
+                            {DLL.PushConstantes.gotoPage,DLL.PushConstantes.goto_post },
+                            { DLL.PushConstantes.id_user, item.id_user.ToString()},
+                            {DLL.PushConstantes.id_post, item.id_post.ToString() }
+                        });
 
                 }
                 return Request.CreateResponse(HttpStatusCode.Created, item);
