@@ -6,10 +6,12 @@
              xmlns:tigger="clr-namespace:Brot.Tigger"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d"
+             BackgroundColor="White"
              x:Class="Brot.Views.RecoveryPass">
     <ContentPage.Content>
+        <ScrollView>
         <StackLayout Padding="10">
-            <Label Text="Ingresa tu nueva contraseña" TextColor="#031540" FontSize="Header"/>
+            <Label Text="Ingresa tu nueva contraseña" TextColor="#031540" FontSize="Large"/>
             <Label Text="Asegurate de crear una contraseña segura y de no olvidarla" TextColor="Gray" FontSize="Small"/>
             <Rounded:RoundedBorderEntry
                 Margin="10"
@@ -21,7 +23,7 @@
                 PlaceholderColor="Gray"
                 Text="{Binding newPass}"
                 TextColor="#000" />
-            <Rounded:RoundedBorderEntry
+                <Rounded:RoundedBorderEntry
                 Margin="10"
                 BorderColor="#031540"
                 BorderThickness="2"
@@ -30,25 +32,18 @@
                 Placeholder="Repeat your password"
                 PlaceholderColor="Gray"
                 Text="{Binding repeatedPass}"
-                TextColor="#000">
-                <Rounded:RoundedBorderEntry.Triggers>
-                    <EventTrigger Event="TextChanged">
-                        <tigger:PasswordTrigger />
-                    </EventTrigger>
-                </Rounded:RoundedBorderEntry.Triggers>
-            </Rounded:RoundedBorderEntry>
-            <Button
-                BackgroundColor="Transparent"
-                BorderColor="#031540"
-                BorderWidth="1"
+                TextColor="#000"/>
+                <Button
+                BackgroundColor="031540"
                 Command="{Binding passwordCommand}"
                 CornerRadius="3"
                 FontSize="Small"
                 HorizontalOptions="Fill"
                 IsEnabled="{Binding IsNotBusy}"
                 Text="Cambiar clave"
-                TextColor="#031540" />
+                TextColor="White" />
             <ActivityIndicator IsRunning="{Binding IsRefreshing}" />
         </StackLayout>
+        </ScrollView>
     </ContentPage.Content>
 </ContentPage>
