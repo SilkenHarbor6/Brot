@@ -34,7 +34,7 @@
                 Text="{Binding repeatedPass}"
                 TextColor="#000"/>
                 <Button
-                BackgroundColor="031540"
+                BackgroundColor="#031540"
                 Command="{Binding passwordCommand}"
                 CornerRadius="3"
                 FontSize="Small"
