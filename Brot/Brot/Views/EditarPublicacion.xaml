@@ -122,10 +122,7 @@
                     </StackLayout>
                 </Frame>
 
-                <Button
-                    Command="{Binding ActualizarCommand}"
-                    Style="{StaticResource btnStyle}"
-                    Text="Actualizar" />
+                <Button Command="{Binding ActualizarCommand}" Text="Actualizar" />
             </StackLayout>
         </ScrollView>
     </ContentPage.Content>

@@ -35,15 +35,14 @@
                 </forms:CachedImage>
                 <Button
                     Padding="20,0,20,0"
-                    BackgroundColor="Transparent"
-                    BorderColor="#031540"
-                    BorderWidth="2"
+                    BackgroundColor="#031540"
+                    BorderWidth="1"
                     Command="{Binding changePicture}"
-                    CornerRadius="20"
+                    CornerRadius="5"
                     FontSize="Caption"
                     HorizontalOptions="Center"
-                    Text="Change profile photo"
-                    TextColor="#031540" />
+                    Text="Cambiar foto de perfil"
+                    TextColor="#fff" />
 
                 <Label
                     FontSize="Small"

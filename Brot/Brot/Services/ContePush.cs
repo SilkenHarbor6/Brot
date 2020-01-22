@@ -4,9 +4,9 @@ using System.Text;
 
 namespace Brot.Services
 {
-    public class Conte
+    public class ContePush
     {
-        public Conte()
+        public ContePush()
         {
             Name = "default";   //By default cannot be empty, must have at least 3 characters
         }

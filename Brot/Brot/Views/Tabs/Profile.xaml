@@ -128,7 +128,6 @@
                                             Grid.Column="0"
                                             Command="{Binding ChangePostPropiosViews}"
                                             CommandParameter="True"
-                                            Style="{StaticResource btnStyle}"
                                             Text="Publicaciones">
 
                                             <Button.Triggers>
@@ -158,7 +157,6 @@
                                             Grid.Column="1"
                                             Command="{Binding ChangePostPropiosViews}"
                                             CommandParameter="False"
-                                            Style="{StaticResource btnStyle}"
                                             Text="Guardados">
                                             <Button.Triggers>
                                                 <DataTrigger

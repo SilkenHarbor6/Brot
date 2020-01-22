@@ -6,6 +6,7 @@
     using Microsoft.AppCenter.Analytics;
     using Microsoft.AppCenter.Crashes;
     using Microsoft.AppCenter.Push;
+    using Newtonsoft.Json;
     using Plugin.LocalNotification;
     using Plugin.Permissions;
     using Plugin.Permissions.Abstractions;
@@ -150,31 +151,32 @@
         }
         private void Current_NotificationTapped(NotificationTappedEventArgs e)
         {
-            AccionNotificacion(Newtonsoft.Json.JsonConvert.DeserializeObject<PushNotificationReceivedEventArgs>(e.Data));
+
+            AccionNotificacion(Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(e.Data));
         }
         public void Push_PushNotificationReceived(object sender, PushNotificationReceivedEventArgs e)
         {
 
             try
             {
-                // Add the notification message and title to the message
-                if (DentroApp)
+                ContentPush dataPush = new ContentPush()
                 {
-                    string data = Newtonsoft.Json.JsonConvert.SerializeObject(e);
+                    CustomData = e.CustomData
+                };
+                // Add the notification message and title to the message
+                    
+                    string data = Newtonsoft.Json.JsonConvert.SerializeObject((Dictionary<string,string>)e.CustomData,Formatting.Indented);
                     var notification = new NotificationRequest
                     {
                         NotificationId = 100,
                         Title = e.Title,
                         Description = e.Message,
                         ReturningData = data, // Returning data when tapped on notification.
-                        NotifyTime = DateTime.Now.AddSeconds(30) // Used for Scheduling local notification, if not specified notification will show immediately.
+                        NotifyTime = DateTime.Now.AddSeconds(1) // Used for Scheduling local notification, if not specified notification will show immediately.
                     };
                     NotificationCenter.Current.Show(notification);
-                }
-                else
-                {
-                    AccionNotificacion(e);
-                }
+
+                    //AccionNotificacion(dataPush);
             }
             catch (Exception ex)
             {
@@ -185,9 +187,8 @@
             }
         }
 
-        private void AccionNotificacion(PushNotificationReceivedEventArgs e)
+        private void AccionNotificacion(Dictionary<string, string> CustomData)
         {
-            Dictionary<string, string> CustomData = e.CustomData as Dictionary<string,string>;
             var summary = $"Push notification received:";
             if (CustomData != null)
             {

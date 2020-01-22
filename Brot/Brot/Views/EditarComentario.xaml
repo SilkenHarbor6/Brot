@@ -19,11 +19,7 @@
                 AutoSize="TextChanges"
                 HorizontalOptions="Fill"
                 Text="{Binding Comentario.comentario.contenido}" />
-            <Button
-                Command="{Binding ActualizarCommand}"
-                HorizontalOptions="CenterAndExpand"
-                Style="{StaticResource btnStyle}"
-                Text="Actualizar" />
+
             <ActivityIndicator IsRunning="{Binding IsRefreshing}" />
 
 
@@ -73,6 +69,10 @@
 
 
                     </StackLayout>
+                    <Button
+                        Command="{Binding ActualizarCommand}"
+                        HorizontalOptions="CenterAndExpand"
+                        Text="Actualizar" />
                 </StackLayout>
             </Grid>
         </StackLayout>
