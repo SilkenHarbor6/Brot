@@ -80,7 +80,14 @@ namespace Brot.ViewModels
                 IsVendor = UserProfile.UserProfile.isVendor;
             }
             var url = new Uri(profiledata.UserProfile.img);
-            Img = ImageSource.FromUri(url);
+            try
+            {
+                Img = ImageSource.FromUri(url);
+            }
+            catch (Exception)
+            {
+
+            }
 
         }
 

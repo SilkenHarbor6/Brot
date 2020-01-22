@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="98420ffc376a4d028a01b9d9364bf5a5" Name="Diagram1" ZoomLevel="74">
+      <Diagram DiagramId="98420ffc376a4d028a01b9d9364bf5a5" Name="Diagram1" ZoomLevel="154">
         <EntityTypeShape EntityType="BorrarDBBrotModel.categoria" Width="1.5" PointX="0.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BorrarDBBrotModel.codigos" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="BorrarDBBrotModel.comentarios" Width="1.5" PointX="7.5" PointY="20.125" IsExpanded="true" />
