@@ -77,6 +77,14 @@ namespace Brot.Patterns
         #endregion
 
         #region Methods
+        public void AddStores(ObservableCollection<userModel> items)
+        {
+            for (int i = 0; i < items.Count; i++)
+            {
+                items[i].img = DLL.constantes.urlImages + items[i].img;
+            }
+            stores = items;
+        }
         public void AddStore(userModel item)
         {
             stores.Add(item);

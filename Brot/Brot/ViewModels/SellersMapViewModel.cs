@@ -69,6 +69,7 @@
             //api / categoria / GMC /{ id}
             //TODO Categoria en DB como nombres tal cual y AGREGAR .png AQU[I!!
             int i = 0;
+            Singleton.Instance.AddStores((ObservableCollection<userModel>)result.Result);
             foreach (var seller in (ObservableCollection<userModel>)result.Result)
             {
                 Pin pin = new Pin();
