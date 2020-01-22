@@ -1,5 +1,6 @@
 ﻿using Brot.Models;
 using Brot.Services;
+using Brot.Views;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,18 @@ namespace Brot.ViewModels
         private ObservableCollection<userModel> _vendedores;
         private ObservableCollection<string> _categorias;
         private int _sind;
+        private userModel usuario;
+        public userModel Usuario
+        {
+            get
+            {
+                return usuario;
+            }
+            set
+            {
+                SetProperty(ref usuario, value);GoToProfile();
+            }
+        }
         public int sind
         {
             get
@@ -68,7 +81,11 @@ namespace Brot.ViewModels
             }
         }
        
-
+        private async void GoToProfile()
+        {
+            await App.Current.MainPage.Navigation.PushAsync(new SellerProfile(new SellerProfileViewModel(Usuario)));
+            Usuario = null;
+        }
         private async void LoadDataFirstTime()
         {
             IsRefreshing = true;

@@ -26,7 +26,7 @@
                     Margin="0,10,0,5"
                     Aspect="AspectFit"
                     HeightRequest="150"
-                    Source="{Binding pic}"
+                    Source="{Binding Img}"
                     WidthRequest="150">
 
                     <forms:CachedImage.Transformations>
