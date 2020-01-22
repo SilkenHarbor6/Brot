@@ -6,7 +6,7 @@ using System.Web;
 
 namespace BrotAPI_Final.Repository
 {
-    public class RCategoria : ICategoria
+    public class RCategoria 
     {
         private DBContextModel db = new DBContextModel();
         public categoria ActualizarCategoria(categoria item)
@@ -34,9 +34,9 @@ namespace BrotAPI_Final.Repository
             return item;
         }
 
-        public bool EliminarCategoria(categoria item)
+        public bool EliminarCategoria(int id_categoria)
         {
-            var obj = db.categoria.Find(item.id_categoria);
+            var obj = db.categoria.Find(id_categoria);
             if (obj == null)
             {
                 return false;
@@ -93,9 +93,5 @@ namespace BrotAPI_Final.Repository
             return null;
         }
 
-        public RCategoria()
-        {
-
-        }
     }
 }

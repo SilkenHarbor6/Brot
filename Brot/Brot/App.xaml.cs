@@ -107,8 +107,6 @@
             GuardarDispositivoQueEntroAppCenter();
         }
 
-        //https://stackoverflow.com/questions/56982641/how-to-implement-appcenter-push-api
-        //TODO Make it work! Usano Usuarios personalizados o bien un Auth de Azure 
         public async void GuardarDispositivoQueEntroAppCenter()
         {
             var idInstalled02 = await AppCenter.GetInstallIdAsync();
@@ -140,6 +138,7 @@
 
         public static void ActivarPush()
         {
+            //INTERPRETAR PUSH
 
         }
 
