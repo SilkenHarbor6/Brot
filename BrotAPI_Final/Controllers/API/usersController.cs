@@ -647,7 +647,7 @@ namespace BrotAPI_Final.Controllers.API
                     code.codigo = codigo.ToString();
                     code.id_user = res.id_user;
                     v.Post(code);
-                    return Request.CreateResponse(HttpStatusCode.OK, "Enviado!");
+                    return Request.CreateResponse(HttpStatusCode.OK, code);
                 }
                 catch (Exception ex)
                 {
