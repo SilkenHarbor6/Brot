@@ -396,4 +396,7 @@
   <ItemGroup>
     <BundleResource Include="Resources\gallery.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\NoImage.png" />
+  </ItemGroup>
 </Project>

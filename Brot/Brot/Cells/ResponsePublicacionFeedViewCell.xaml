@@ -63,10 +63,10 @@
 
 
         <ffimage:CachedImage
-            Aspect="AspectFill"
+            Aspect="AspectFit"
             BitmapOptimizations="True"
             CacheDuration="20"
-            ErrorPlaceholder="BrotSplash.png"
+            ErrorPlaceholder="NoImage.png"
             HorizontalOptions="Fill"
             IsVisible="{Binding publicacion.isImg}"
             LoadingPlaceholder="loading.png"
