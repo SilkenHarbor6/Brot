@@ -658,7 +658,7 @@ namespace BrotAPI_Final.Controllers.API
 
         [HttpPost]
         [Route("authcode/{code}")]
-        public HttpResponseMessage AuthCode(string code)
+        public HttpResponseMessage AuthCode(string code, users item)
         {
             var res = v.Auth(code);
             if (res == null)
@@ -667,20 +667,54 @@ namespace BrotAPI_Final.Controllers.API
             }
             else
             {
-                var pkg = new codigos();
-                pkg.id_user = res.id_user;
-                var result = v.Delete(code);
-                if (result)
+                if (item.id_user == res.id_user)
                 {
-                    return Request.CreateResponse(HttpStatusCode.OK, pkg);
+                    var pkg = new codigos();
+                    pkg.id_user = res.id_user;
+                    var result = v.Delete(code);
+                    if (result)
+                    {
+                        return Request.CreateResponse(HttpStatusCode.OK, pkg);
+                    }
+                    else
+                    {
+                        return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Hubo un error en el proceso");
+                    }
                 }
                 else
                 {
-                    return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Hubo un error en el proceso");
+                    return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Codigo Erroneo");
                 }
             }
         }
 
+
+        [HttpPut]
+        [Route("recpass/{id}")]
+        public HttpResponseMessage RecPass(string id, users itemNew)
+        {
+
+            var data = r.GetById(int.Parse(id));
+            if (data == null)
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotFound, $"No existe en la base de datos sobre el user a actualizar");
+            }
+            try
+            {
+                    data.pass = itemNew.pass;
+                    using (var db = new DBContextModel())
+                    {
+                        db.Entry(data).State = EntityState.Modified;
+                        db.SaveChanges();
+                    }
+                    return Request.CreateResponse(HttpStatusCode.OK, $"Contraseña cambiada");
+            }
+            catch (Exception ex)
+            {
+                Debug.Print(ex.Message);
+            }
+            return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, $"No fue posible actualizar la contraseña");
+        }
 
 
         /// <summary>
