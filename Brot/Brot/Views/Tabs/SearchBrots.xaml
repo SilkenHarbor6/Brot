@@ -23,6 +23,7 @@
                 IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
                 ItemsSource="{Binding Vendedores, Mode=TwoWay}"
                 RefreshCommand="{Binding refreshCommand}"
+                SelectedItem="{Binding Usuario,Mode=TwoWay}"
                 SeparatorColor="#031540">
                 <ListView.ItemTemplate>
                     <DataTemplate>
