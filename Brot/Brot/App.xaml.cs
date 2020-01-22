@@ -6,9 +6,11 @@
     using Microsoft.AppCenter.Analytics;
     using Microsoft.AppCenter.Crashes;
     using Microsoft.AppCenter.Push;
+    using Plugin.LocalNotification;
     using Plugin.Permissions;
     using Plugin.Permissions.Abstractions;
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Threading.Tasks;
     using Views;
@@ -18,6 +20,7 @@
     public partial class App : Xamarin.Forms.Application
     {
         private bool wasAppCenterKeysSent { get; set; }
+        private bool DentroApp { get; set; } = true;
         public App()
         {
             wasAppCenterKeysSent = false;
@@ -30,7 +33,11 @@
             InitializeComponent();
             perms();
             inicializar();
+            NotificationCenter.Current.NotificationTapped += Current_NotificationTapped; 
         }
+
+      
+
         private async void perms()
         {
             await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
@@ -141,33 +148,33 @@
             //INTERPRETAR PUSH
 
         }
-
+        private void Current_NotificationTapped(NotificationTappedEventArgs e)
+        {
+            AccionNotificacion(Newtonsoft.Json.JsonConvert.DeserializeObject<PushNotificationReceivedEventArgs>(e.Data));
+        }
         public void Push_PushNotificationReceived(object sender, PushNotificationReceivedEventArgs e)
         {
-            //TODO hace metodo que redirija a las pages que me interesa con los datos pertinentes de los constructores xd
-            //TODO Push on Server Side
-            //MainPage.Navigation.InsertPageBefore
 
             try
             {
                 // Add the notification message and title to the message
-                var summary = $"Push notification received:" +
-                                    $"\n\tNotification title: {e.Title}" +
-                                    $"\n\tMessage: {e.Message}";
-
-                // If there is custom data associated with the notification,
-                // print the entries
-                if (e.CustomData != null)
+                if (DentroApp)
                 {
-                    summary += "\n\tCustom data:\n";
-                    foreach (var key in e.CustomData.Keys)
+                    string data = Newtonsoft.Json.JsonConvert.SerializeObject(e);
+                    var notification = new NotificationRequest
                     {
-                        summary += $"\t\t{key} : {e.CustomData[key]}\n";
-                    }
+                        NotificationId = 100,
+                        Title = e.Title,
+                        Description = e.Message,
+                        ReturningData = data, // Returning data when tapped on notification.
+                        NotifyTime = DateTime.Now.AddSeconds(30) // Used for Scheduling local notification, if not specified notification will show immediately.
+                    };
+                    NotificationCenter.Current.Show(notification);
                 }
-
-                // Send the notification summary to debug output
-                App.Current.MainPage.DisplayAlert("Push", summary, "Ok");
+                else
+                {
+                    AccionNotificacion(e);
+                }
             }
             catch (Exception ex)
             {
@@ -178,13 +185,30 @@
             }
         }
 
+        private void AccionNotificacion(PushNotificationReceivedEventArgs e)
+        {
+            Dictionary<string, string> CustomData = e.CustomData as Dictionary<string,string>;
+            var summary = $"Push notification received:";
+            if (CustomData != null)
+            {
+                summary += "\n\tCustom data:\n";
+                foreach (var key in CustomData.Keys)
+                {
+                    summary += $"\t\t{key} : {CustomData[key]}\n";
+                }
+            }
+            App.Current.MainPage.DisplayAlert("Push", summary, "Ok");
+
+        }
 
         protected override void OnSleep()
         {
+            DentroApp = false;
         }
 
         protected override void OnResume()
         {
+            DentroApp = true;
         }
     }
 }

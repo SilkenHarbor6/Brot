@@ -10,6 +10,8 @@ using Plugin.Permissions;
 using Xamarin.Forms.GoogleMaps.Android;
 using Microsoft.AppCenter.Push;
 using Plugin.LocalNotifications;
+using Plugin.LocalNotification;
+using Android.Content;
 
 namespace Brot.Droid
 {
@@ -37,8 +39,8 @@ namespace Brot.Droid
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
             LocalNotificationsImplementation.NotificationIconId = Resource.Drawable.Brot500;
-
             LoadApplication(new App());
+            NotificationCenter.NotifyNotificationTapped(Intent);
         }
         //public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         //{
@@ -54,6 +56,7 @@ namespace Brot.Droid
         protected override void OnNewIntent(Android.Content.Intent intent)
         {
             Push.CheckLaunchedFromNotification(this, intent);
+            NotificationCenter.NotifyNotificationTapped(intent);
             base.OnNewIntent(intent);
         }
     }
