@@ -17,7 +17,6 @@
     public partial class SellersMap : ContentPage
     {
         SellersMapViewModel ViewModel;
-        private bool MapsPermited = false;
 
         public SellersMap()
         {
@@ -47,54 +46,54 @@
             //this.ViewModel.InitPinsCommand.Execute(null);
         }
 
+        //private bool MapsPermited = false;
+        //private async System.Threading.Tasks.Task ask4Location()
+        //{
+        //    try
+        //    {
+        //        PermissionStatus status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.LocationWhenInUse);
+        //        PermissionStatus status2 = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
+        //        PermissionStatus status3 = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.LocationAlways);
 
-        private async System.Threading.Tasks.Task ask4Location()
-        {
-            try
-            {
-                PermissionStatus status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.LocationWhenInUse);
-                PermissionStatus status2 = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Location);
-                PermissionStatus status3 = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.LocationAlways);
-
-                if (status == PermissionStatus.Granted)
-                {
-                    MapsPermited = true;
-                }
-                else if (status != PermissionStatus.Granted)
-                {
-                    if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
-                    {
-                        await DisplayAlert("Need location", "Gunna need that location", "OK");
-                    }
-                    status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
-                }
+        //        if (status == PermissionStatus.Granted)
+        //        {
+        //            MapsPermited = true;
+        //        }
+        //        else if (status != PermissionStatus.Granted)
+        //        {
+        //            if (await CrossPermissions.Current.ShouldShowRequestPermissionRationaleAsync(Permission.Location))
+        //            {
+        //                await DisplayAlert("Need location", "Gunna need that location", "OK");
+        //            }
+        //            status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+        //        }
 
 
 
-                if (status == PermissionStatus.Granted)
-                {
-                    //Query permission
-                    MapsPermited = true;
-                }
-                else if (status != PermissionStatus.Unknown)
-                {
-                    //location denied
-                    MapsPermited = false;
-                }
-                else
-                {
-                    MapsPermited = false;
-                }
-            }
-            catch (System.Exception ex)
-            {
-                //Something went wrong
-                Microsoft.AppCenter.Crashes.Crashes.TrackError(ex,
-                    new System.Collections.Generic.Dictionary<string, string>()
-                                            { { "Geolocalization","Error"} });
-                MapsPermited = false;
-            }
-        }
+        //        if (status == PermissionStatus.Granted)
+        //        {
+        //            //Query permission
+        //            MapsPermited = true;
+        //        }
+        //        else if (status != PermissionStatus.Unknown)
+        //        {
+        //            //location denied
+        //            MapsPermited = false;
+        //        }
+        //        else
+        //        {
+        //            MapsPermited = false;
+        //        }
+        //    }
+        //    catch (System.Exception ex)
+        //    {
+        //        //Something went wrong
+        //        Microsoft.AppCenter.Crashes.Crashes.TrackError(ex,
+        //            new System.Collections.Generic.Dictionary<string, string>()
+        //                                    { { "Geolocalization","Error"} });
+        //        MapsPermited = false;
+        //    }
+        //}
 
 
         private async void MoveToSantaAna()
@@ -117,18 +116,6 @@
                     )
                 );
                 }
-                else
-                {
-                    this.Mapa.MoveToRegion(
-                        MapSpan.FromCenterAndRadius(
-                            new Position(
-                                13.994778,
-                                -89.556642
-                                ),
-                            Distance.FromMeters(2500)
-                            )
-                        );
-                }
             }
             catch (FeatureNotSupportedException fnsEx)
             {
@@ -141,7 +128,6 @@
                 if (Device.RuntimePlatform == Device.Android)
                 {
                     DependencyService.Get<IGPSService>().turnOnGps();
-                    MoveToSantaAna();
                 }
                 Crashes.TrackError(fneEx, new Dictionary<string, string>() { { "Mapa", "FeatureNotEnabledException" } });
             }
@@ -168,6 +154,7 @@
 
                     ViewModel.pinClicked.Execute(i);
                     return;
+
                 }
             }
         }

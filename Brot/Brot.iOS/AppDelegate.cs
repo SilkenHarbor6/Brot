@@ -39,7 +39,7 @@ namespace Brot.iOS
             {
                 ImageFactory = new CachingImageFactory()
             };
-            Xamarin.FormsGoogleMaps.Init("AIzaSyB259mHIIfmjR4GXDYgSANkinRw8iBuTFw",platformConfig);
+            Xamarin.FormsGoogleMaps.Init("AIzaSyB259mHIIfmjR4GXDYgSANkinRw8iBuTFw");
             
             LoadApplication(new App());
 
