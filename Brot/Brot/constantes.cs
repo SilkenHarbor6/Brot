@@ -12,8 +12,8 @@ namespace DLL
         public static string likeImage { get { return "like.png"; } }
         public static string ProfileImageError { get { return "user_placeholder.png"; } }
         public static string dislikeImage { get { return "dislike.png"; } }
-        public static string SavedPost { get { return "SavedPost.png"; } }
-        public static string SavedPostNOT { get { return "SavedPostNOT.png"; } }
+        public static string SavedPost { get { return "saved.png"; } }
+        public static string SavedPostNOT { get { return "notSaved.png"; } }
 
 
         #region API CONTROLLERS

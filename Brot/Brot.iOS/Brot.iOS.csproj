@@ -387,4 +387,13 @@
   <ItemGroup>
     <BundleResource Include="Resources\reload.png" />
   </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\saved.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\notSaved.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\gallery.png" />
+  </ItemGroup>
 </Project>
