@@ -141,9 +141,14 @@ namespace BrotAPI_Final.Controllers.API
 
                     AppCenterPush appCenterPush = new AppCenterPush(receiptInstallID);
                     users CommenterPost = db.users.SingleOrDefault(u => u.id_user == item.id_user);
-                    await appCenterPush.Notify($"{CommenterPost.nombre} comentó tu publicación", item.contenido, 
-                        new Dictionary<string, string>() { { "Comentario_postId", item.id_post.ToString()} }
-                        );
+                    await appCenterPush.Notify("comentarios",
+                        $"{CommenterPost.nombre} comentó tu publicación", 
+                        item.contenido, 
+                        new Dictionary<string, string>() {
+                            { DLL.PushConstantes.gotoPage, DLL.PushConstantes.goto_post },
+                            { DLL.PushConstantes.id_post, item.id_post.ToString()},
+                            { DLL.PushConstantes.id_user, creatorPost.id_user.ToString()}
+                        });
 
                 }
 

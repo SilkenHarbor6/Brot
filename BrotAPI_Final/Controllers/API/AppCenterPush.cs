@@ -107,7 +107,7 @@ namespace BrotAPI_Final.Controllers.API
             public List<string> AndroidDevices { get; set; }
         }
 
-        public async Task<bool> Notify(string title, string message, Dictionary<string, string> customData = default(Dictionary<string, string>))
+        public async Task<bool> Notify(string name,string title, string message, Dictionary<string, string> customData = default(Dictionary<string, string>))
         {
             try
             {
@@ -144,6 +144,7 @@ namespace BrotAPI_Final.Controllers.API
                 {
                     Content = new Content
                     {
+                        Name=name,
                         Title = title,
                         Body = message,
                         CustomData = customData
