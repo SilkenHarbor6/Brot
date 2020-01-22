@@ -73,7 +73,10 @@ namespace Brot.ViewModels
         {
             if (!String.IsNullOrWhiteSpace(Texto))
             {
-                var elementos = from item in Vendedores where item.puesto_name.Contains(Texto) select item;
+                var elementos = from item in all 
+                                where item.puesto_name.ToLower().Contains(Texto.ToLower()) ||
+                                item.descripcion.ToLower().Contains(Texto.ToLower()) 
+                                select item;
                 Vendedores = new ObservableCollection<userModel>(elementos.ToList());
             }
             else

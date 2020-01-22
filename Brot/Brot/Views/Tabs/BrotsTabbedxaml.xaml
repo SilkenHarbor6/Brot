@@ -5,6 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
             xmlns:pages="clr-namespace:Brot.Views.Tabs"
              mc:Ignorable="d"
+            Title="Brots"
+            IconImageSource="BrotTen.png"
              x:Class="Brot.Views.Tabs.BrotsTabbedxaml">
     <pages:BrotTen/>
     <pages:SearchBrots/>
