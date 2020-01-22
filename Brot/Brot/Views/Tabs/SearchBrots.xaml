@@ -1,25 +1,32 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:cell="clr-namespace:Brot.Cells"
-             mc:Ignorable="d"
-             Title="Buscar"
-             x:Class="Brot.Views.Tabs.SearchBrots">
+<ContentPage
+    x:Class="Brot.Views.Tabs.SearchBrots"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cell="clr-namespace:Brot.Cells"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Buscar"
+    BackgroundColor="White"
+    mc:Ignorable="d">
     <ContentPage.Content>
         <StackLayout>
-            <SearchBar Text="{Binding Texto}" TextChanged="SearchBar_TextChanged"/>
-            <ListView ItemsSource="{Binding vendedores}" 
-                      IsPullToRefreshEnabled="True"
-                      RefreshCommand="{Binding refreshCommand}"
-                      IsRefreshing="{Binding IsRefreshing, Mode=TwoWay}"
-                      HasUnevenRows="True"
-                      SeparatorColor="#031540"
-                      >
+            <SearchBar
+                SearchCommand="{Binding updateListCommand}"
+                Text="{Binding Texto}"
+                TextChanged="SearchBar_TextChanged" />
+            <ListView
+                HasUnevenRows="True"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                ItemsSource="{Binding Vendedores, Mode=TwoWay}"
+                RefreshCommand="{Binding refreshCommand}"
+                SeparatorColor="#031540">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <cell:UserCell_Grid BindingContext="{Binding userData}"/>
+                        <ViewCell>
+                            <cell:UserCell_Grid />
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

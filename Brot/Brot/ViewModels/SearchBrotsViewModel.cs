@@ -9,38 +9,27 @@ using System.Windows.Input;
 
 namespace Brot.ViewModels
 {
-    class SearchBrotsViewModel:BrotTenViewModel
+    class SearchBrotsViewModel:BaseViewModel
     {
         private string text;
         private ObservableCollection<userModel> all;
-        public ObservableCollection<userModel> vendedores { get; set; }
+        private ObservableCollection<userModel> _vendedores;
         public ObservableCollection<userModel> Vendedores
         {
-            get
-            {
-                return vendedores;
-            }
-            set
-            {
-                vendedores = value;OnPropertyChanged("Vendedores");
-            }
+            get => _vendedores;
+            set => SetProperty(ref _vendedores, value);
         }
-        public string Text
+        public string Texto
         {
-            get
-            {
-                return text;
-            }
-            set
-            {
-                text = value;OnPropertyChanged("Text");
-            }
+            get => text;
+            set => SetProperty(ref text, value);
         }
         public SearchBrotsViewModel()
         {
             LoadDataFirstTime();
         }
-        public ICommand updateList
+
+        public ICommand updateListCommand
         {
             get
             {
@@ -56,21 +45,36 @@ namespace Brot.ViewModels
         }
         private async void LoadDataFirstTime()
         {
+            IsRefreshing = true;
             var resp = await RestClient.GetAll<userModel>("users/vendors/");
             if (!resp.IsSuccess)
             {
                 await App.Current.MainPage.DisplayAlert("Error", "No se han podido cargar los vendedores", "Aceptar");
-            }
-            all = (ObservableCollection<userModel>)resp.Result;
-            SetProperty(ref all, vendedores);
-            //vendedores = (ObservableCollection<userModel>)resp.Result;
-        }
-        private void UpdateList(object obj)
-        {
-            if (!String.IsNullOrWhiteSpace(Text))
+            }       
+            try
             {
-                var elementos = from item in vendedores where item.puesto_name.Contains(Text) select item;
-                Vendedores = (ObservableCollection<userModel>)elementos;
+                all = (ObservableCollection<userModel>)resp.Result;
+                for (int i = 0; i < all.Count; i++)
+                {
+                    all[i].img =String.IsNullOrEmpty(all[i].img) ? DLL.constantes.ProfileImageError
+                                    : DLL.constantes.urlImages + all[i].img;
+                }
+                Vendedores = all;
+            }
+            catch (Exception ex) 
+            {
+                Microsoft.AppCenter.Crashes.Crashes.TrackError(ex);
+            }
+            
+            //vendedores = (ObservableCollection<userModel>)resp.Result;
+            IsRefreshing = false;
+        }
+        private void UpdateList()
+        {
+            if (!String.IsNullOrWhiteSpace(Texto))
+            {
+                var elementos = from item in Vendedores where item.puesto_name.Contains(Texto) select item;
+                Vendedores = new ObservableCollection<userModel>(elementos.ToList());
             }
             else
             {

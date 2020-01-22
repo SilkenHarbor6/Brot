@@ -16,12 +16,14 @@ namespace Brot.Views.Tabs
         public SearchBrots()
         {
             InitializeComponent();
-            BindingContext = new SearchBrotsViewModel();
+            BindingContext = VM = new SearchBrotsViewModel();
         }
+
+        internal SearchBrotsViewModel VM { get; }
 
         private void SearchBar_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            VM.updateListCommand.Execute(null);
         }
     }
 }
