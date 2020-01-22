@@ -54,6 +54,7 @@
                     AppCenter.Start("android=ce90d30b-e395-4d05-be5b-a1461a3bec8e;" +
                           "ios=0caa730c-a7e0-45b2-82bb-302f376b133d",
                            typeof(Push), typeof(Analytics), typeof(Crashes));
+                    wasAppCenterKeysSent = true;
 
                     //Registrar telefono en base de datos
                     var usuario = new Models.userModel()
@@ -64,9 +65,8 @@
                     var idInstalled02 = await Microsoft.AppCenter.AppCenter.GetInstallIdAsync();
                     usuario.Device_id = idInstalled02.Value.ToString();
                     usuario.Phone_OS = Xamarin.Forms.Device.RuntimePlatform == Xamarin.Forms.Device.iOS ? "iOS" : "Android";
-                    var result = await RestClient.Post<Models.userModel>("users/login", usuario);
+                    var result = await RestClient.Post<Models.userModel>("users/device", usuario);
 
-                    wasAppCenterKeysSent = true;
                     await Push.SetEnabledAsync(true);
                 }
                 else

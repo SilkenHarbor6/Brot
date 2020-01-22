@@ -153,15 +153,15 @@ namespace Brot.ViewModels
         {
             Application.Current.MainPage.Navigation.PushAsync(new EditProfile());
         }
-        private void Signout()
+        private async void Signout()
         {
             IsRefreshing = true;
+            await RestClient.Put<Models.userModel>("users/logout", Singleton.Instance.User.id_user, Singleton.Instance.User);
             Singleton.Instance.LocalJson.SignOut();
             var newPage = new NavigationPage(new Login());
             App.Current.MainPage = newPage;
-            Microsoft.AppCenter.Push.Push.SetEnabledAsync(false);
+            await Microsoft.AppCenter.Push.Push.SetEnabledAsync(false);
         }
-
 
 
         private Xamarin.Forms.Command _ChangePostPropiosViews;
