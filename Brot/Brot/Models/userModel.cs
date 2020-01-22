@@ -28,6 +28,9 @@
         public Nullable<bool> isDeleted { get; set; }
         public string Device_id { get; set; }
         public string Phone_OS { get; set; }
+        public Nullable<int> id_categoria { get; set; }
+        public string imgCategoria { get; set; }
+        public string nombreCategoria { get; set; }
 
 
 

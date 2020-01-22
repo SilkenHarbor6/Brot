@@ -131,7 +131,10 @@ namespace BrotAPI_Final.Controllers.API
                             isDeleted = u.isDeleted,
                             num_telefono = u.num_telefono,
                             xlat = u.xlat,
-                            ylon = u.ylon
+                            ylon = u.ylon,
+                            id_categoria = u.id_categoria,
+                            imgCategoria = u.categoria.img,
+                            nombreCategoria =u.categoria.nombre
                         }
                     ).ToList();
                 return Request.CreateResponse(HttpStatusCode.OK, vendedores);

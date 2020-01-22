@@ -21,6 +21,10 @@
         public string num_telefono { get; set; }
         public string img { get; set; }
         public Nullable<bool> isDeleted { get; set; }
+        public Nullable<int> id_categoria { get; set; }
+        public string imgCategoria { get; set; }
+        public string nombreCategoria { get; set; }
+
 
     }
 }
