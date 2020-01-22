@@ -1,4 +1,4 @@
-﻿// T4 code generation is enabled for model 'C:\Xamarin\Brot\BrotAPI_Final\Models\ModelDBWithPush.edmx'. 
+﻿// T4 code generation is enabled for model 'C:\Xamarin\N3\Brot\BrotAPI_Final\Models\DBContextModel.edmx'. 
 // To enable legacy code generation, change the value of the 'Code Generation Strategy' designer
 // property to 'Legacy ObjectContext'. This property is available in the Properties Window when the model
 // is open in the designer.

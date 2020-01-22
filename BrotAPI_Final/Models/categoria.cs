@@ -18,6 +18,7 @@ namespace BrotAPI_Final.Models
         public categoria()
         {
             this.usuario_categoria = new HashSet<usuario_categoria>();
+            this.users = new HashSet<users>();
         }
     
         public int id_categoria { get; set; }
@@ -26,5 +27,7 @@ namespace BrotAPI_Final.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<usuario_categoria> usuario_categoria { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<users> users { get; set; }
     }
 }

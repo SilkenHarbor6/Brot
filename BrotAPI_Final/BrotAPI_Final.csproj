@@ -181,56 +181,58 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\categoria.cs">
-      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
+      <DependentUpon>DBContextModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\codigos.cs" />
+    <Compile Include="Models\codigos.cs">
+      <DependentUpon>DBContextModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\comentarios.cs">
-      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
+      <DependentUpon>DBContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBContextModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBContextModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBContextModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBContextModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\DBContextModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DBContextModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Models\interaccion_post.cs">
-      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
+      <DependentUpon>DBContextModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\like_comentario.cs">
-      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
+      <DependentUpon>DBContextModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\like_post.cs">
-      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ModelDBWithPush.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDBWithPush.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ModelDBWithPush.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ModelDBWithPush.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>ModelDBWithPush.edmx</DependentUpon>
+      <DependentUpon>DBContextModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\publicaciones.cs">
-      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
+      <DependentUpon>DBContextModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\publicacion_guardada.cs">
-      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
+      <DependentUpon>DBContextModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\seguidores.cs">
-      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
+      <DependentUpon>DBContextModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\users.cs">
-      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
+      <DependentUpon>DBContextModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\usuario_categoria.cs">
-      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
+      <DependentUpon>DBContextModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\visita_busqueda.cs">
-      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
+      <DependentUpon>DBContextModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\visita_pefil_post.cs">
-      <DependentUpon>ModelDBWithPush.tt</DependentUpon>
+      <DependentUpon>DBContextModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\ICategoria.cs" />
@@ -257,15 +259,15 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="Models\ModelDBWithPush.Context.tt">
+    <Content Include="Models\DBContextModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelDBWithPush.edmx</DependentUpon>
-      <LastGenOutput>ModelDBWithPush.Context.cs</LastGenOutput>
+      <DependentUpon>DBContextModel.edmx</DependentUpon>
+      <LastGenOutput>DBContextModel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\ModelDBWithPush.tt">
+    <Content Include="Models\DBContextModel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>ModelDBWithPush.edmx</DependentUpon>
-      <LastGenOutput>ModelDBWithPush.cs</LastGenOutput>
+      <DependentUpon>DBContextModel.edmx</DependentUpon>
+      <LastGenOutput>DBContextModel.cs</LastGenOutput>
     </Content>
     <Content Include="Models\SomeeDBModels.edmx.sql" />
     <Content Include="Scripts\bootstrap.js" />
@@ -289,12 +291,12 @@
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\CollectionModelDescription.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\DisplayTemplates\ApiGroup.cshtml" />
     <Content Include="Areas\HelpPage\Views\Help\Api.cshtml" />
-    <EntityDeploy Include="Models\ModelDBWithPush.edmx">
+    <EntityDeploy Include="Models\DBContextModel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>ModelDBWithPush.Designer.cs</LastGenOutput>
+      <LastGenOutput>DBContextModel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\ModelDBWithPush.edmx.diagram">
-      <DependentUpon>ModelDBWithPush.edmx</DependentUpon>
+    <Content Include="Models\DBContextModel.edmx.diagram">
+      <DependentUpon>DBContextModel.edmx</DependentUpon>
     </Content>
     <None Include="Properties\PublishProfiles\brotmainapi - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />

@@ -51,7 +51,9 @@ namespace BrotAPI_Final.Models
         public Nullable<bool> isDeleted { get; set; }
         public string Device_id { get; set; }
         public string Phone_OS { get; set; }
+        public Nullable<int> id_categoria { get; set; }
     
+        public virtual categoria categoria { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<comentarios> comentarios { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
