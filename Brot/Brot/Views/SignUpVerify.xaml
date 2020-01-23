@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Rounded="clr-namespace:Plugin.RoundedBorderControls;assembly=Plugin.RoundedBorderControls"
+             mc:Ignorable="d"
+             BackgroundColor="White"
+             Padding="10"
+             x:Class="Brot.Views.SignUpVerify">
+    <ContentPage.Content>
+        <StackLayout  VerticalOptions="CenterAndExpand">
+            <Label Text="Codigo enviado"
+				   FontSize="Large"
+				   TextColor="#031540"
+				   HorizontalOptions="CenterAndExpand" />
+            <Label Text="Ingresa el codigo que se ha enviado a tu correo"
+				   FontSize="Small"
+				   HorizontalTextAlignment="Center"
+				   TextColor="Gray"
+				   HorizontalOptions="Center" />
+            <Rounded:RoundedBorderEntry
+						Margin="20,10,20,5"
+						BorderColor="#031540"
+						BorderThickness="2"
+						CornerRadius="0"
+						Keyboard="Numeric"
+						Placeholder="Ingresa el codigo"
+						PlaceholderColor="Gray"
+						Text="{Binding Code}"
+						TextColor="#031540" />
+            <Button
+							BackgroundColor="#031540"
+							Command="{Binding Send}"
+							IsEnabled="{Binding IsEnabled}"
+							Text="Verificar"
+							TextColor="#fff"
+							VerticalOptions="Center"
+							CornerRadius="5"
+						 Margin="20,10,20,10"/>
+            <ActivityIndicator IsRunning="{Binding IsRefreshing}" VerticalOptions="End" HorizontalOptions="Center"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
