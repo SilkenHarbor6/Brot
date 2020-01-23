@@ -26,7 +26,7 @@ namespace Brot.ViewModels
         private async void ActualizarMethod(object obj)
         {
             IsRefreshing = true;
-
+            userM.publicacion.img = userM.publicacion.img.Replace(DLL.constantes.urlImages, "");
             var resultSuccess = await RestClient.Put<publicacionesModel>(DLL.constantes.publicacionest, userM.publicacion.id_post, userM.publicacion);
 
             if (resultSuccess)

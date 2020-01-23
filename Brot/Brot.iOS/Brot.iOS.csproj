@@ -45,7 +45,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <MtouchArch>ARM64</MtouchArch>
-    <CodesignKey>Apple Development: rrris402@gmail.com (52992293HZ)</CodesignKey>
+    <CodesignKey>Apple Development: ronald.tejada@proyectosfgk.org (7J8KW22F5D)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
     <MtouchLink>None</MtouchLink>
@@ -142,6 +142,9 @@
     </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
+    </PackageReference>
+    <PackageReference Include="Plugin.LocalNotification">
+      <Version>4.1.2</Version>
     </PackageReference>
     <PackageReference Include="Plugin.Permissions">
       <Version>3.0.0.12</Version>
@@ -383,5 +386,17 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\reload.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\saved.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\notSaved.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\gallery.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\NoImage.png" />
   </ItemGroup>
 </Project>

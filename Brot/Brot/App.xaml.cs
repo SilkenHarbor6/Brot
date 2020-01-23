@@ -6,9 +6,12 @@
     using Microsoft.AppCenter.Analytics;
     using Microsoft.AppCenter.Crashes;
     using Microsoft.AppCenter.Push;
+    using Newtonsoft.Json;
+    using Plugin.LocalNotification;
     using Plugin.Permissions;
     using Plugin.Permissions.Abstractions;
     using System;
+    using System.Collections.Generic;
     using System.Diagnostics;
     using System.Threading.Tasks;
     using Views;
@@ -18,6 +21,7 @@
     public partial class App : Xamarin.Forms.Application
     {
         private bool wasAppCenterKeysSent { get; set; }
+        private bool DentroApp { get; set; } = true;
         public App()
         {
             wasAppCenterKeysSent = false;
@@ -30,7 +34,11 @@
             InitializeComponent();
             perms();
             inicializar();
+            NotificationCenter.Current.NotificationTapped += Current_NotificationTapped;
         }
+
+
+
         private async void perms()
         {
             await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
@@ -54,6 +62,7 @@
                     AppCenter.Start("android=ce90d30b-e395-4d05-be5b-a1461a3bec8e;" +
                           "ios=0caa730c-a7e0-45b2-82bb-302f376b133d",
                            typeof(Push), typeof(Analytics), typeof(Crashes));
+                    wasAppCenterKeysSent = true;
 
                     //Registrar telefono en base de datos
                     var usuario = new Models.userModel()
@@ -64,9 +73,8 @@
                     var idInstalled02 = await Microsoft.AppCenter.AppCenter.GetInstallIdAsync();
                     usuario.Device_id = idInstalled02.Value.ToString();
                     usuario.Phone_OS = Xamarin.Forms.Device.RuntimePlatform == Xamarin.Forms.Device.iOS ? "iOS" : "Android";
-                    var result = await RestClient.Post<Models.userModel>("users/login", usuario);
+                    var result = await RestClient.Post<Models.userModel>("users/device", usuario);
 
-                    wasAppCenterKeysSent = true;
                     await Push.SetEnabledAsync(true);
                 }
                 else
@@ -107,8 +115,6 @@
             GuardarDispositivoQueEntroAppCenter();
         }
 
-        //https://stackoverflow.com/questions/56982641/how-to-implement-appcenter-push-api
-        //TODO Make it work! Usano Usuarios personalizados o bien un Auth de Azure 
         public async void GuardarDispositivoQueEntroAppCenter()
         {
             var idInstalled02 = await AppCenter.GetInstallIdAsync();
@@ -116,8 +122,6 @@
                     {
                         { "Device",idInstalled02.Value.ToString() }
                     });
-
-
         }
 
         public async void ActivarAnalyticsConKEYS()
@@ -140,35 +144,34 @@
 
         public static void ActivarPush()
         {
+            //INTERPRETAR PUSH
 
         }
-
+        private void Current_NotificationTapped(NotificationTappedEventArgs e)
+        {
+            AccionNotificacion(Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(e.Data));
+        }
         public void Push_PushNotificationReceived(object sender, PushNotificationReceivedEventArgs e)
         {
-            //TODO hace metodo que redirija a las pages que me interesa con los datos pertinentes de los constructores xd
-            //TODO Push on Server Side
-            //MainPage.Navigation.InsertPageBefore
 
             try
             {
-                // Add the notification message and title to the message
-                var summary = $"Push notification received:" +
-                                    $"\n\tNotification title: {e.Title}" +
-                                    $"\n\tMessage: {e.Message}";
-
-                // If there is custom data associated with the notification,
-                // print the entries
-                if (e.CustomData != null)
+                List<string> variables = new List<string>();
+                foreach (var keyPair in e.CustomData)
                 {
-                    summary += "\n\tCustom data:\n";
-                    foreach (var key in e.CustomData.Keys)
-                    {
-                        summary += $"\t\t{key} : {e.CustomData[key]}\n";
-                    }
+                    variables.Add(keyPair.Key + "," + keyPair.Value);
                 }
+                string data = Newtonsoft.Json.JsonConvert.SerializeObject(variables);
+                var notification = new NotificationRequest
+                {
+                    Title = e.Title,
+                    Description = e.Message,
+                    ReturningData = data // Returning data when tapped on notification.
+                                         //NotifyTime = DateTime.Now.(1) // Used for Scheduling local notification, if not specified notification will show immediately.
+                };
+                NotificationCenter.Current.Show(notification);
 
-                // Send the notification summary to debug output
-                App.Current.MainPage.DisplayAlert("Push", summary, "Ok");
+                AccionNotificacion(variables);
             }
             catch (Exception ex)
             {
@@ -179,13 +182,51 @@
             }
         }
 
+        private async void AccionNotificacion(List<string> CustomData)
+        {
+            int id_user, id_comment, id_post;
+            string gotoPage= String.Empty;
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            foreach (var item in CustomData)
+            {
+                var data = item.Split(",");
+                dic.Add(data[0], data[1]);
+            }
+            gotoPage = dic[PushConstantes.gotoPage];
+            try
+            {
+                id_comment = Convert.ToInt32(dic[PushConstantes.id_comentario]);
+            }
+            catch (Exception) { }
+            try
+            {
+                id_user = Convert.ToInt32(dic[PushConstantes.id_user]);
+            }
+            catch (Exception) { }
+            try
+            {
+                id_post = Convert.ToInt32(dic[PushConstantes.id_post]);
+            }
+            catch (Exception) { }
+
+            if (gotoPage == PushConstantes.goto_post)
+            {
+                //await App.Current.MainPage.Navigation.PushAsync(new )
+            }
+            else if (gotoPage == PushConstantes.goto_profile)
+            {
+
+            }
+        }
 
         protected override void OnSleep()
         {
+            DentroApp = false;
         }
 
         protected override void OnResume()
         {
+            DentroApp = true;
         }
     }
 }

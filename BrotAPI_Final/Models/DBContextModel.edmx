@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BorrarDBBrotModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="BorrarDBBrotModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="categoria">
           <Key>
             <PropertyRef Name="id_categoria" />
@@ -114,6 +114,7 @@
           <Property Name="isDeleted" Type="bit" />
           <Property Name="Device_id" Type="varchar" MaxLength="50" />
           <Property Name="Phone_OS" Type="varchar" MaxLength="8" />
+          <Property Name="id_categoria" Type="int" />
         </EntityType>
         <EntityType Name="usuario_categoria">
           <Key>
@@ -335,6 +336,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_users_categoriaMain">
+          <End Role="categoria" Type="Self.categoria" Multiplicity="0..1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="id_categoria" />
+            </Principal>
+            <Dependent Role="users">
+              <PropertyRef Name="id_categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_visita_busqueda_users">
           <End Role="users" Type="Self.users" Multiplicity="1" />
           <End Role="visita_busqueda" Type="Self.visita_busqueda" Multiplicity="*" />
@@ -461,6 +474,10 @@
             <End Role="users" EntitySet="users" />
             <End Role="seguidores" EntitySet="seguidores" />
           </AssociationSet>
+          <AssociationSet Name="fk_users_categoriaMain" Association="Self.fk_users_categoriaMain">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="users" EntitySet="users" />
+          </AssociationSet>
           <AssociationSet Name="FK_visita_busqueda_users" Association="Self.FK_visita_busqueda_users">
             <End Role="users" EntitySet="users" />
             <End Role="visita_busqueda" EntitySet="visita_busqueda" />
@@ -478,7 +495,8 @@
             <End Role="visita_pefil_post" EntitySet="visita_pefil_post" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BorrarDBBrotModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -490,6 +508,14 @@
           <Property Name="nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="img" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="usuario_categoria" Relationship="Self.FK__usuario_c__id_ca__5FB337D6" FromRole="categoria" ToRole="usuario_categoria" />
+          <NavigationProperty Name="users" Relationship="Self.fk_users_categoriaMain" FromRole="categoria" ToRole="users" />
+        </EntityType>
+        <EntityType Name="codigos">
+          <Key>
+            <PropertyRef Name="codigo" />
+          </Key>
+          <Property Name="codigo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="id_user" Type="Int32" />
         </EntityType>
         <EntityType Name="comentarios">
           <Key>
@@ -605,6 +631,8 @@
           <Property Name="isDeleted" Type="Boolean" />
           <Property Name="Device_id" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Phone_OS" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="id_categoria" Type="Int32" />
+          <NavigationProperty Name="categoria" Relationship="Self.fk_users_categoriaMain" FromRole="users" ToRole="categoria" />
           <NavigationProperty Name="comentarios" Relationship="Self.FK_comentarios_users" FromRole="users" ToRole="comentarios" />
           <NavigationProperty Name="interaccion_post" Relationship="Self.FK_interaccion_post_users" FromRole="users" ToRole="interaccion_post" />
           <NavigationProperty Name="interaccion_post1" Relationship="Self.FK_interaccion_post_users1" FromRole="users" ToRole="interaccion_post" />
@@ -661,6 +689,18 @@
               <PropertyRef Name="id_categoria" />
             </Principal>
             <Dependent Role="usuario_categoria">
+              <PropertyRef Name="id_categoria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_users_categoriaMain">
+          <End Role="categoria" Type="Self.categoria" Multiplicity="0..1" />
+          <End Role="users" Type="Self.users" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="categoria">
+              <PropertyRef Name="id_categoria" />
+            </Principal>
+            <Dependent Role="users">
               <PropertyRef Name="id_categoria" />
             </Dependent>
           </ReferentialConstraint>
@@ -893,8 +933,9 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BorrarDBBrotEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="BorrarDBBrotEntities4" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="categoria" EntityType="Self.categoria" />
+          <EntitySet Name="codigos" EntityType="Self.codigos" />
           <EntitySet Name="comentarios" EntityType="Self.comentarios" />
           <EntitySet Name="interaccion_post" EntityType="Self.interaccion_post" />
           <EntitySet Name="like_comentario" EntityType="Self.like_comentario" />
@@ -909,6 +950,10 @@
           <AssociationSet Name="FK__usuario_c__id_ca__5FB337D6" Association="Self.FK__usuario_c__id_ca__5FB337D6">
             <End Role="categoria" EntitySet="categoria" />
             <End Role="usuario_categoria" EntitySet="usuario_categoria" />
+          </AssociationSet>
+          <AssociationSet Name="fk_users_categoriaMain" Association="Self.fk_users_categoriaMain">
+            <End Role="categoria" EntitySet="categoria" />
+            <End Role="users" EntitySet="users" />
           </AssociationSet>
           <AssociationSet Name="fk_comentarios_post" Association="Self.fk_comentarios_post">
             <End Role="publicaciones" EntitySet="publicaciones" />
@@ -986,27 +1031,27 @@
             <End Role="users" EntitySet="users" />
             <End Role="visita_pefil_post" EntitySet="visita_pefil_post" />
           </AssociationSet>
-          <EntitySet Name="codigos" EntityType="BorrarDBBrotModel.codigos" />
         </EntityContainer>
-        <EntityType Name="codigos">
-          <Key>
-            <PropertyRef Name="codigo" />
-          </Key>
-          <Property Name="codigo" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="id_user" Type="Int32" />
-        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BorrarDBBrotModelStoreContainer" CdmEntityContainer="BorrarDBBrotEntities">
+        <EntityContainerMapping StorageEntityContainer="BorrarDBBrotModelStoreContainer" CdmEntityContainer="BorrarDBBrotEntities4">
           <EntitySetMapping Name="categoria">
             <EntityTypeMapping TypeName="BorrarDBBrotModel.categoria">
               <MappingFragment StoreEntitySet="categoria">
                 <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
                 <ScalarProperty Name="img" ColumnName="img" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="codigos">
+            <EntityTypeMapping TypeName="BorrarDBBrotModel.codigos">
+              <MappingFragment StoreEntitySet="codigos">
+                <ScalarProperty Name="codigo" ColumnName="codigo" />
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1110,6 +1155,7 @@
                 <ScalarProperty Name="isDeleted" ColumnName="isDeleted" />
                 <ScalarProperty Name="Device_id" ColumnName="Device_id" />
                 <ScalarProperty Name="Phone_OS" ColumnName="Phone_OS" />
+                <ScalarProperty Name="id_categoria" ColumnName="id_categoria" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1141,14 +1187,6 @@
                 <ScalarProperty Name="id_userquevisito" ColumnName="id_userquevisito" />
                 <ScalarProperty Name="id_perfilvisitado" ColumnName="id_perfilvisitado" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="codigos">
-            <EntityTypeMapping TypeName="BorrarDBBrotModel.codigos">
-              <MappingFragment StoreEntitySet="codigos">
-                <ScalarProperty Name="id_user" ColumnName="id_user" />
-                <ScalarProperty Name="codigo" ColumnName="codigo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

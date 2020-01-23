@@ -58,7 +58,7 @@ namespace Brot.ViewModels
             }
 
             lBrotTen = new ObservableCollection<ResponseUsuariosFiltro>(resultBrotTEN);
-            await Task.Delay(200);
+
             IsRefreshing = false;
 
         }

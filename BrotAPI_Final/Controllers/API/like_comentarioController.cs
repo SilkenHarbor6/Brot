@@ -6,6 +6,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace BrotAPI_Final.Controllers.API
@@ -94,7 +95,7 @@ namespace BrotAPI_Final.Controllers.API
         /// <param name="item"></param>
         /// <returns></returns>
         [HttpPost]
-        public HttpResponseMessage Post(like_comentario item)
+        public async Task<HttpResponseMessage> Post(like_comentario item)
         {
             if (item == null)
             {
@@ -111,6 +112,22 @@ namespace BrotAPI_Final.Controllers.API
 
                     if (r.Post(item))
                     {
+                        //TODO TEST like comentario
+                        var diccionarioPhone_Device = new System.Collections.Generic.Dictionary<string, string>();
+                        var usuarioQueDioLike = db.users.SingleOrDefault(u => u.id_user == item.id_user);
+                        var comentario = db.comentarios.SingleOrDefault(u => u.id_comentario == item.id_comentario);
+                        diccionarioPhone_Device.Add(comentario.users.Phone_OS, comentario.users.Device_id);
+
+                        var pushNotifier = new AppCenterPush(diccionarioPhone_Device);
+                        await pushNotifier.Notify("like_comentario",
+                            $"A {usuarioQueDioLike.username} le gusta tu publicación",
+                            comentario.contenido,
+                            new System.Collections.Generic.Dictionary<string, string>() {
+                                {DLL.PushConstantes.gotoPage,DLL.PushConstantes.goto_post },
+                                {DLL.PushConstantes.id_post, comentario.id_post.ToString()},
+                                {DLL.PushConstantes.id_user, comentario.publicaciones.id_user.ToString() }
+                            });
+
                         return Request.CreateResponse(HttpStatusCode.Created, "like_comentario guardado correctamente");
                     }
                 }

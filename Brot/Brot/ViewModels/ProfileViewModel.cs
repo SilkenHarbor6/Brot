@@ -45,13 +45,12 @@ namespace Brot.ViewModels
             {
                 if (value != null)
                 {
-                    App.Current.MainPage.Navigation.PushAsync(new Post(new PostViewModel(value),value.publicacion.id_user));
+                    App.Current.MainPage.Navigation.PushAsync(new Post(new PostViewModel(value), value.publicacion.id_user));
                     SetProperty(ref _publicacionesThis, null);
                 }
             }
         }
 
-        private ObservableCollection<ResponsePublicacionFeed> _publicacionesGuardadas;
         private ObservableCollection<ResponsePublicacionFeed> _PublicacionesMostradas;
         public ObservableCollection<ResponsePublicacionFeed> publicacionesMostradas
         {
@@ -107,28 +106,20 @@ namespace Brot.ViewModels
                 }
 
                 //Postsguardados
-                _publicacionesGuardadas = new ObservableCollection<ResponsePublicacionFeed>();
                 for (int i = 0; i < UserProfile.publicacionesGuardadas.Count; i++)
                 {
                     try
                     {
-                        UserProfile.publicacionesGuardadas[i].UsuarioCreator.img = DLL.constantes.urlImages + UserProfile.publicacionesGuardadas[i].UsuarioCreator.img;
+                        UserProfile.publicacionesGuardadas[i].UsuarioCreator.img = String.IsNullOrEmpty(UserProfile.publicacionesGuardadas[i].UsuarioCreator.img)
+                                    ? DLL.constantes.ProfileImageError
+                                    : DLL.constantes.urlImages + UserProfile.publicacionesGuardadas[i].UsuarioCreator.img;
+                        UserProfile.publicacionesGuardadas[i].publicacion.img = DLL.constantes.urlImages + UserProfile.publicacionesGuardadas[i].publicacion.img;
                     }
                     catch (Exception)
                     {
-                            ///No llegar el usuario
-                            ///TODO Modificar api Usuario de pOst guardados
+                        ///No llegar el usuario
+                        ///TODO Modificar api Usuario de pOst guardados
                     }
-                    UserProfile.publicacionesGuardadas[i].publicacion.img = DLL.constantes.urlImages + UserProfile.publicacionesGuardadas[i].publicacion.img;
-                    _publicacionesGuardadas.Add(new ResponsePublicacionFeed()
-                    {
-                        cantComentarios = UserProfile.publicacionesGuardadas[i].cantComentarios,
-                        cantLikes = UserProfile.publicacionesGuardadas[i].cantLikes,
-                        IsLiked = UserProfile.publicacionesGuardadas[i].IsLiked,
-                        IsSavedPost = UserProfile.publicacionesGuardadas[i].IsSavedPost,
-                        publicacion = UserProfile.publicacionesGuardadas[i].publicacion,
-                        UsuarioCreator = UserProfile.publicacionesGuardadas[i].UsuarioCreator
-                    });
                 }
 
 
@@ -138,7 +129,7 @@ namespace Brot.ViewModels
                 }
                 else
                 {
-                    publicacionesMostradas = new ObservableCollection<ResponsePublicacionFeed>(_publicacionesGuardadas);
+                    publicacionesMostradas = new ObservableCollection<ResponsePublicacionFeed>(UserProfile.publicacionesGuardadas);
                 }
             }
 
@@ -153,15 +144,15 @@ namespace Brot.ViewModels
         {
             Application.Current.MainPage.Navigation.PushAsync(new EditProfile());
         }
-        private void Signout()
+        private async void Signout()
         {
             IsRefreshing = true;
+            await RestClient.Put<Models.userModel>("users/logout", Singleton.Instance.User.id_user, Singleton.Instance.User);
             Singleton.Instance.LocalJson.SignOut();
             var newPage = new NavigationPage(new Login());
             App.Current.MainPage = newPage;
-            Microsoft.AppCenter.Push.Push.SetEnabledAsync(false);
+            await Microsoft.AppCenter.Push.Push.SetEnabledAsync(false);
         }
-
 
 
         private Xamarin.Forms.Command _ChangePostPropiosViews;
@@ -171,7 +162,7 @@ namespace Brot.ViewModels
         }
         private void ChangePostPropiosViewsMethod(string obj)
         {
-            if (obj!="Null")
+            if (obj != "Null")
             {
                 if (obj == "True")
                 {
@@ -185,16 +176,16 @@ namespace Brot.ViewModels
 
             if (VerPostPropios)
             {
-                if (UserProfile.publicacionesUser!=null)
+                if (UserProfile.publicacionesUser != null)
                 {
                     publicacionesMostradas = new ObservableCollection<ResponsePublicacionFeed>(UserProfile.publicacionesUser);
                 }
             }
             else
             {
-                if (_publicacionesGuardadas!=null)
+                if (UserProfile.publicacionesGuardadas != null)
                 {
-                    publicacionesMostradas = new ObservableCollection<ResponsePublicacionFeed>(_publicacionesGuardadas);
+                    publicacionesMostradas = new ObservableCollection<ResponsePublicacionFeed>(UserProfile.publicacionesGuardadas);
                 }
             }
 

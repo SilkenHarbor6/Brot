@@ -2,6 +2,8 @@
 {
     using DLL;
     using Plugin.LocalNotifications;
+    using Plugin.Permissions;
+    using Plugin.Permissions.Abstractions;
     using System;
     using System.Diagnostics;
     using System.IO;
@@ -49,8 +51,13 @@
             }
         }
 
-        public void StartDownload(string url)
+        public async void StartDownload(string url)
         {
+            PermissionStatus status = await CrossPermissions.Current.CheckPermissionStatusAsync(Permission.Storage);
+            if (status != PermissionStatus.Granted)
+            {
+                await CrossPermissions.Current.RequestPermissionsAsync(Permission.Storage);
+            }
             downloader.DownloadFile(url, "Brot");
         }
     }

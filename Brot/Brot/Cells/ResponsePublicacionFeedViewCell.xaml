@@ -12,7 +12,7 @@
     Padding="0"
     BorderColor="Black"
     mc:Ignorable="d">
-    <StackLayout VerticalOptions="Fill">
+    <StackLayout Padding="10" VerticalOptions="Fill">
         <StackLayout
             Padding="15"
             Orientation="Vertical"
@@ -63,10 +63,10 @@
 
 
         <ffimage:CachedImage
-            Aspect="AspectFill"
+            Aspect="AspectFit"
             BitmapOptimizations="True"
             CacheDuration="20"
-            ErrorPlaceholder="BrotSplash.png"
+            ErrorPlaceholder="NoImage.png"
             HorizontalOptions="Fill"
             IsVisible="{Binding publicacion.isImg}"
             LoadingPlaceholder="loading.png"

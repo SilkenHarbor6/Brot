@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="Brot.Views.Tabs.SearchBrots"
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:cell="clr-namespace:Brot.Cells"
+    xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="Buscar"
+    BackgroundColor="White"
+    mc:Ignorable="d">
+    <ContentPage.Content>
+        <StackLayout>
+            <SearchBar
+                Placeholder="nombre o palabra clave"
+                SearchCommand="{Binding updateListCommand}"
+                Text="{Binding Texto}"
+                TextChanged="SearchBar_TextChanged" />
+            <Picker ItemsSource="{Binding Categorias}" SelectedIndex="{Binding sind}" HorizontalOptions="FillAndExpand" SelectedIndexChanged="Picker_SelectedIndexChanged"/>
+            <ListView
+                HasUnevenRows="True"
+                IsPullToRefreshEnabled="True"
+                IsRefreshing="{Binding IsRefreshing, Mode=OneWay}"
+                ItemsSource="{Binding Vendedores, Mode=TwoWay}"
+                RefreshCommand="{Binding refreshCommand}"
+                SelectedItem="{Binding Usuario,Mode=TwoWay}"
+                SeparatorColor="#031540">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <cell:UserCell_Grid />
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
