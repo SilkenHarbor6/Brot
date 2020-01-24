@@ -44,7 +44,6 @@ namespace Brot.ViewModels
         private async void SendCode(object obj)
         {
             IsRefreshing = true;
-            IsEnabled = false;
             if (Code == _currentCode)
             {
                 var resp = await RestClient.Post4Reg<userModel>(constantes.userst, _item);
@@ -55,6 +54,7 @@ namespace Brot.ViewModels
                     return;
                 }
                 await Application.Current.MainPage.DisplayAlert("Exito", "El usuario ha sido registrado", "Aceptar");
+                await Application.Current.MainPage.Navigation.PopAsync();
                 await Application.Current.MainPage.Navigation.PopAsync();
                 IsRefreshing = false;
             }

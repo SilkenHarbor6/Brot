@@ -149,7 +149,12 @@
         }
         private void Current_NotificationTapped(NotificationTappedEventArgs e)
         {
-            AccionNotificacion(Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(e.Data));
+            try
+            {
+                MainPage = new NavigationPage(new MainTabbed());
+                AccionNotificacion(Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(e.Data));
+            }
+            catch (Exception ex) { }
         }
         public void Push_PushNotificationReceived(object sender, PushNotificationReceivedEventArgs e)
         {
@@ -161,17 +166,17 @@
                 {
                     variables.Add(keyPair.Key + "," + keyPair.Value);
                 }
+
                 string data = Newtonsoft.Json.JsonConvert.SerializeObject(variables);
                 var notification = new NotificationRequest
                 {
+                    NotificationId = 100,
                     Title = e.Title,
                     Description = e.Message,
                     ReturningData = data // Returning data when tapped on notification.
                                          //NotifyTime = DateTime.Now.(1) // Used for Scheduling local notification, if not specified notification will show immediately.
                 };
                 NotificationCenter.Current.Show(notification);
-
-                AccionNotificacion(variables);
             }
             catch (Exception ex)
             {
@@ -185,14 +190,21 @@
         private async void AccionNotificacion(List<string> CustomData)
         {
             int id_user, id_comment, id_post;
-            string gotoPage= String.Empty;
+            id_user = 1;
+            id_comment = 1;
+            id_post = 1;
+            string gotoPage = String.Empty;
             Dictionary<string, string> dic = new Dictionary<string, string>();
             foreach (var item in CustomData)
             {
                 var data = item.Split(",");
                 dic.Add(data[0], data[1]);
             }
-            gotoPage = dic[PushConstantes.gotoPage];
+            try
+            {
+                gotoPage = dic[PushConstantes.gotoPage];
+            }
+            catch (Exception) { }
             try
             {
                 id_comment = Convert.ToInt32(dic[PushConstantes.id_comentario]);
@@ -211,11 +223,15 @@
 
             if (gotoPage == PushConstantes.goto_post)
             {
-                //await App.Current.MainPage.Navigation.PushAsync(new )
+                await App.Current.MainPage.Navigation.PushAsync(new Views.Post(new ViewModels.PostViewModel(id_post), id_user));
             }
             else if (gotoPage == PushConstantes.goto_profile)
             {
-
+                var perfil = await RestAPI.GetOtherUserrofile(id_user, Singleton.Instance.User.id_user);
+                perfil.UserProfile.img = String.IsNullOrEmpty(perfil.UserProfile.img)
+                                        ? DLL.constantes.ProfileImageError
+                                        : DLL.constantes.urlImages + perfil.UserProfile.img;
+                await App.Current.MainPage.Navigation.PushAsync(new Views.SellerProfile(perfil.UserProfile));
             }
         }
 

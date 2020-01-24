@@ -8,6 +8,7 @@
     using DLL;
     using Brot.Patterns;
     using System;
+    using System.Net.Http;
 
     public class SignupViewModel : BaseViewModel
     {
@@ -127,23 +128,38 @@
             IsRefreshing = true;
             if (string.IsNullOrWhiteSpace(Nombre) || string.IsNullOrWhiteSpace(Apellido) || string.IsNullOrWhiteSpace(Username) || string.IsNullOrWhiteSpace(Email) || string.IsNullOrWhiteSpace(Password))
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Los campos no pueden quedar vacios", "Aceptar");
                 IsRefreshing = false;
+                await Application.Current.MainPage.DisplayAlert("Error", "Los campos no pueden quedar vacios", "Aceptar");
                 return;
             }
             if (password != spassword)
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "Las claves no coinciden", "Aceptar");
                 IsRefreshing = false;
+                await Application.Current.MainPage.DisplayAlert("Error", "Las claves no coinciden", "Aceptar");
                 return;
             }
+            string code= string.Empty;
+            using (var cliente = new HttpClient())
+            {
+                var json = Newtonsoft.Json.JsonConvert.SerializeObject(new userModel() { email = Email });
+                var content = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
+                HttpResponseMessage response = await cliente.PostAsync($"http://brotmainapi.azurewebsites.net/api/users/signupverify", content);
+                if (response.IsSuccessStatusCode)
+                {
+                    try
+                    {
+                        var codigo = Newtonsoft.Json.JsonConvert.DeserializeObject<codigoModel>(await response.Content.ReadAsStringAsync());
+                        code = codigo.codigo;
+                    }
+                    catch (Exception ex)
+                    {
+                    }
+                }
+            }
 
-            var valid = await RestClient.Post<userModel>("users/signupverify", new userModel() { email = Email });
-            if (valid.IsSuccess)
+            if (!String.IsNullOrEmpty(code))
             {
                 IsRefreshing = false;
-                var result = (codigoModel)valid.Result;
-                var code = Convert.ToString(result.codigo);
                 userModel user = new userModel();
                 user.apellido = Apellido;
                 user.nombre = Nombre;
@@ -151,11 +167,13 @@
                 user.email = Email;
                 user.pass = Password;
                 user.isActive = true;
+                IsRefreshing = false;
                 await App.Current.MainPage.Navigation.PushAsync(new SignUpVerify(user, code));
             }
             else
             {
-                await Application.Current.MainPage.DisplayAlert("Error", "El correo ya ha sido registrado", "Aceptar");
+                IsRefreshing = false;
+                await Application.Current.MainPage.DisplayAlert("Error", "El correo ya ha sido registrado ", "Aceptar");
             }
         }
         #endregion

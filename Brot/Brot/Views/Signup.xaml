@@ -35,6 +35,8 @@
                         CornerRadius="10"
                         Placeholder="Type your name"
                         PlaceholderColor="Gray"
+                        ReturnType="Next"
+                        TabIndex="1"
                         Text="{Binding Nombre}"
                         TextColor="#000" />
                     <Rounded:RoundedBorderEntry
@@ -44,6 +46,8 @@
                         CornerRadius="30"
                         Placeholder="Type your lastname"
                         PlaceholderColor="Gray"
+                        ReturnType="Next"
+                        TabIndex="2"
                         Text="{Binding Apellido}"
                         TextColor="#000" />
                     <Rounded:RoundedBorderEntry
@@ -53,6 +57,8 @@
                         CornerRadius="10"
                         Placeholder="Type your username"
                         PlaceholderColor="Gray"
+                        ReturnType="Next"
+                        TabIndex="3"
                         Text="{Binding Username}"
                         TextColor="#000" />
                     <Rounded:RoundedBorderEntry
@@ -63,6 +69,8 @@
                         Keyboard="Email"
                         Placeholder="Type your E-mail"
                         PlaceholderColor="Gray"
+                        ReturnType="Next"
+                        TabIndex="4"
                         Text="{Binding Email}"
                         TextColor="#000" />
                     <Rounded:RoundedBorderEntry
@@ -73,6 +81,8 @@
                         IsPassword="True"
                         Placeholder="Type your password"
                         PlaceholderColor="Gray"
+                        ReturnType="Next"
+                        TabIndex="5"
                         Text="{Binding Password}"
                         TextColor="#000" />
                     <Rounded:RoundedBorderEntry
@@ -83,6 +93,9 @@
                         IsPassword="True"
                         Placeholder="Repeat your password"
                         PlaceholderColor="Gray"
+                        ReturnCommand="{Binding RegisterCommand}"
+                        ReturnType="Send"
+                        TabIndex="6"
                         Text="{Binding RepeatedPassword}"
                         TextColor="#000">
                         <Rounded:RoundedBorderEntry.Triggers>

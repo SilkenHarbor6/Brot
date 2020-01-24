@@ -38,6 +38,7 @@ namespace Brot.Droid
             //Initializaing Popup
             Rg.Plugins.Popup.Popup.Init(this, savedInstanceState);
             Xamarin.FormsGoogleMaps.Init(this, savedInstanceState);
+            NotificationCenter.CreateNotificationChannel();
             LocalNotificationsImplementation.NotificationIconId = Resource.Drawable.Brot500;
             LoadApplication(new App());
             NotificationCenter.NotifyNotificationTapped(Intent);
@@ -57,8 +58,25 @@ namespace Brot.Droid
 
         protected override void OnNewIntent(Android.Content.Intent intent)
         {
+            //bool LlegoAppCenter = false;
+            //try
+            //{
+            //    NotificationCenter.NotifyNotificationTapped(intent);
+            //    Push.CheckLaunchedFromNotification(this, intent);
+            //    LlegoAppCenter = true;
+            //}
+            //catch (Exception)
+            //{
+            //    if (LlegoAppCenter==false)
+            //    {
+            //        Push.CheckLaunchedFromNotification(this, intent);
+            //    }
+            //}
+
+
             NotificationCenter.NotifyNotificationTapped(intent);
             Push.CheckLaunchedFromNotification(this, intent);
+
             base.OnNewIntent(intent);
         }
     }

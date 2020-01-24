@@ -39,6 +39,8 @@
         private bool? _issaved;
         private int _cantLikes;
         private DownloadService ds;
+
+
         #region Opciones Command
         private Xamarin.Forms.Command _OpcionesCommand;
         public Xamarin.Forms.Command OpcionesCommand { get => _OpcionesCommand ??= new Xamarin.Forms.Command(OpcionesMethod); }

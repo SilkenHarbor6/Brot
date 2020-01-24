@@ -706,7 +706,7 @@ namespace BrotAPI_Final.Controllers.API
                 mail.To.Add(new MailAddress(item.email));
                 mail.From = new MailAddress("noreply@brot.com");
                 mail.Subject = "Email Verification code "+ codigo;
-                mail.Body = "Hola " + res.nombre + " Este es tu codigo de verificacion de tu cuenta: <b>" + codigo + "</b>";
+                mail.Body = "Hola " + item.nombre + " Este es tu codigo de verificacion de tu cuenta: <b>" + codigo + "</b>";
                 mail.IsBodyHtml = true;
 
                 SmtpClient smtp = new SmtpClient();
@@ -721,6 +721,7 @@ namespace BrotAPI_Final.Controllers.API
                     mail.Dispose();
                     codigos code = new codigos();
                     code.codigo = codigo.ToString();
+                    code.id_user = 0;
                     return Request.CreateResponse(HttpStatusCode.OK, code);
                 }
                 catch (Exception ex)

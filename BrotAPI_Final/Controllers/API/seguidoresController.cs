@@ -97,7 +97,7 @@ namespace BrotAPI_Final.Controllers.API
                             "Ve a darle una revisada a su perfil",
                             new Dictionary<string, string>() {
                             {DLL.PushConstantes.gotoPage,DLL.PushConstantes.goto_profile },
-                            { DLL.PushConstantes.id_user, item.id_seguido.ToString()}
+                            { DLL.PushConstantes.id_user, item.seguidor_id.ToString()}
                             });
 
                         return Request.CreateResponse(HttpStatusCode.Created, "seguidor guardado correctamente");
