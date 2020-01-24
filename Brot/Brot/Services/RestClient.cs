@@ -18,7 +18,7 @@ namespace Brot.Services
         //private static string url = "http://brotnewapi.azurewebsites.net/api/"; //New One
 
         private static string url = "http://brotmainapi.azurewebsites.net/api/"; //New One
-        //private static string url = "http://192.168.22.127:61092/api/";
+       // private static string url = "http://192.168.42.106:61092/api/";
 
         private static HttpClient cliente = new HttpClient();
 

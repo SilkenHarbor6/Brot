@@ -34,10 +34,10 @@
             InitializeComponent();
             perms();
             inicializar();
-            NotificationCenter.Current.NotificationTapped += Current_NotificationTapped; 
+            NotificationCenter.Current.NotificationTapped += Current_NotificationTapped;
         }
 
-      
+
 
         private async void perms()
         {
@@ -122,8 +122,6 @@
                     {
                         { "Device",idInstalled02.Value.ToString() }
                     });
-
-
         }
 
         public async void ActivarAnalyticsConKEYS()
@@ -151,32 +149,29 @@
         }
         private void Current_NotificationTapped(NotificationTappedEventArgs e)
         {
-
-            AccionNotificacion(Newtonsoft.Json.JsonConvert.DeserializeObject<Dictionary<string, string>>(e.Data));
+            AccionNotificacion(Newtonsoft.Json.JsonConvert.DeserializeObject<List<string>>(e.Data));
         }
         public void Push_PushNotificationReceived(object sender, PushNotificationReceivedEventArgs e)
         {
 
             try
             {
-                ContentPush dataPush = new ContentPush()
+                List<string> variables = new List<string>();
+                foreach (var keyPair in e.CustomData)
                 {
-                    CustomData = e.CustomData
+                    variables.Add(keyPair.Key + "," + keyPair.Value);
+                }
+                string data = Newtonsoft.Json.JsonConvert.SerializeObject(variables);
+                var notification = new NotificationRequest
+                {
+                    Title = e.Title,
+                    Description = e.Message,
+                    ReturningData = data // Returning data when tapped on notification.
+                                         //NotifyTime = DateTime.Now.(1) // Used for Scheduling local notification, if not specified notification will show immediately.
                 };
-                // Add the notification message and title to the message
-                    
-                    string data = Newtonsoft.Json.JsonConvert.SerializeObject((Dictionary<string,string>)e.CustomData,Formatting.Indented);
-                    var notification = new NotificationRequest
-                    {
-                        NotificationId = 100,
-                        Title = e.Title,
-                        Description = e.Message,
-                        ReturningData = data, // Returning data when tapped on notification.
-                        NotifyTime = DateTime.Now.AddSeconds(1) // Used for Scheduling local notification, if not specified notification will show immediately.
-                    };
-                    NotificationCenter.Current.Show(notification);
+                NotificationCenter.Current.Show(notification);
 
-                    //AccionNotificacion(dataPush);
+                AccionNotificacion(variables);
             }
             catch (Exception ex)
             {
@@ -187,19 +182,41 @@
             }
         }
 
-        private void AccionNotificacion(Dictionary<string, string> CustomData)
+        private async void AccionNotificacion(List<string> CustomData)
         {
-            var summary = $"Push notification received:";
-            if (CustomData != null)
+            int id_user, id_comment, id_post;
+            string gotoPage= String.Empty;
+            Dictionary<string, string> dic = new Dictionary<string, string>();
+            foreach (var item in CustomData)
             {
-                summary += "\n\tCustom data:\n";
-                foreach (var key in CustomData.Keys)
-                {
-                    summary += $"\t\t{key} : {CustomData[key]}\n";
-                }
+                var data = item.Split(",");
+                dic.Add(data[0], data[1]);
             }
-            App.Current.MainPage.DisplayAlert("Push", summary, "Ok");
+            gotoPage = dic[PushConstantes.gotoPage];
+            try
+            {
+                id_comment = Convert.ToInt32(dic[PushConstantes.id_comentario]);
+            }
+            catch (Exception) { }
+            try
+            {
+                id_user = Convert.ToInt32(dic[PushConstantes.id_user]);
+            }
+            catch (Exception) { }
+            try
+            {
+                id_post = Convert.ToInt32(dic[PushConstantes.id_post]);
+            }
+            catch (Exception) { }
 
+            if (gotoPage == PushConstantes.goto_post)
+            {
+                //await App.Current.MainPage.Navigation.PushAsync(new )
+            }
+            else if (gotoPage == PushConstantes.goto_profile)
+            {
+
+            }
         }
 
         protected override void OnSleep()

@@ -195,6 +195,7 @@ namespace Brot.ViewModels
             var result = await RestAPI.Post<comentariosModel>(coment, DLL.constantes.comentariost);
             if (result)
             {
+                FooterVisible = false;
                 CargarDatos();
                 texto = "";
             }

@@ -694,6 +694,47 @@ namespace BrotAPI_Final.Controllers.API
         }
 
         [HttpPost]
+        [Route("signupverify")]
+        public HttpResponseMessage EmailExist(users item)
+        {
+            var res = r.EmailExist(item.email);
+            if (res == null)
+            {
+                Random rand = new Random();
+                int codigo = rand.Next(1000, 9999);
+                MailMessage mail = new MailMessage();
+                mail.To.Add(new MailAddress(item.email));
+                mail.From = new MailAddress("noreply@brot.com");
+                mail.Subject = "Email Verification code "+ codigo;
+                mail.Body = "Hola " + res.nombre + " Este es tu codigo de verificacion de tu cuenta: <b>" + codigo + "</b>";
+                mail.IsBodyHtml = true;
+
+                SmtpClient smtp = new SmtpClient();
+                smtp.Host = "smtp.gmail.com";
+                smtp.Port = 587;
+                smtp.UseDefaultCredentials = false;
+                smtp.EnableSsl = true;
+                smtp.Credentials = new NetworkCredential("bayronmartinez9911@gmail.com", "pruebas123B");
+                try
+                {
+                    smtp.Send(mail);
+                    mail.Dispose();
+                    codigos code = new codigos();
+                    code.codigo = codigo.ToString();
+                    return Request.CreateResponse(HttpStatusCode.OK, code);
+                }
+                catch (Exception ex)
+                {
+                    return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Error " + ex.Message);
+                }
+            }
+            else
+            {
+                return Request.CreateErrorResponse(HttpStatusCode.NotAcceptable, "Ya existe");
+            }
+        }
+
+        [HttpPost]
         [Route("authcode/{code}")]
         public HttpResponseMessage AuthCode(string code, users item)
         {

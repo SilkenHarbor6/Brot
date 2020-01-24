@@ -48,6 +48,8 @@ namespace Brot.Droid
         //    PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         //    base.OnRequestPermissionsResult(requestCode, permissions, grantResults);
         //}
+
+
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, Permission[] grantResults)
         {
             PermissionsImplementation.Current.OnRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -55,8 +57,8 @@ namespace Brot.Droid
 
         protected override void OnNewIntent(Android.Content.Intent intent)
         {
-            Push.CheckLaunchedFromNotification(this, intent);
             NotificationCenter.NotifyNotificationTapped(intent);
+            Push.CheckLaunchedFromNotification(this, intent);
             base.OnNewIntent(intent);
         }
     }

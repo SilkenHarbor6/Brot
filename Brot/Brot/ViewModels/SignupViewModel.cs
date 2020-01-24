@@ -7,6 +7,7 @@
     using Brot.Services;
     using DLL;
     using Brot.Patterns;
+    using System;
 
     public class SignupViewModel : BaseViewModel
     {
@@ -136,24 +137,26 @@
                 IsRefreshing = false;
                 return;
             }
-            userModel user = new userModel();
-            user.apellido = Apellido;
-            user.nombre = Nombre;
-            user.username = Username;
-            user.email = Email;
-            user.pass = Password;
-            user.isActive = true;
-            var resp = await RestClient.Post4Reg<userModel>(constantes.userst, user);
-            if (!resp.IsSuccess)
-            {
-                await Application.Current.MainPage.DisplayAlert("No se ha podido registrar el usuario", resp.Message, "Aceptar");
-                IsRefreshing = false;
-                return;
-            }
-            await Application.Current.MainPage.DisplayAlert("Exito", "El usuario ha sido registrado", "Aceptar");
-            await Application.Current.MainPage.Navigation.PopAsync();
-            IsRefreshing = false;
 
+            var valid = await RestClient.Post<userModel>("users/signupverify", new userModel() { email = Email });
+            if (valid.IsSuccess)
+            {
+                IsRefreshing = false;
+                var result = (codigoModel)valid.Result;
+                var code = Convert.ToString(result.codigo);
+                userModel user = new userModel();
+                user.apellido = Apellido;
+                user.nombre = Nombre;
+                user.username = Username;
+                user.email = Email;
+                user.pass = Password;
+                user.isActive = true;
+                await App.Current.MainPage.Navigation.PushAsync(new SignUpVerify(user, code));
+            }
+            else
+            {
+                await Application.Current.MainPage.DisplayAlert("Error", "El correo ya ha sido registrado", "Aceptar");
+            }
         }
         #endregion
     }
