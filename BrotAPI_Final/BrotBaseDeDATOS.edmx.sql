@@ -2,8 +2,8 @@
 -- --------------------------------------------------
 -- Entity Designer DDL Script for SQL Server 2005, 2008, 2012 and Azure
 -- --------------------------------------------------
--- Date Created: 10/10/2019 15:35:22
--- Generated from EDMX file: C:\Users\CDS12\source\repos\BrotAPImaster\API2\ApiBrot\BrotAPI_Final\Models\SomeeDBModels.edmx
+-- Date Created: 01/24/2020 15:39:24
+-- Generated from EDMX file: C:\Xamarin\N3\brot\BrotAPI_Final\Models\DBContextModel.edmx
 -- --------------------------------------------------
 
 SET QUOTED_IDENTIFIER OFF;
@@ -17,6 +17,12 @@ GO
 -- Dropping existing FOREIGN KEY constraints
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[FK__usuario_c__id_ca__5FB337D6]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[usuario_categoria] DROP CONSTRAINT [FK__usuario_c__id_ca__5FB337D6];
+GO
+IF OBJECT_ID(N'[dbo].[FK__usuario_c__id_us__5EBF139D]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[usuario_categoria] DROP CONSTRAINT [FK__usuario_c__id_us__5EBF139D];
+GO
 IF OBJECT_ID(N'[dbo].[fk_comentarios_post]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[comentarios] DROP CONSTRAINT [fk_comentarios_post];
 GO
@@ -59,6 +65,9 @@ GO
 IF OBJECT_ID(N'[dbo].[FK_seguidores_users]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[seguidores] DROP CONSTRAINT [FK_seguidores_users];
 GO
+IF OBJECT_ID(N'[dbo].[fk_users_categoriaMain]', 'F') IS NOT NULL
+    ALTER TABLE [dbo].[users] DROP CONSTRAINT [fk_users_categoriaMain];
+GO
 IF OBJECT_ID(N'[dbo].[FK_visita_busqueda_users]', 'F') IS NOT NULL
     ALTER TABLE [dbo].[visita_busqueda] DROP CONSTRAINT [FK_visita_busqueda_users];
 GO
@@ -76,6 +85,12 @@ GO
 -- Dropping existing tables
 -- --------------------------------------------------
 
+IF OBJECT_ID(N'[dbo].[categoria]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[categoria];
+GO
+IF OBJECT_ID(N'[dbo].[codigos]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[codigos];
+GO
 IF OBJECT_ID(N'[dbo].[comentarios]', 'U') IS NOT NULL
     DROP TABLE [dbo].[comentarios];
 GO
@@ -100,6 +115,9 @@ GO
 IF OBJECT_ID(N'[dbo].[users]', 'U') IS NOT NULL
     DROP TABLE [dbo].[users];
 GO
+IF OBJECT_ID(N'[dbo].[usuario_categoria]', 'U') IS NOT NULL
+    DROP TABLE [dbo].[usuario_categoria];
+GO
 IF OBJECT_ID(N'[dbo].[visita_busqueda]', 'U') IS NOT NULL
     DROP TABLE [dbo].[visita_busqueda];
 GO
@@ -110,6 +128,21 @@ GO
 -- --------------------------------------------------
 -- Creating all tables
 -- --------------------------------------------------
+
+-- Creating table 'categoria'
+CREATE TABLE [dbo].[categoria] (
+    [id_categoria] int IDENTITY(1,1) NOT NULL,
+    [nombre] varchar(25)  NOT NULL,
+    [img] varchar(25)  NOT NULL
+);
+GO
+
+-- Creating table 'codigos'
+CREATE TABLE [dbo].[codigos] (
+    [codigo] varchar(20)  NOT NULL,
+    [id_user] int  NULL
+);
+GO
 
 -- Creating table 'comentarios'
 CREATE TABLE [dbo].[comentarios] (
@@ -200,7 +233,19 @@ CREATE TABLE [dbo].[users] (
     [dui] varchar(15)  NULL,
     [num_telefono] varchar(15)  NULL,
     [img] varchar(100)  NULL,
-    [isDeleted] bit  NULL
+    [isDeleted] bit  NULL,
+    [Device_id] varchar(50)  NULL,
+    [Phone_OS] varchar(8)  NULL,
+    [id_categoria] int  NULL
+);
+GO
+
+-- Creating table 'usuario_categoria'
+CREATE TABLE [dbo].[usuario_categoria] (
+    [id_usuario_categoria] int IDENTITY(1,1) NOT NULL,
+    [id_usuario] int  NOT NULL,
+    [id_categoria] int  NOT NULL,
+    [isPrimary] int  NOT NULL
 );
 GO
 
@@ -226,6 +271,18 @@ GO
 -- --------------------------------------------------
 -- Creating all PRIMARY KEY constraints
 -- --------------------------------------------------
+
+-- Creating primary key on [id_categoria] in table 'categoria'
+ALTER TABLE [dbo].[categoria]
+ADD CONSTRAINT [PK_categoria]
+    PRIMARY KEY CLUSTERED ([id_categoria] ASC);
+GO
+
+-- Creating primary key on [codigo] in table 'codigos'
+ALTER TABLE [dbo].[codigos]
+ADD CONSTRAINT [PK_codigos]
+    PRIMARY KEY CLUSTERED ([codigo] ASC);
+GO
 
 -- Creating primary key on [id_comentario] in table 'comentarios'
 ALTER TABLE [dbo].[comentarios]
@@ -275,6 +332,12 @@ ADD CONSTRAINT [PK_users]
     PRIMARY KEY CLUSTERED ([id_user] ASC);
 GO
 
+-- Creating primary key on [id_usuario_categoria] in table 'usuario_categoria'
+ALTER TABLE [dbo].[usuario_categoria]
+ADD CONSTRAINT [PK_usuario_categoria]
+    PRIMARY KEY CLUSTERED ([id_usuario_categoria] ASC);
+GO
+
 -- Creating primary key on [id_visita_busqueda] in table 'visita_busqueda'
 ALTER TABLE [dbo].[visita_busqueda]
 ADD CONSTRAINT [PK_visita_busqueda]
@@ -290,6 +353,36 @@ GO
 -- --------------------------------------------------
 -- Creating all FOREIGN KEY constraints
 -- --------------------------------------------------
+
+-- Creating foreign key on [id_categoria] in table 'usuario_categoria'
+ALTER TABLE [dbo].[usuario_categoria]
+ADD CONSTRAINT [FK__usuario_c__id_ca__5FB337D6]
+    FOREIGN KEY ([id_categoria])
+    REFERENCES [dbo].[categoria]
+        ([id_categoria])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK__usuario_c__id_ca__5FB337D6'
+CREATE INDEX [IX_FK__usuario_c__id_ca__5FB337D6]
+ON [dbo].[usuario_categoria]
+    ([id_categoria]);
+GO
+
+-- Creating foreign key on [id_categoria] in table 'users'
+ALTER TABLE [dbo].[users]
+ADD CONSTRAINT [fk_users_categoriaMain]
+    FOREIGN KEY ([id_categoria])
+    REFERENCES [dbo].[categoria]
+        ([id_categoria])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'fk_users_categoriaMain'
+CREATE INDEX [IX_fk_users_categoriaMain]
+ON [dbo].[users]
+    ([id_categoria]);
+GO
 
 -- Creating foreign key on [id_post] in table 'comentarios'
 ALTER TABLE [dbo].[comentarios]
@@ -514,6 +607,21 @@ GO
 CREATE INDEX [IX_FK_seguidores_users]
 ON [dbo].[seguidores]
     ([id_seguido]);
+GO
+
+-- Creating foreign key on [id_usuario] in table 'usuario_categoria'
+ALTER TABLE [dbo].[usuario_categoria]
+ADD CONSTRAINT [FK__usuario_c__id_us__5EBF139D]
+    FOREIGN KEY ([id_usuario])
+    REFERENCES [dbo].[users]
+        ([id_user])
+    ON DELETE NO ACTION ON UPDATE NO ACTION;
+GO
+
+-- Creating non-clustered index for FOREIGN KEY 'FK__usuario_c__id_us__5EBF139D'
+CREATE INDEX [IX_FK__usuario_c__id_us__5EBF139D]
+ON [dbo].[usuario_categoria]
+    ([id_usuario]);
 GO
 
 -- Creating foreign key on [id_perfilvisitado] in table 'visita_busqueda'

@@ -15,7 +15,7 @@ using Android.Content;
 
 namespace Brot.Droid
 {
-    [Activity(Label = "Brot", Icon = "@mipmap/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "Brot", Icon = "@mipmap/BrotClient", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
